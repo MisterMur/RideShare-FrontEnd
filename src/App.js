@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Company from './Components/Company.js'
 
 class App extends Component {
+  state={
+    companies:[]
+  }
+  getCompanies(){
+    let companies = [...this.state.companies]
+    console.log(companies)
+    return companies.map(company=>{
+      console.log('in fetch,  company:',company)
+      return <Company company={company}/>
+    })
+  }
+
+  componentDidMount(){
+    const companyUrl = 'http://localhost:3000/api/v1/companies'
+    fetch(companyUrl)
+    .then(res=>res.json())
+    .then(companies=>{
+      this.setState({
+        companies: companies
+      })
+    })
+  }
+
   render() {
+    console.log('in app render')
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {this.getCompanies()}
       </div>
     );
   }
