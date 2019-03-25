@@ -10,6 +10,10 @@ class Profile extends React.Component {
 
   }
 
+  handleEdit = (e) => {
+    console.log(e)
+  }
+
 
   render() {
 
@@ -21,6 +25,7 @@ class Profile extends React.Component {
           <div class="row">
             <div class="col-3">
               <ProfileCard user={this.props.user}/>
+              <button id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
             </div>
 
 

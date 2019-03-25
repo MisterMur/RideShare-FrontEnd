@@ -22,7 +22,7 @@
 .App-link {
   color: #61dafb;
 }
-/* 
+/*
 .profile-forums{
   padding: 0px;
 } */
@@ -33,6 +33,10 @@
 
 #profile-rides-list {
   padding-top: 20px;
+}
+
+#edit-profile {
+  margin-top: 10px;
 }
 
 @keyframes App-logo-spin {
