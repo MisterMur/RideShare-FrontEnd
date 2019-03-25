@@ -12,14 +12,15 @@ const ProfileCard = (props) => {
     <div>
       <div className="profile-card" class="card" style={{width: "18rem", paddingBottom: "1px"}} >
         <h5 class="card-title">{props.user.name}</h5>
-        <ul class="list-group list-group-flush">
+        <img src="https://cdn-images-1.medium.com/max/1200/1*kfM2czy7JbViNrmS4kcmFQ.jpeg" alt="No Profile Image" className="card-img-top"/>
+       <ul class="list-group list-group-flush">
           <li class="list-group-item">Name: {props.user.name} </li>
           <li class="list-group-item">Car: {props.user.car} </li>
           <li class="list-group-item">Experience: {props.user.experience} </li>
           <li class="list-group-item">Rating: {props.user.rating} </li>
           <li class="list-group-item">Companies: {handleCompnaies()} </li>
           <li class="list-group-item">Base Locaion: {props.user.location}</li>
-          </ul>
+        </ul>
       </div>
 
     </div>

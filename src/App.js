@@ -18,6 +18,8 @@ class App extends Component {
   state = {
     companies:[],
     users: [],
+    rides: [],
+    forums:[],
     currentUser: ''
   }
   //
@@ -51,6 +53,15 @@ class App extends Component {
         companies: companies
       })
     })
+    const rideUrl = 'http://localhost:3000/api/v1/rides'
+    fetch(rideUrl)
+    .then(res=>res.json())
+    .then(rides=>{
+
+      this.setState({
+        rides
+      })
+    })
   }
 
 
@@ -67,10 +78,17 @@ class App extends Component {
 
         <Route path="/rides" exact component={Rides} />
         {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
-        <Route path="/profile" exact render={() => {return <Profile user={this.state.currentUser}/>}} />
+        <Route path="/profile" exact render={() => {
+          return (
+            <Profile
+              user={this.state.currentUser}
+              rides={this.state.rides}
+              forum={this.state.forums}
+            />)}
+          }/>
         <Route path="/forums" exact component={Forums} />
         <Route path="/" exact component={Forums} />
-        
+
       </Fragment>
     );
   }
