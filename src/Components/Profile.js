@@ -17,9 +17,19 @@ class Profile extends React.Component {
 
     return (
       <Fragment>
-        <ProfileCard user={this.props.user}/>
-        <RideList rides={this.props.user.rides}/>
-        <ForumsList forums={this.props.user.forums}/>
+        <div className = "container">
+          <div class="row">
+            <div class="col-3">
+              <ProfileCard user={this.props.user}/>
+            </div>
+
+
+            <div class="col-9" id="profile-rides-list">
+              <RideList rides={this.props.user.rides}/>
+              <ForumsList forums={this.props.user.forums}/>
+            </div>
+          </div>
+        </div>
       </Fragment>
     )
   }

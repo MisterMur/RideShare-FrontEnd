@@ -22,6 +22,18 @@
 .App-link {
   color: #61dafb;
 }
+/* 
+.profile-forums{
+  padding: 0px;
+} */
+
+/* #profile-forums th{
+  width: 1% !important;
+} */
+
+#profile-rides-list {
+  padding-top: 20px;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -32,6 +44,6 @@
   }
 
   .card {
-    
+
   }
 }

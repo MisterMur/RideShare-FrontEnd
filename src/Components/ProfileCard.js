@@ -10,11 +10,10 @@ const ProfileCard = (props) => {
 
   return(
     <div>
-      <div className="profile-card" class="card" style={{width: "18rem", paddingBottom: "1px"}} >
-        <h5 class="card-title">{props.user.name}</h5>
+      <div className="profile-card" class="card" style={{paddingBottom: "1px"}} >
         <img src="https://cdn-images-1.medium.com/max/1200/1*kfM2czy7JbViNrmS4kcmFQ.jpeg" alt="No Profile Image" className="card-img-top"/>
        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Name: {props.user.name} </li>
+          <li class="list-group-item">{props.user.name}</li>
           <li class="list-group-item">Car: {props.user.car} </li>
           <li class="list-group-item">Experience: {props.user.experience} </li>
           <li class="list-group-item">Rating: {props.user.rating} </li>

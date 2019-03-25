@@ -14,10 +14,10 @@ const RideList = (props) => {
   }
   return (
   <div className="">
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">#id</th>
+          <th scope="col">Num</th>
           <th scope="col">Distance</th>
           <th scope="col">Started At</th>
           <th scope="col">Ended At</th>
