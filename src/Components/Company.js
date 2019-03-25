@@ -11,7 +11,6 @@ class Company extends React.Component {
     return (
       <div>
         <h1>{this.props.company.name}</h1>
-
       </div>
     )
   }
