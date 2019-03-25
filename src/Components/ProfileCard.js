@@ -10,15 +10,18 @@ const ProfileCard = (props) => {
 
   return(
     <div>
-      <div className="profile-card">
-      <p>Name: {props.user.name} </p>
-      <p>Car: {props.user.car} </p>
-      <p>Experience: {props.user.experience} </p>
-      <p>Rating: {props.user.rating} </p>
-      <p>Companies: {handleCompnaies()} </p>
-      <p>Base Locaion: {props.user.location}</p>
+      <div className="profile-card" class="card" style={{width: "18rem", paddingBottom: "1px"}} >
+        <h5 class="card-title">{props.user.name}</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Name: {props.user.name} </li>
+          <li class="list-group-item">Car: {props.user.car} </li>
+          <li class="list-group-item">Experience: {props.user.experience} </li>
+          <li class="list-group-item">Rating: {props.user.rating} </li>
+          <li class="list-group-item">Companies: {handleCompnaies()} </li>
+          <li class="list-group-item">Base Locaion: {props.user.location}</li>
+          </ul>
       </div>
-      Profile!
+
     </div>
   )
 }

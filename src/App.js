@@ -20,22 +20,22 @@ class App extends Component {
     users: [],
     currentUser: ''
   }
-
-  getCompanies(){
-    let companies = [...this.state.companies]
-    console.log(companies)
-    return companies.map(company=>{
-      console.log('in fetch,  company:',company)
-      return <Company company={company}/>
-    })
-  }
+  //
+  // getCompanies(){
+  //   let companies = [...this.state.companies]
+  //   console.log(companies)
+  //   return companies.map(company=>{
+  //     console.log('in fetch,  company:',company)
+  //     return <Company company={company}/>
+  //   })
+  // }
 
   componentDidMount(){
     const userUrl = 'http://localhost:3000/api/v1/users'
     fetch(userUrl)
     .then(res=>res.json())
     .then(users=>{
-      
+
       this.setState({
         users: users,
         currentUser: users[0]
@@ -70,9 +70,7 @@ class App extends Component {
         <Route path="/profile" exact render={() => {return <Profile user={this.state.currentUser}/>}} />
         <Route path="/forums" exact component={Forums} />
         <Route path="/" exact component={Forums} />
-        <div className="App">
-          {this.getCompanies()}
-        </div>
+        
       </Fragment>
     );
   }
