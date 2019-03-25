@@ -15,8 +15,10 @@ import Profile from './Components/Profile.js'
 
 class App extends Component {
 
-  state={
-    companies:[]
+  state = {
+    companies:[],
+    users: [],
+    currentUser: ''
   }
 
   getCompanies(){
@@ -29,10 +31,22 @@ class App extends Component {
   }
 
   componentDidMount(){
+    const userUrl = 'http://localhost:3000/api/v1/users'
+    fetch(userUrl)
+    .then(res=>res.json())
+    .then(users=>{
+      
+      this.setState({
+        users: users,
+        currentUser: users[0]
+      })
+    })
+
     const companyUrl = 'http://localhost:3000/api/v1/companies'
     fetch(companyUrl)
     .then(res=>res.json())
     .then(companies=>{
+
       this.setState({
         companies: companies
       })
@@ -40,8 +54,10 @@ class App extends Component {
   }
 
 
+
+
   render() {
-    console.log('in app render')
+    console.log('in app render', this.state)
     return (
       <Fragment>
         <Header />
@@ -50,7 +66,8 @@ class App extends Component {
         <Link to="/forums">Forums</Link>
 
         <Route path="/rides" exact component={Rides} />
-        <Route path="/profile" exact component={Profile} />
+        {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
+        <Route path="/profile" exact render={() => {return <Profile user={this.state.currentUser}/>}} />
         <Route path="/forums" exact component={Forums} />
         <Route path="/" exact component={Forums} />
         <div className="App">

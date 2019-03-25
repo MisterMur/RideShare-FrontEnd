@@ -1,4 +1,5 @@
 import React from "react";
+import ProfileCard from './ProfileCard'
 
 class Profile extends React.Component {
 
@@ -7,11 +8,11 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log("hit profile route")
+
+    console.log("hit profile route", this.props)
+
     return (
-      <div>
-        Profile!
-      </div>
+     <ProfileCard user={this.props.user}/>
     )
   }
 }
