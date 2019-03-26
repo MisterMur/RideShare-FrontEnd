@@ -15,7 +15,7 @@ const RideList = (props) => {
   return (
   <div className="">
     <table class="table table-striped">
-      <thead>
+      <thead class="thead-dark">
         <tr>
           <th scope="col">Num</th>
           <th scope="col">Distance</th>

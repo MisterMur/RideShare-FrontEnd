@@ -15,11 +15,11 @@ const ForumList = (props) => {
   }
   return (
     <div >
-      <table className="table" id="profile-forums">
-        <thead>
+      <table className="table table-striped" id="profile-forums">
+        <thead class="thead-dark">
           <tr>
-            <th class="col" scope="col">Num</th>
-            <th class="col-6" scope="col">Topic</th>
+            <th scope="col">Num</th>
+            <th class="col" scope="col">Topic</th>
           </tr>
         </thead>
         <tbody>

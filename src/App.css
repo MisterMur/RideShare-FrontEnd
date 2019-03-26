@@ -10,6 +10,7 @@
 
 .App-header {
   background-color: #282c34;
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -32,11 +33,34 @@
 } */
 
 #profile-rides-list {
-  padding-top: 20px;
+  padding-top: 0px;
 }
 
 #edit-profile {
   margin-top: 10px;
+}
+
+.container .col-12{
+  margin: 20px;
+}
+
+#profile-card-container{
+  /* padding-left: 15px; */
+  padding-right: 10px;
+  /* padding-left: 10px; */
+}
+
+body{
+  background-color: white;
+}
+
+.header {
+  background-color: black;
+  color: white;
+  /* height: 0px; */
+  font-size: 2.5rem;
+  padding: 0px 0;
+
 }
 
 @keyframes App-logo-spin {

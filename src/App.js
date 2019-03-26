@@ -72,22 +72,24 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
-        <Link to="/profile">Profile</Link>
-        <Link to="/rides">Rides</Link>
-        <Link to="/forums">Forums</Link>
+        <div className="container col-11">
+          <Link to="/profile">Profile</Link>
+          <Link to="/rides">Rides</Link>
+          <Link to="/forums">Forums</Link>
+        </div>
 
-        <Route path="/rides" exact component={Rides} />
-        {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
-        <Route path="/profile" exact render={() => {
-          return (
-            <Profile
-              user={this.state.currentUser}
-              rides={this.state.rides}
-              forum={this.state.forums}
-            />)}
-          }/>
-        <Route path="/forums" exact component={Forums} />
-        <Route path="/" exact component={Forums} />
+          <Route path="/rides" exact component={Rides} />
+          {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
+          <Route path="/profile" exact render={() => {
+            return (
+              <Profile
+                user={this.state.currentUser}
+                rides={this.state.rides}
+                forum={this.state.forums}
+              />)}
+            }/>
+          <Route path="/forums" exact component={Forums} />
+          <Route path="/" exact component={Forums} />
 
       </Fragment>
     );

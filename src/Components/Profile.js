@@ -15,21 +15,22 @@ class Profile extends React.Component {
   }
 
 
+
   render() {
 
     console.log("hit profile route", this.props)
 
     return (
       <Fragment>
-        <div className = "container">
-          <div class="row">
-            <div class="col-3">
+        <div className = "container col-11">
+          <div class="row justify-content-center">
+            <div class="col-3 justify-content-center" id="profile-card-container">
               <ProfileCard user={this.props.user}/>
               <button id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
             </div>
 
 
-            <div class="col-9" id="profile-rides-list">
+            <div class="col" id="profile-rides-list">
               <RideList rides={this.props.user.rides}/>
               <ForumsList forums={this.props.user.forums}/>
             </div>

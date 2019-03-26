@@ -8,15 +8,12 @@ class Forum extends React.Component {
 
   render() {
     return (
-      <div>
-        <Fragment>
+      <Fragment>
           <tr>
-            <td >{this.props.idx}</td>
-            <td >{this.props.forum.topic}</td>
+            <td style={{width: ""}} scope="row">{this.props.idx}</td>
+            <td scope="row" class="col">{this.props.forum.topic}</td>
           </tr>
-        </Fragment>
-
-      </div>
+      </Fragment>
     )
   }
 }

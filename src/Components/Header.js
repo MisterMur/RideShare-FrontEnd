@@ -8,8 +8,10 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header>
-        Hi This is the header
+      <header className="header">
+        <div class="container col-11" >
+          <b>RideShare</b>
+        </div>
       </header>
     )
   }
