@@ -101,6 +101,38 @@ class Profile extends React.Component {
     })
   }
 
+  renderChecks = () => {
+    // debugger
+    if(this.props.allCompanies){
+      // debugger
+      let companies = this.props.allCompanies.map(company=> company.name)
+
+      return companies.map(company=> {
+        return(
+          <label>{company}
+            <input type="checkbox" value={company.name}></input>
+          </label>
+        )
+
+      })
+    }
+
+  }
+
+    // <Fragment>
+    //   <label>Uber
+    //     <input type="checkbox" value="Uber"></input>
+    //   </label>
+    //   <label>Lyft
+    //     <input type="checkbox" value="Lyft"></input>
+    //   </label>
+    //   <label>Gettaxi
+    //     <input type="checkbox" value="Gettaxi"></input>
+    //   </label>
+    // </Fragment>
+
+
+
   renderEditModal(){
     //make modal smaller
     return (
@@ -140,10 +172,8 @@ class Profile extends React.Component {
           </label><br/>
 
           <label>Companies:
-
-          <label><br/>
-
-
+            {this.renderChecks()}
+          </label><br/>
 
           <button type="submit" onClick={(e)=>this.handleSubmit(e)}>Save Edit</button>
         </form>

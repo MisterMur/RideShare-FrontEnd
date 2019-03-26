@@ -16,7 +16,7 @@ import Profile from './Components/Profile.js'
 class App extends Component {
 
   state = {
-    companies:[],
+    allCompanies:[],
     users: [],
     rides: [],
     forums:[],
@@ -50,7 +50,7 @@ class App extends Component {
     .then(companies=>{
 
       this.setState({
-        companies: companies
+        allCompanies: companies
       })
     })
     const rideUrl = 'http://localhost:3000/api/v1/rides'
@@ -86,6 +86,7 @@ class App extends Component {
                 user={this.state.currentUser}
                 rides={this.state.rides}
                 forum={this.state.forums}
+                allCompanies={this.state.allCompanies}
               />)}
             }/>
           <Route path="/forums" exact component={Forums} />
