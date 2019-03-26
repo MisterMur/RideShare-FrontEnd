@@ -5,17 +5,35 @@ import ForumsList from './ForumsList.js'
 import ReactModal from 'react-modal'
 
 class Profile extends React.Component {
-
-
-  state={
-    modal:false,
-    name:this.props.user.name,
-    companies:this.props.user.companies,
-    location:this.props.user.location,
-    rating:this.props.user.rating,
-    id:this.props.user.id
-
+  constructor(props){
+    super(props)
+    this.state={
+      modal:false,
+      user:props.user,
+      name:props.user.name,
+      companies:props.user.companies,
+      experience:props.user.experience,
+      location:props.user.location,
+      rating:props.user.rating,
+      id:props.user.id
+    }
+    console.log('profile constructor props',props)
   }
+  componentWillReceiveProps(props){
+    this.setState({
+      user:props.user,
+      name:props.user.name,
+      companies:props.user.companies,
+      experience:props.user.experience,
+      location:props.user.location,
+      rating:props.user.rating,
+      id:props.user.id
+
+
+    })
+  }
+
+
 
 
 
@@ -25,13 +43,14 @@ class Profile extends React.Component {
     // this.renderEditModal()
   }
   handleEditFormChange=(e)=>{
-    const target = e.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+    console.log(e.target.value)
+    console.log(e.target.name)
+    let value = e.target.value;
+    let name = e.target.name;
 
     this.setState({
       [name]: value
-    });
+    })
 
 
   }
@@ -42,20 +61,46 @@ class Profile extends React.Component {
     console.log('closed')
     this.setState({modal:false})
   }
-  handleSubmit=()=>{
-    console.log('in save edit')
+  handleSubmit=(e)=>{
+    e.preventDefault()
+    console.log('in save edit user',this.state)
+    this.patchEditProfile()
+
   }
 
-  postEditProfile(){
+  patchEditProfile(){
     const profileUrl=`http://localhost:3000/api/v1/users/${this.state.id}`
     fetch(profileUrl,{
+      headers:{
+        'accepts':'application/json',
+        'content-type':'application/json'
+      },
       method:'PATCH',
       body:JSON.stringify({
         name:this.state.name,
-
+        experience:this.state.experience,
+        companies:this.state.companies,
+        location:this.state.location,
+        rating:this.state.rating,
+      })
+    })
+    .then(res=>{
+      console.log(res)
+      return res.json()
+    })
+    .then(editProfile=>{
+      this.setState({
+        modal:false,
+        user: editProfile,
+        name:editProfile.name,
+        experience:editProfile.experience,
+        companies:editProfile.companies,
+        location:editProfile.location,
+        rating:editProfile.rating
       })
     })
   }
+
   renderEditModal(){
     //make modal smaller
     return (
@@ -74,12 +119,33 @@ class Profile extends React.Component {
         >
 
         <form>
-          <input type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.props.user.name}></input><br/>
-          <input type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.props.user.experience}></input><br/>
-          <input type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.props.user.rating}></input><br/>
-          <input type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.props.user.car}></input><br/>
-          <input type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.props.user.location}></input><br/>
-          <button type="submit" onClick={this.handleSubmit}>Save Edit</button>
+          <label>Name:
+            <input name="name" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.name}></input>
+          </label><br/>
+
+          <label>Experience:
+            <input name="experience" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.experience}></input>
+          </label><br/>
+
+          <label>Rating:
+            <input name="rating" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.rating}></input>
+          </label><br/>
+
+          <label>Car:
+            <input name="car" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.car}></input>
+          </label><br/>
+
+          <label>Location:
+            <input name="location" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.location}></input>
+          </label><br/>
+
+          <label>Companies:
+
+          <label><br/>
+
+
+
+          <button type="submit" onClick={(e)=>this.handleSubmit(e)}>Save Edit</button>
         </form>
         <button onClick={this.handleAfterClose}>Close Modal</button>
 
@@ -91,6 +157,7 @@ class Profile extends React.Component {
 
 
   render() {
+    console.log("rendering profile", this.state)
 
     // console.log("hit profile route", this.props)
 
@@ -99,7 +166,7 @@ class Profile extends React.Component {
         <div className = "container col-11">
           <div className="row justify-content-center">
             <div className="col-3 justify-content-center" id="profile-card-container">
-              <ProfileCard user={this.props.user}/>
+              <ProfileCard user={this.state.user}/>
               <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
 {/****************************************************************/}
               {this.renderEditModal()}

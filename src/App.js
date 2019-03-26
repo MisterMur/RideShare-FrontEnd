@@ -40,7 +40,7 @@ class App extends Component {
 
       this.setState({
         users: users,
-        currentUser: users[0]
+        currentUser: users.find(user=> user.name==="Jordan Ginor")
       })
     })
 
@@ -68,7 +68,7 @@ class App extends Component {
 
 
   render() {
-    // console.log('in app render', this.state)
+    console.log('in app render', this.state)
     return (
       <Fragment>
         <Header />

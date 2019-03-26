@@ -12,6 +12,7 @@ const ProfileCard = (props) => {
     // console.log(e.target)
   }
 
+  console.log("rendering profile card")
   return(
     <div>
       <div className="profile-card" className="card" >
