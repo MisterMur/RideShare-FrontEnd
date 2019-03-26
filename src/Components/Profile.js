@@ -2,15 +2,17 @@ import React,{Fragment} from "react";
 import ProfileCard from './ProfileCard'
 import RideList from './RideList.js'
 import ForumsList from './ForumsList.js'
+import Modal from './Modal.js'
 import ReactModal from 'react-modal'
 
 class Profile extends React.Component {
   constructor(props){
     super(props)
     this.state={
-      modal:false,
+      modal: false,
       user:props.user,
       name:props.user.name,
+      car: props.user.car,
       companies:props.user.companies,
       experience:props.user.experience,
       location:props.user.location,
@@ -23,37 +25,21 @@ class Profile extends React.Component {
     this.setState({
       user:props.user,
       name:props.user.name,
+      car: props.user.car,
       companies:props.user.companies,
       experience:props.user.experience,
       location:props.user.location,
       rating:props.user.rating,
       id:props.user.id
-
-
     })
   }
-
-
-
-
 
   handleEdit = (e) => {
     console.log(e)
     this.setState({modal:true})
     // this.renderEditModal()
   }
-  handleEditFormChange=(e)=>{
-    console.log(e.target.value)
-    console.log(e.target.name)
-    let value = e.target.value;
-    let name = e.target.name;
 
-    this.setState({
-      [name]: value
-    })
-
-
-  }
   handleAfterOpen=()=>{
     console.log('opened')
   }
@@ -66,6 +52,16 @@ class Profile extends React.Component {
     console.log('in save edit user',this.state)
     this.patchEditProfile()
 
+  }
+
+  handleEditFormChange=(e)=>{
+    console.log('handling edit', e)
+    let value = e.target.value;
+    let name = e.target.name;
+
+    this.setState({
+      [name]: value
+    })
   }
 
   patchEditProfile(){
@@ -93,6 +89,7 @@ class Profile extends React.Component {
         modal:false,
         user: editProfile,
         name:editProfile.name,
+        car: editProfile.car,
         experience:editProfile.experience,
         companies:editProfile.companies,
         location:editProfile.location,
@@ -100,90 +97,6 @@ class Profile extends React.Component {
       })
     })
   }
-
-  renderChecks = () => {
-    // debugger
-    if(this.props.allCompanies){
-      let companyIds = this.state.companies.map(company => company.id)
-      return this.props.allCompanies.map(company=> {
-        return(
-          <label>{company.name}
-            <input onChange={this.handleCheckChange} type="checkbox" checked={companyIds.includes(company.id)}></input>
-          </label>
-        )
-      })
-    }
-
-  }
-
-    // <Fragment>
-    //   <label>Uber
-    //     <input type="checkbox" value="Uber"></input>
-    //   </label>
-    //   <label>Lyft
-    //     <input type="checkbox" value="Lyft"></input>
-    //   </label>
-    //   <label>Gettaxi
-    //     <input type="checkbox" value="Gettaxi"></input>
-    //   </label>
-    // </Fragment>
-
-
-
-  renderEditModal(){
-    //make modal smaller
-    if(this.state.modal){
-      return (
-        <ReactModal
-          isOpen={this.state.modal}
-          onAfterOpen={this.handleAfterOpen}
-          onRequestClose={this.handleAfterClose}
-          shouldCloseOnEsc={true}
-          shouldCloseOnOverlayClick={true}
-          ariaHideApp={false}
-          data={{
-            background: "green"
-          }}
-
-          contentLabel="example modal"
-          >
-
-          <form>
-            <label>Name:
-              <input name="name" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.name}></input>
-            </label><br/>
-
-            <label>Experience:
-              <input name="experience" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.experience}></input>
-            </label><br/>
-
-            <label>Rating:
-              <input name="rating" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.rating}></input>
-            </label><br/>
-
-            <label>Car:
-              <input name="car" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.car}></input>
-            </label><br/>
-
-            <label>Location:
-              <input name="location" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.location}></input>
-            </label><br/>
-
-            <label>Companies:
-              {this.renderChecks()}
-            </label><br/>
-
-            <button type="submit" onClick={(e)=>this.handleSubmit(e)}>Save Edit</button>
-          </form>
-          <button onClick={this.handleAfterClose}>Close Modal</button>
-
-
-      </ReactModal>
-
-    )}
-  }
-
-
 
   render() {
     console.log("rendering profile", this.state)
@@ -198,7 +111,14 @@ class Profile extends React.Component {
               <ProfileCard user={this.state.user}/>
               <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
 {/****************************************************************/}
-              {this.renderEditModal()}
+              <Modal
+                state={this.state}
+                props={this.props}
+                handleAfterOpen={this.handleAfterOpen}
+                handleAfterClose={this.handleAfterClose}
+                handleEditFormChange={this.handleEditFormChange}
+                handleSubmit={this.handleSubmit}
+              />
 
 
 

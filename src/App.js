@@ -16,6 +16,7 @@ import Profile from './Components/Profile.js'
 class App extends Component {
 
   state = {
+    modal: false,
     allCompanies:[],
     users: [],
     rides: [],
