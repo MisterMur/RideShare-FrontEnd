@@ -104,16 +104,13 @@ class Profile extends React.Component {
   renderChecks = () => {
     // debugger
     if(this.props.allCompanies){
-      // debugger
-      let companies = this.props.allCompanies.map(company=> company.name)
-
-      return companies.map(company=> {
+      let companyIds = this.state.companies.map(company => company.id)
+      return this.props.allCompanies.map(company=> {
         return(
-          <label>{company}
-            <input type="checkbox" value={company.name}></input>
+          <label>{company.name}
+            <input onChange={this.handleCheckChange} type="checkbox" checked={companyIds.includes(company.id)}></input>
           </label>
         )
-
       })
     }
 
@@ -135,53 +132,55 @@ class Profile extends React.Component {
 
   renderEditModal(){
     //make modal smaller
-    return (
-      <ReactModal
-        isOpen={this.state.modal}
-        onAfterOpen={this.handleAfterOpen}
-        onRequestClose={this.handleAfterClose}
-        shouldCloseOnEsc={true}
-        shouldCloseOnOverlayClick={true}
-        ariaHideApp={false}
-        data={{
-          background: "green"
-        }}
+    if(this.state.modal){
+      return (
+        <ReactModal
+          isOpen={this.state.modal}
+          onAfterOpen={this.handleAfterOpen}
+          onRequestClose={this.handleAfterClose}
+          shouldCloseOnEsc={true}
+          shouldCloseOnOverlayClick={true}
+          ariaHideApp={false}
+          data={{
+            background: "green"
+          }}
 
-        contentLabel="example modal"
-        >
+          contentLabel="example modal"
+          >
 
-        <form>
-          <label>Name:
-            <input name="name" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.name}></input>
-          </label><br/>
+          <form>
+            <label>Name:
+              <input name="name" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.name}></input>
+            </label><br/>
 
-          <label>Experience:
-            <input name="experience" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.experience}></input>
-          </label><br/>
+            <label>Experience:
+              <input name="experience" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.experience}></input>
+            </label><br/>
 
-          <label>Rating:
-            <input name="rating" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.rating}></input>
-          </label><br/>
+            <label>Rating:
+              <input name="rating" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.rating}></input>
+            </label><br/>
 
-          <label>Car:
-            <input name="car" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.car}></input>
-          </label><br/>
+            <label>Car:
+              <input name="car" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.car}></input>
+            </label><br/>
 
-          <label>Location:
-            <input name="location" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.location}></input>
-          </label><br/>
+            <label>Location:
+              <input name="location" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.location}></input>
+            </label><br/>
 
-          <label>Companies:
-            {this.renderChecks()}
-          </label><br/>
+            <label>Companies:
+              {this.renderChecks()}
+            </label><br/>
 
-          <button type="submit" onClick={(e)=>this.handleSubmit(e)}>Save Edit</button>
-        </form>
-        <button onClick={this.handleAfterClose}>Close Modal</button>
+            <button type="submit" onClick={(e)=>this.handleSubmit(e)}>Save Edit</button>
+          </form>
+          <button onClick={this.handleAfterClose}>Close Modal</button>
 
 
       </ReactModal>
-    )
+
+    )}
   }
 
 
