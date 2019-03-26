@@ -5,7 +5,7 @@ import './App.css';
 import Company from './Components/Company.js'
 import Header from './Components/Header.js'
 import Rides from './Components/Rides.js'
-import Forums from './Components/Forums.js'
+import ForumsPage from './Components/ForumsPage.js'
 import Profile from './Components/Profile.js'
 
 // function Forum() {
@@ -21,6 +21,7 @@ class App extends Component {
     users: [],
     rides: [],
     forums:[],
+    allForums:[],
     currentUser: ''
   }
   //
@@ -63,6 +64,15 @@ class App extends Component {
         rides
       })
     })
+    const forumUrl = 'http://localhost:3000/api/v1/forums'
+    fetch(forumUrl)
+    .then(res=>res.json())
+    .then(allForums=>{
+
+      this.setState({
+        allForums
+      })
+    })
   }
 
 
@@ -90,8 +100,15 @@ class App extends Component {
                 allCompanies={this.state.allCompanies}
               />)}
             }/>
-          <Route path="/forums" exact component={Forums} />
-          <Route path="/" exact component={Forums} />
+          <Route path="/forums" exact render={()=>{
+            return (
+              <ForumsPage
+                forum={this.state.currentUser.forums}
+              />
+
+            )}
+          }/>
+          <Route path="/" exact component={ForumsPage} />
 
       </Fragment>
     );
