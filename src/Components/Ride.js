@@ -8,7 +8,7 @@ class Ride extends React.Component {
   }
 
   render() {
-    console.log( this.props)
+    // console.log('Ride render props: ' ,this.props)
     return (
       <Fragment>
         <tr>

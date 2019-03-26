@@ -68,7 +68,7 @@ class App extends Component {
 
 
   render() {
-    console.log('in app render', this.state)
+    // console.log('in app render', this.state)
     return (
       <Fragment>
         <Header />

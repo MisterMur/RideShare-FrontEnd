@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 const ProfileCard = (props) => {
-  console.log(props);
+  // console.log(props);
 
   let handleCompnaies = () => {
     //make these logos
@@ -9,7 +9,7 @@ const ProfileCard = (props) => {
   }
 
   let handleHover = (e) => {
-    console.log(e.target)
+    // console.log(e.target)
   }
 
   return(
