@@ -9,7 +9,7 @@ class Header extends React.Component {
   render() {
     return (
       <header className="header">
-        <div class="container col-11" >
+        <div className="container col-11" >
           <b>RideShare</b>
         </div>
       </header>

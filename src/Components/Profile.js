@@ -23,14 +23,14 @@ class Profile extends React.Component {
     return (
       <Fragment>
         <div className = "container col-11">
-          <div class="row justify-content-center">
-            <div class="col-3 justify-content-center" id="profile-card-container">
+          <div className="row justify-content-center">
+            <div className="col-3 justify-content-center" id="profile-card-container">
               <ProfileCard user={this.props.user}/>
               <button id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
             </div>
 
 
-            <div class="col" id="profile-rides-list">
+            <div className="col" id="profile-rides-list">
               <RideList rides={this.props.user.rides}/>
               <ForumsList forums={this.props.user.forums}/>
             </div>

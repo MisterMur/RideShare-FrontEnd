@@ -11,7 +11,7 @@ class Forum extends React.Component {
       <Fragment>
           <tr>
             <td style={{width: ""}} scope="row">{this.props.idx}</td>
-            <td scope="row" class="col">{this.props.forum.topic}</td>
+            <td scope="row" className="col">{this.props.forum.topic}</td>
           </tr>
       </Fragment>
     )
