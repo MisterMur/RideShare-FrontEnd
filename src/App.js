@@ -5,7 +5,7 @@ import './App.css';
 import Company from './Components/Company.js'
 import Header from './Components/Header.js'
 import Rides from './Components/Rides.js'
-import Forums from './Components/Forums.js'
+import ForumsPage from './Components/ForumsPage.js'
 import Profile from './Components/Profile.js'
 
 // function Forum() {
@@ -16,10 +16,12 @@ import Profile from './Components/Profile.js'
 class App extends Component {
 
   state = {
-    companies:[],
+    modal: false,
+    allCompanies:[],
     users: [],
     rides: [],
     forums:[],
+    allForums:[],
     currentUser: ''
   }
   //
@@ -40,7 +42,7 @@ class App extends Component {
 
       this.setState({
         users: users,
-        currentUser: users[0]
+        currentUser: users.find(user=> user.name==="Jordan Ginor")
       })
     })
 
@@ -50,7 +52,7 @@ class App extends Component {
     .then(companies=>{
 
       this.setState({
-        companies: companies
+        allCompanies: companies
       })
     })
     const rideUrl = 'http://localhost:3000/api/v1/rides'
@@ -60,6 +62,15 @@ class App extends Component {
 
       this.setState({
         rides
+      })
+    })
+    const forumUrl = 'http://localhost:3000/api/v1/forums'
+    fetch(forumUrl)
+    .then(res=>res.json())
+    .then(allForums=>{
+
+      this.setState({
+        allForums
       })
     })
   }
@@ -86,10 +97,18 @@ class App extends Component {
                 user={this.state.currentUser}
                 rides={this.state.rides}
                 forum={this.state.forums}
+                allCompanies={this.state.allCompanies}
               />)}
             }/>
-          <Route path="/forums" exact component={Forums} />
-          <Route path="/" exact component={Forums} />
+          <Route path="/forums" exact render={()=>{
+            return (
+              <ForumsPage
+                forum={this.state.currentUser.forums}
+              />
+
+            )}
+          }/>
+          <Route path="/" exact component={ForumsPage} />
 
       </Fragment>
     );
