@@ -41,7 +41,9 @@ class App extends Component {
     .then(users=>{
       this.setState({
         users: users,
+
         currentUser: users.find(user=> user.name === "Jordan")
+
       })
     })
 

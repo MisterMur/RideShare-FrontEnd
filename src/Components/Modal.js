@@ -3,21 +3,66 @@ import ReactModal from 'react-modal'
 
 class Modal extends React.Component{
 
+  state=({
+    nameValue: this.props.props.user.name,
+    experienceValue: this.props.props.user.experience,
+    ratingValue: this.props.props.user.rating,
+    locationValue: this.props.props.user.location,
+    carValue: this.props.props.user.car,
+    companiesValue: this.props.props.user.companies
+  })
+
+
+  handleCheckChange = (company) => {
+    console.log("handling check change")
+    let companyIds = this.state.companiesValue.map(company => company.id)
+    if(companyIds.includes(company.id)){
+      // debugger
+      let companiesCopy = [...this.state.companiesValue]
+      // debugger
+      let newCompanies = companiesCopy.filter(co => co.id !== company.id)
+      this.setState({
+        companiesValue: newCompanies
+      })
+    }
+    else {
+      // debugger
+      let otherCompaniesCopy = [...this.state.companiesValue]
+      otherCompaniesCopy.push(company)
+      // debugger
+      let newCompanies = otherCompaniesCopy
+      this.setState({
+        companiesValue: newCompanies
+      })
+    }
+  }
+
 
   renderChecks = () => {
     if(this.props.props.allCompanies){
       if(this.props.state.companies){
-        let companyIds = this.props.state.companies.map(company => company.id)
-        return this.props.props.allCompanies.map(company=> {
+        // debugger
+        let companyIds = this.state.companiesValue.map(company => company.id)
 
+        return this.props.props.allCompanies.map(company=> {
           return(
             <label>{company.name}
-              <input onChange={this.handleCheckChange} type="checkbox" checked={companyIds.includes(company.id)}></input>
+              <input onChange={() => this.handleCheckChange(company)} type="checkbox" checked={companyIds.includes(company.id)}></input>
             </label>
           )
         })
       }
     }
+  }
+
+  handleEditFormChange=(e)=>{
+    console.log('handling edit', e)
+    let value = e.target.value;
+    let name = e.target.name;
+
+    this.setState({
+      [name]: value
+    })
   }
 
 
@@ -36,36 +81,35 @@ class Modal extends React.Component{
           data={{
             background: "green"
           }}
-
           contentLabel="example modal"
           >
 
           <form>
             <label>Name:
-              <input name="name" type="text" onChange={(e)=>this.props.handleEditFormChange(e)} value={this.props.state.name}></input>
+              <input name="nameValue" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.nameValue}></input>
             </label><br/>
 
             <label>Experience:
-              <input name="experience" type="text" onChange={(e)=>this.props.handleEditFormChange(e)} value={this.props.state.experience}></input>
+              <input name="experienceValue" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.experienceValue}></input>
             </label><br/>
 
             <label>Rating:
-              <input name="rating" type="text" onChange={(e)=>this.props.handleEditFormChange(e)} value={this.props.state.rating}></input>
+              <input name="ratingValue" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.ratingValue}></input>
             </label><br/>
 
             <label>Car:
-              <input name="car" type="text" onChange={(e)=>this.props.handleEditFormChange(e)} value={this.props.state.car}></input>
+              <input name="carValue" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.carValue}></input>
             </label><br/>
 
             <label>Location:
-              <input name="location" type="text" onChange={(e)=>this.props.handleEditFormChange(e)} value={this.props.state.location}></input>
+              <input name="locationValue" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.locationValue}></input>
             </label><br/>
 
             <label>Companies:
               {this.renderChecks()}
             </label><br/>
 
-            <button type="submit" onClick={(e)=>this.props.handleSubmit(e)}>Save Edit</button>
+            <button type="submit" onClick={(e, state)=>this.props.handleSubmit(e, this.state)}>Save Edit</button>
           </form>
           <button onClick={this.props.handleAfterClose}>Close Modal</button>
 
@@ -75,6 +119,7 @@ class Modal extends React.Component{
   }
 
   render(){
+    // debugger
     console.log(this.state)
     console.log(this.props)
     return(
