@@ -47,24 +47,16 @@ class Profile extends React.Component {
     console.log('closed')
     this.setState({modal:false})
   }
-  handleSubmit=(e)=>{
+  handleSubmit=(e, state)=>{
     e.preventDefault()
     console.log('in save edit user',this.state)
-    this.patchEditProfile()
+    this.patchEditProfile(e, state)
 
   }
 
-  handleEditFormChange=(e)=>{
-    console.log('handling edit', e)
-    let value = e.target.value;
-    let name = e.target.name;
-
-    this.setState({
-      [name]: value
-    })
-  }
-
-  patchEditProfile(){
+  patchEditProfile(e, state){
+    // debugger
+    e.preventDefault()
     const profileUrl=`http://localhost:3000/api/v1/users/${this.state.id}`
     fetch(profileUrl,{
       headers:{
@@ -73,11 +65,12 @@ class Profile extends React.Component {
       },
       method:'PATCH',
       body:JSON.stringify({
-        name:this.state.name,
-        experience:this.state.experience,
-        companies:this.state.companies,
-        location:this.state.location,
-        rating:this.state.rating,
+        name:state.nameValue,
+        experience:state.experienceValue,
+        car:state.carValue,
+        companies:state.companiesValue,
+        location:state.locationValue,
+        rating:state.ratingValue,
       })
     })
     .then(res=>{
@@ -85,17 +78,34 @@ class Profile extends React.Component {
       return res.json()
     })
     .then(editProfile=>{
+      // debugger
       this.setState({
         modal:false,
         user: editProfile,
-        name:editProfile.name,
+        name: editProfile.name,
         car: editProfile.car,
-        experience:editProfile.experience,
-        companies:editProfile.companies,
-        location:editProfile.location,
-        rating:editProfile.rating
+        experience: editProfile.experience,
+        location: editProfile.location,
+        rating: editProfile.rating,
+        companies: state.companiesValue
       })
     })
+  }
+
+  renderModal = () => {
+    if(this.props.user) {
+      return(
+        <Modal
+          state={this.state}
+          props={this.props}
+          handleAfterOpen={this.handleAfterOpen}
+          handleAfterClose={this.handleAfterClose}
+          handleEditFormChange={this.handleEditFormChange}
+          handleSubmit={this.handleSubmit}
+
+        />
+      )
+    }
   }
 
   render() {
@@ -108,25 +118,10 @@ class Profile extends React.Component {
         <div className = "container col-11">
           <div className="row justify-content-center">
             <div className="col-3 justify-content-center" id="profile-card-container">
-              <ProfileCard user={this.state.user}/>
+              <ProfileCard user={this.state.user} companies={this.state.companies}/>
               <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
-{/****************************************************************/}
-              <Modal
-                state={this.state}
-                props={this.props}
-                handleAfterOpen={this.handleAfterOpen}
-                handleAfterClose={this.handleAfterClose}
-                handleEditFormChange={this.handleEditFormChange}
-                handleSubmit={this.handleSubmit}
-              />
-
-
-
-            {/****************************************************************/}
-
+              {this.renderModal()}
             </div>
-
-
             <div className="col" id="profile-rides-list">
               <RideList rides={this.props.user.rides}/>
               <ForumsList forums={this.props.user.forums}/>
