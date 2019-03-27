@@ -54,8 +54,8 @@ class Forums extends React.Component {
          placeHolder="Search by location"
          />
          <form action="/action_page.php">
-          <input type="radio" name="gender" value="friends" onChange={this.handleFriendFilter}/> Friends
-          <input type="radio" name="gender" value="all" onChange={this.handleFriendFilter}/> All
+          <input type="radio" name="gender" value="friends" onChange={(e) =>this.handleFriendFilter(e)}/> Friends
+          <input type="radio" name="gender" value="all" onChange={this.handleChangeBack}/> All
           <input type="submit" value="Submit"/>
         </form>
       </form>
@@ -63,10 +63,24 @@ class Forums extends React.Component {
     )
   }
 
+  handleChangeBack = () => {
+    this.setState({filteredRides: this.state.allRides})
+  }
+//this function is super javascripty//
   handleFriendFilter = (e) => {
     e.preventDefault()
-    debugger
-    //WE DONT HAVE A WAY TO DETERMINE WHO A USERS FRIENDS ARE YET SOOOOO
+    let myFriends = this.props.user.followers.map(follower => follower.id)
+    let filtered =[]
+    this.state.allRides.map((ride) =>
+      {
+        for (let i = 0; i < myFriends.length; i ++){
+          if (ride.user_id == myFriends[i] ){
+          filtered.push(ride)
+          }
+        }
+     }
+   )
+   this.setState({filteredRides: filtered})
   }
 
   handleSearch = (e) => {
