@@ -4,8 +4,10 @@ const ProfileCard = (props) => {
   // console.log(props);
 
   let handleCompnaies = () => {
+    // debugger
     //make these logos
-    return props.user.companies? props.user.companies.map(company => `${company.name} `) : "nope"
+    // return props.user.companies? props.user.companies.map(company => `${company.name} `) : "nope"
+    return props.companies? props.companies.map(company => `${company.name} `) : "nope"
   }
 
   let handleHover = (e) => {
