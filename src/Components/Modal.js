@@ -55,6 +55,7 @@ class Modal extends React.Component{
     }
   }
 
+
   handleEditFormChange=(e)=>{
     console.log('handling edit', e)
     let value = e.target.value;
@@ -64,6 +65,7 @@ class Modal extends React.Component{
       [name]: value
     })
   }
+
 
 
   renderEditModal = () => {

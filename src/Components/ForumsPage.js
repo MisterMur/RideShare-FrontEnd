@@ -125,7 +125,6 @@ class Forums extends React.Component {
     }
 
   }
-
   render() {
     console.log("hit forums route")
     console.log('forums props',this.props)
