@@ -22,6 +22,7 @@ class App extends Component {
     rides: [],
     forums:[],
     allForums:[],
+    friendships: [],
     currentUser: ''
   }
   //
@@ -42,7 +43,7 @@ class App extends Component {
       this.setState({
         users: users,
 
-        currentUser: users.find(user=> user.name === "Jordan")
+        currentUser: users.find(user=> user.name === "Zev")
 
       })
     })
@@ -106,6 +107,7 @@ class App extends Component {
               <ForumsPage
                 forum={this.state.currentUser.forums}
                 rides={this.state.rides}
+                user={this.state.currentUser}
               />
 
             )}
