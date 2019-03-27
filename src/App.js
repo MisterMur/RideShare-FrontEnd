@@ -42,7 +42,7 @@ class App extends Component {
 
       this.setState({
         users: users,
-        currentUser: users.find(user=> user.name==="Jordan Ginor")
+        currentUser: users.find(user=> user.name==="Jordan")
       })
     })
 
