@@ -94,6 +94,7 @@ class App extends Component {
               <Rides
                 allUsers={this.state.users}
                 user={this.state.currentUser}
+                forum={this.state.forums}
                 rides={this.state.rides}
                 allCompanies={this.state.allCompanies}
               />)}

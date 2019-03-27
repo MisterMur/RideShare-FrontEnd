@@ -1,10 +1,33 @@
 import React,{Fragment} from "react"
+import { Link, Route } from 'react-router-dom'
+import Profile from './Profile.js'
+import Leader from './Leader.js'
 
 
 class Leaderboard extends React.Component {
 
   constructor(props){
     super(props)
+    this.state={
+      mostMiles:'',
+      mostRating:'',
+      mostEarned:'',
+      mostTime:'',
+      mostExperience:''
+    }
+  }
+  componentWillReceiveProps(props){
+    let rating = this.getRatingLeader(props.leaders)
+    let miles = this.getMileLeader(props.leaders)
+    let earner = this.getEarnerLeader(props.leaders)
+    let experience= this.getExperienceLeader(props.leaders)
+    this.setState({
+      mostMiles:miles,
+      mostRating:rating,
+      mostEarned:earner,
+      mostExperience:experience
+    })
+
   }
   getTotalMiles=(user)=>{
     let totalMiles=0
@@ -15,6 +38,7 @@ class Leaderboard extends React.Component {
   }
   getTotalEarned=(user)=>{
     let totalEarned=0
+    console.log('get total earnd',user)
     if(user.rides){
       user.rides.map(r=>totalEarned+=r.price)
       return totalEarned
@@ -42,12 +66,32 @@ class Leaderboard extends React.Component {
       return newUsers.reverse()[0]
     }
   }
+  getRatingLeader=(users)=>{
+    let newUsers=[...users]
+    if(newUsers!==[]){
+      newUsers.sort((usera,userb)=>{
+        return usera.rating-userb.rating
+      })
+    }
+    return newUsers.reverse()[0]
+  }
+  getExperienceLeader=(users)=>{
+    let newUsers=[...users]
+    if(newUsers!==[]){
+      newUsers.sort((usera,userb)=>{
+        return usera.experience-userb.experience
+      })
+    }
+    // this.setState({mostExperience:newUsers.reverse()[0]})
+    return newUsers.reverse()[0]
+  }
 
   getTimeLeader=(users)=>{
     if(users!==[]){
       return users.sort((usera,userb)=>{
         return this.getTimeLeader(usera)-this.getTimeLeader(userb)
       })
+
     }
 
   }
@@ -63,6 +107,7 @@ class Leaderboard extends React.Component {
 
         return this.getTotalEarned(usera)-this.getTotalEarned(userb)
       })
+      // this.setState({mostEarner:newUsers.reverse()[0]})
 
       return newUsers.reverse()[0]
     }
@@ -84,38 +129,84 @@ class Leaderboard extends React.Component {
       })
     }
   }
+  handleUserClick=(e,user)=>{
+    // debugger
+    console.log('in handle user click ',user)
+    return (
+      // <Route path={`/profile/${user.id}`} exact render= {() => {
+      //   return (
+          <Profile
+            user={user}
+            rides={this.props.rides}
+            forum={this.props.forums}
+            allCompanies={this.props.allCompanies}
+          />
+        // )}
+        // }/>
+    )
+  }
   renderLeaderBoard=()=>{
     // console.log('mile leader',this.getMileLeader(this.props.leaders))
     // console.log('Miles:',this.getTotalMiles())
+    if(this.props.leaders){
 
-    return (
-      <Fragment>
-        <div className="card-header">
-          <h1>Overall Leaderboard</h1>
+      return (
+        <Fragment>
+        <div class="container">
+        <div class="row">
+        <div class="col-md-9">
+        <div class="list-group" >
+        <Leader
+        title={'Highest Rating: '}
+        design={'list-group-item google-plus'}
+        icon={'icon glyphicon glyphicon-star'}
+        getUser={this.getRatingLeader(this.props.leaders)}
+        handleClick={this.handleUserClick}
+        />
+
+        <Leader
+        title={'Longest Duration: '}
+        design={'list-group-item facebook-like'}
+        icon={'icon glyphicon glyphicon-hourglass'}
+        getUser={this.getRatingLeader(this.props.leaders)}
+        handleClick={this.handleUserClick}
+        />
+        <Leader
+        title={'Most Miles: '}
+        design={'list-group-item twitter'}
+        icon={'icon glyphicon glyphicon-road'}
+        getUser={this.getMileLeader(this.props.leaders)}
+        handleClick={this.handleUserClick}
+        />
+        <Leader
+        title={'Highest Earner: '}
+        design={'list-group-item vimeo'}
+        icon={'icon glyphicon glyphicon-usd'}
+        getUser={this.getEarnerLeader(this.props.leaders)}
+        handleClick={this.handleUserClick}
+        />
+        <Leader
+        title={'Most Experience: '}
+        design={'list-group-item tumblr'}
+        icon={'icon glyphicon glyphicon-hourglass'}
+        getUser={this.getRatingLeader(this.props.leaders)}
+        handleClick={this.handleUserClick}
+        />
         </div>
-
-        <ul className="list-group list-group-flush">Most Miles: {this.getMileLeader(this.props.leaders)?
-          this.getMileLeader(this.props.leaders).name:null}</ul>
-        <ul className="list-group list-group-flush">Most Earned:{this.getEarnerLeader(this.props.leaders)?
-          this.getEarnerLeader(this.props.leaders).name:null}</ul>
-        {/*
-          <ul className="list-group list-group-flush">Most Earned:{this.getTimeLeader(this.props.leaders)?
-          this.getTimeLeader(this.props.leaders).name:null}</p>
-        */}
-      </Fragment>
-    )
+        </div>
+        </div>
+        </div>
+        </Fragment>
+      )
+    }
 
   }
 
   render() {
     return (
-      <div className="leaderboard-card" className="card">
-        <ul className="list-group list-group-flush">
-
+      <div>
         {this.renderLeaderBoard()}
         {/*this.renderUserTotals()*/}
-        </ul>
-
       </div>
     )
   }
