@@ -93,13 +93,17 @@ class App extends Component {
 
           <Route path="/rides" exact render={() => {
             return (
+              <Fragment>
               <Rides
                 allUsers={this.state.users}
                 user={this.state.currentUser}
                 forum={this.state.forums}
                 rides={this.state.rides}
                 allCompanies={this.state.allCompanies}
-              />)}
+              />
+              </Fragment>
+            )}
+
             }/>
           {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
           <Route path="/profile" exact render={() => {
@@ -111,16 +115,7 @@ class App extends Component {
                 allCompanies={this.state.allCompanies}
               />)}
             }/>
-          <Route path="/forums" exact render={()=>{
-            return (
-              <ForumsPage
-                forum={this.state.currentUser.forums}
-                rides={this.state.rides}
-                user={this.state.currentUser}
-              />
-
-            )}
-          }/>
+          <Route path="/forums" exact render={ForumsPage}/>
           <Route path="/" exact component={ForumsPage} />
 
       </Fragment>
