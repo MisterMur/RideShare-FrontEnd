@@ -1,5 +1,5 @@
 import React from "react";
-
+import Leaderboard from './Leaderboard.js'
 class Rides extends React.Component {
 
   constructor(props){
@@ -10,7 +10,9 @@ class Rides extends React.Component {
     console.log("hit rides route")
     return (
       <div>
-        Rides!
+        <Leaderboard
+          leaders={this.props.allUsers}
+        />
       </div>
     )
   }

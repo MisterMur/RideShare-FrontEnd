@@ -10,7 +10,6 @@ class Forums extends React.Component {
     console.log('in handleforum click',e)
 
   }
-
   render() {
     console.log("hit forums route")
     console.log('forums props',this.props)

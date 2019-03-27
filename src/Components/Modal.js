@@ -20,7 +20,6 @@ class Modal extends React.Component{
     }
   }
 
-
   renderEditModal = () => {
     //make modal smaller
     if(this.props.state.modal){

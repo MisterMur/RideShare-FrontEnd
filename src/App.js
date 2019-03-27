@@ -89,7 +89,15 @@ class App extends Component {
           <Link to="/forums">Forums</Link>
         </div>
 
-          <Route path="/rides" exact component={Rides} />
+          <Route path="/rides" exact render={() => {
+            return (
+              <Rides
+                allUsers={this.state.users}
+                user={this.state.currentUser}
+                rides={this.state.rides}
+                allCompanies={this.state.allCompanies}
+              />)}
+            }/>
           {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
           <Route path="/profile" exact render={() => {
             return (
