@@ -13,7 +13,7 @@ const RideList = (props) => {
     }
   }
   return (
-    <div>
+    <div className="ride-list">
     {props.displayDropdown? props.displayDropdown(): ''}
     <table className="table table-striped">
       <thead className="thead-dark">
