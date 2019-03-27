@@ -56,7 +56,6 @@ class Forums extends React.Component {
          <form action="/action_page.php">
           <input type="radio" name="gender" value="friends" onChange={(e) =>this.handleFriendFilter(e)}/> Friends
           <input type="radio" name="gender" value="all" onChange={this.handleChangeBack}/> All
-          <input type="submit" value="Submit"/>
         </form>
       </form>
       </div>
@@ -130,11 +129,6 @@ class Forums extends React.Component {
     console.log('forums props',this.props)
     return (
       <Fragment>
-      <div>
-        <ForumsList
-          forums={this.props.forum}
-          handleForumClick={this.handleForumClick}
-        /></div>
         <div className="col" id="profile-rides-list">
         <RideList rides={this.state.filteredRides} displayDropdown={this.returnDropdown}/>
         </div>
