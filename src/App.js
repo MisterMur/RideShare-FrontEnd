@@ -39,10 +39,9 @@ class App extends Component {
     fetch(userUrl)
     .then(res=>res.json())
     .then(users=>{
-
       this.setState({
         users: users,
-        currentUser: users.find(user=> user.name==="Jordan Ginor")
+        currentUser: users.find(user=> user.name === "Jordan")
       })
     })
 
@@ -104,6 +103,7 @@ class App extends Component {
             return (
               <ForumsPage
                 forum={this.state.currentUser.forums}
+                rides={this.state.rides}
               />
 
             )}
