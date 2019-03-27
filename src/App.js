@@ -101,11 +101,6 @@ class App extends Component {
                 rides={this.state.rides}
                 allCompanies={this.state.allCompanies}
               />
-              <ForumsPage
-                forum={this.state.currentUser.forums}
-                rides={this.state.rides}
-                user={this.state.currentUser}
-              />
               </Fragment>
             )}
 
@@ -120,16 +115,7 @@ class App extends Component {
                 allCompanies={this.state.allCompanies}
               />)}
             }/>
-          <Route path="/forums" exact render={()=>{
-            return (
-              <ForumsPage
-                forum={this.state.currentUser.forums}
-                rides={this.state.rides}
-                user={this.state.currentUser}
-              />
-
-            )}
-          }/>
+          <Route path="/forums" exact render={ForumsPage}/>
           <Route path="/" exact component={ForumsPage} />
 
       </Fragment>
