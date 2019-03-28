@@ -43,7 +43,7 @@ class Rides extends React.Component {
          type="text"
          onChange={this.handleSearch}
          value={this.state.textInput}
-         placeHolder="Search by location"
+         placeholder="Search by location"
          />
          <form action="/action_page.php">
           <input type="radio" name="gender" value="friends" onChange={(e) =>this.handleFriendFilter(e)}/> Friends
@@ -119,7 +119,7 @@ class Rides extends React.Component {
   render() {
     console.log("hit rides route")
     return (
-      <div>
+      <div className = "container col-11">
         <Leaderboard
           leaders={this.props.allUsers}
           allUsers={this.props.users}
@@ -128,7 +128,7 @@ class Rides extends React.Component {
           rides={this.props.rides}
           allCompanies={this.props.allCompanies}
         />
-        <div className="col" id="profile-rides-list">
+        <div className="col-12" id="profile-rides-list">
         <RideList rides={this.state.filteredRides} displayDropdown={this.returnDropdown}/>
         </div>
       </div>

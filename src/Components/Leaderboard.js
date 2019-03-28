@@ -96,6 +96,7 @@ class Leaderboard extends React.Component {
 
   }
   getEarnerLeader=(users)=>{
+    // debugger
     let newUsers=[...users]
     if(newUsers!==[]){
       newUsers.sort((usera,userb)=>{
@@ -145,6 +146,7 @@ class Leaderboard extends React.Component {
         // }/>
     )
   }
+
   renderLeaderBoard=()=>{
     // console.log('mile leader',this.getMileLeader(this.props.leaders))
     // console.log('Miles:',this.getTotalMiles())
@@ -152,50 +154,49 @@ class Leaderboard extends React.Component {
 
       return (
         <Fragment>
-        <div class="container">
-        <div class="row">
-        <div class="col-md-9">
-        <div class="list-group" >
-        <Leader
-        title={'Highest Rating: '}
-        design={'list-group-item google-plus'}
-        icon={'icon glyphicon glyphicon-star'}
-        getUser={this.getRatingLeader(this.props.leaders)}
-        handleClick={this.handleUserClick}
-        />
-
-        <Leader
-        title={'Longest Duration: '}
-        design={'list-group-item facebook-like'}
-        icon={'icon glyphicon glyphicon-hourglass'}
-        getUser={this.getRatingLeader(this.props.leaders)}
-        handleClick={this.handleUserClick}
-        />
-        <Leader
-        title={'Most Miles: '}
-        design={'list-group-item twitter'}
-        icon={'icon glyphicon glyphicon-road'}
-        getUser={this.getMileLeader(this.props.leaders)}
-        handleClick={this.handleUserClick}
-        />
-        <Leader
-        title={'Highest Earner: '}
-        design={'list-group-item vimeo'}
-        icon={'icon glyphicon glyphicon-usd'}
-        getUser={this.getEarnerLeader(this.props.leaders)}
-        handleClick={this.handleUserClick}
-        />
-        <Leader
-        title={'Most Experience: '}
-        design={'list-group-item tumblr'}
-        icon={'icon glyphicon glyphicon-hourglass'}
-        getUser={this.getRatingLeader(this.props.leaders)}
-        handleClick={this.handleUserClick}
-        />
-        </div>
-        </div>
-        </div>
-        </div>
+          <div className="container">
+          <div className="row">
+          <div className="col-5">
+          <div className="list-group" >
+            <Leader
+              title={'Highest Rating: '}
+              design={'list-group-item google-plus'}
+              icon={'icon glyphicon glyphicon-star'}
+              getUser={this.getRatingLeader(this.props.leaders)}
+              handleClick={this.handleUserClick}
+            />
+            <Leader
+              title={'Longest Duration: '}
+              design={'list-group-item facebook-like'}
+              icon={'icon glyphicon glyphicon-hourglass'}
+              getUser={this.getRatingLeader(this.props.leaders)}
+              handleClick={this.handleUserClick}
+            />
+            <Leader
+              title={'Most Miles: '}
+              design={'list-group-item twitter'}
+              icon={'icon glyphicon glyphicon-road'}
+              getUser={this.getMileLeader(this.props.leaders)}
+              handleClick={this.handleUserClick}
+            />
+            <Leader
+              title={'Highest Earner: '}
+              design={'list-group-item vimeo'}
+              icon={'icon glyphicon glyphicon-usd'}
+              getUser={this.getEarnerLeader(this.props.leaders)}
+              handleClick={this.handleUserClick}
+            />
+            <Leader
+              title={'Most Experience: '}
+              design={'list-group-item tumblr'}
+              icon={'icon glyphicon glyphicon-hourglass'}
+              getUser={this.getRatingLeader(this.props.leaders)}
+              handleClick={this.handleUserClick}
+            />
+          </div>
+          </div>
+          </div>
+          </div>
         </Fragment>
       )
     }

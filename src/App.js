@@ -91,6 +91,17 @@ class App extends Component {
           <Link to="/forums">Forums</Link>
         </div>
 
+
+
+          <Route path="/profile/:id" render={(props) => {
+            return (
+              <Profile
+              {...props}
+                allCompanies={this.state.allCompanies}
+              />)}
+            }/>
+
+
           <Route path="/rides" exact render={() => {
             return (
               <Fragment>
@@ -106,17 +117,22 @@ class App extends Component {
 
             }/>
           {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
-          <Route path="/profile" exact render={() => {
-            return (
-              <Profile
-                user={this.state.currentUser}
-                rides={this.state.rides}
-                forum={this.state.forums}
-                allCompanies={this.state.allCompanies}
-              />)}
+            <Route path="/" exact render={() => {
+              return (
+                <Fragment>
+                <Rides
+                  allUsers={this.state.users}
+                  users={this.state.users}
+                  user={this.state.currentUser}
+                  forum={this.state.forums}
+                  rides={this.state.rides}
+                  allCompanies={this.state.allCompanies}
+                />
+                </Fragment>
+              )}
+
             }/>
-          <Route path="/forums" exact render={ForumsPage}/>
-          <Route path="/" exact component={ForumsPage} />
+
 
       </Fragment>
     );
@@ -124,3 +140,16 @@ class App extends Component {
 }
 
 export default App;
+
+
+
+
+// <Route path="/profile" exact render={() => {
+//   return (
+//     <Profile
+//     user={this.state.currentUser}
+//     rides={this.state.rides}
+//     forum={this.state.forums}
+//     allCompanies={this.state.allCompanies}
+//     />)}
+//   }/>

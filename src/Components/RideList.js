@@ -2,6 +2,7 @@ import React from "react"
 import Ride from "./Ride.js"
 
 const RideList = (props) => {
+
   const renderRide=()=>{
     if(props.rides){
       return props.rides.map((ride,key)=>
