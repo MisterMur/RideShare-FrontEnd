@@ -18,7 +18,8 @@ class App extends Component {
   state = {
     modal: false,
     allCompanies:[],
-    users: [],
+    users: "",
+    // users: [],
     rides: [],
     forums:[],
     allForums:[],
@@ -70,9 +71,46 @@ class App extends Component {
     fetch(forumUrl)
     .then(res=>res.json())
     .then(allForums=>{
-
       this.setState({
         allForums
+      })
+    })
+  }
+
+  renderProfileLink = () => {
+    if(this.state.currentUser){
+      return <Link to={`/profile/${this.state.currentUser.id}`}>Profile</Link>
+    }
+  }
+
+
+  patchEditProfile = (e, state) => {
+    // debugger
+    let userUrl = 'http://localhost:3000/api/v1/users'
+    let id = this.state.currentUser.id
+    // let id = parseInt(this.match.params.id)
+    // debugger
+    e.preventDefault()
+    fetch(`${userUrl}/${id}`,{
+      headers:{
+        'accepts':'application/json',
+        'content-type':'application/json'
+      },
+      method:'PATCH',
+      body:JSON.stringify({
+        name:state.nameValue,
+        experience:state.experienceValue,
+        car:state.carValue,
+        companies:state.companiesValue,
+        location:state.locationValue,
+        rating:state.ratingValue,
+      })
+    })
+    .then(r => r.json())
+    .then(res => {
+      this.setState({
+        currentUser: res,
+        modal: false
       })
     })
   }
@@ -86,20 +124,45 @@ class App extends Component {
       <Fragment>
         <Header />
         <div className="container col-11">
-          <Link to="/profile">Profile</Link>
+          {this.renderProfileLink()}
           <Link to="/rides">Rides</Link>
           <Link to="/forums">Forums</Link>
         </div>
 
 
 
-          <Route path="/profile/:id" render={(props) => {
-            return (
-              <Profile
-              {...props}
-                allCompanies={this.state.allCompanies}
-              />)}
-            }/>
+          <Route path="/profile/:id" exact render={(props) => {
+              // debugger
+              let id = parseInt(props.match.params.id)
+              let userUrl = 'http://localhost:3000/api/v1/users'
+            if(this.state.users){
+              if(id !== this.state.currentUser.id){
+                let ourUser = this.state.users.find(u => u.id === id )
+                // debugger
+                return (
+                  <Profile
+                    {...props}
+                    allCompanies={this.state.allCompanies}
+                    currentUser={this.state.currentUser}
+                    user={ourUser}
+                    handleEdit={this.patchEditProfile}
+                  />
+                )
+              }
+              else {
+                let ourOtherUser = this.state.currentUser
+                // debugger
+                return (
+                  <Profile
+                    {...props}
+                    allCompanies={this.state.allCompanies}
+                    currentUser={this.state.currentUser}
+                    user={ourOtherUser}
+                    handleEdit={this.patchEditProfile}
+                  />
+                )
+              }}
+          }}/>
 
 
           <Route path="/rides" exact render={() => {
@@ -151,5 +214,6 @@ export default App;
 //     rides={this.state.rides}
 //     forum={this.state.forums}
 //     allCompanies={this.state.allCompanies}
-//     />)}
-//   }/>
+//     />
+//   )}
+// }/>
