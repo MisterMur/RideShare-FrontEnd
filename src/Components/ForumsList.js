@@ -2,11 +2,12 @@ import React, {Fragment} from "react"
 import Forum from "./Forum.js"
 
 const ForumList = (props) => {
+
   const renderForum=()=>{
     if(props.forums){
       return props.forums.map((forum,key)=>{
         return <Fragment>
-          <Forum 
+          <Forum
             handleForumClick={props.handleForumClick}
             key={key}
             idx={key+1}

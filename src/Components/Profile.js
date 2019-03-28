@@ -4,6 +4,7 @@ import RideList from './RideList.js'
 import ForumsList from './ForumsList.js'
 import Modal from './Modal.js'
 import ReactModal from 'react-modal'
+import FriendsBox from './friends-box'
 
 class Profile extends React.Component {
   constructor(props){
@@ -114,6 +115,11 @@ class Profile extends React.Component {
     }
   }
 
+  handleFollow = () => {
+    console.log(this);
+    debugger
+  }
+
   render() {
     // debugger
     console.log("rendering profile", this.state)
@@ -128,12 +134,15 @@ class Profile extends React.Component {
               <ProfileCard user={this.state.user} companies={this.state.user.companies}/>
               <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
               {this.renderModal()}
+              <button type="button" className="btn btn-primary"  id="follow-user" onClick={() => this.handleFollow()}> Follow this user </button>
             </div>
             <div className="col" id="profile-rides-list">
               <RideList rides={this.state.user.rides}/>
               <ForumsList forums={this.state.user.forums}/>
+              <FriendsBox followers={this.state.user.followers}/>
             </div>
           </div>
+
         </div>
       </Fragment>
     )

@@ -8,6 +8,7 @@ import Rides from './Components/Rides.js'
 import ForumsPage from './Components/ForumsPage.js'
 import Profile from './Components/Profile.js'
 
+
 // function Forum() {
 //   return <h2> Forums </h2>
 // }
@@ -42,9 +43,7 @@ class App extends Component {
     .then(users=>{
       this.setState({
         users: users,
-
-        currentUser: users.find(user=> user.name === "Zev")
-
+        currentUser: users.find(user=> user.name === "Brian")
       })
     })
 
@@ -81,7 +80,7 @@ class App extends Component {
 
 
   render() {
-    console.log('in app render', this.state)
+    //console.log('in app render', this.state)
     return (
       <Fragment>
         <Header />
@@ -117,6 +116,16 @@ class App extends Component {
 
             }/>
           {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
+          <Route path="/forums" exact render={() => {
+            return (
+              <Fragment>
+              <ForumsPage
+              users={this.state.users}
+              />
+              </Fragment>
+            )}
+
+            }/>
             <Route path="/" exact render={() => {
               return (
                 <Fragment>
@@ -130,7 +139,6 @@ class App extends Component {
                 />
                 </Fragment>
               )}
-
             }/>
 
 
