@@ -42,7 +42,6 @@ class App extends Component {
     .then(users=>{
       this.setState({
         users: users,
-
         currentUser: users.find(user=> user.name === "Brian")
 
       })
@@ -184,6 +183,7 @@ class App extends Component {
               <Fragment>
               <ForumsPage
               users={this.state.users}
+              currentUser={this.state.currentUser}
               />
               </Fragment>
             )}

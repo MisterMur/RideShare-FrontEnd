@@ -8,7 +8,7 @@ class FriendsBox extends Component {
     if (this.props.followers){
        return this.props.followers.map(follower => {
         return (
-          <div class="card" style={{width: "18rem"}}>
+          <div class="card follower-container" >
           <img class="card-img-top" src={randImg} alt="Card image cap"/>
           <div class="card-body">
             <h5 class="card-title">Name: {follower.name}</h5>
@@ -22,8 +22,7 @@ class FriendsBox extends Component {
 
   render(){
     return(
-      <div className="follower-container" style={{width: "20rem"}}>
-      <h2 className="some-h2">Check out your followers, fam!</h2>
+      <div className="card-group col-12" >
         {this.followerCards()}
       </div>
     )

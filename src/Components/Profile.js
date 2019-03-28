@@ -87,7 +87,7 @@ class Profile extends React.Component {
 
   handleFollow = () => {
     console.log(this);
-    debugger
+    // debugger
 }
   renderProfileCard = () => {
     if(this.state.user){
@@ -103,11 +103,18 @@ class Profile extends React.Component {
         <div>
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
         <button type="button" className="btn btn-primary"  id="edit-profile" onClick={this.handleDelete}> Delete Profile </button>
+
         </div>
       )
-    }
+    }else{
+      return (
 
-  
+        <button type="button" className="btn btn-primary"  id="follow-user" onClick={() => this.handleFollow()}> Follow this user </button>
+      )
+    }
+  }
+
+
 
   render() {
 
@@ -124,13 +131,15 @@ class Profile extends React.Component {
               {this.renderProfileCard()}
               {this.renderEditButton()}
               {this.renderModal()}
-              <button type="button" className="btn btn-primary"  id="follow-user" onClick={() => this.handleFollow()}> Follow this user </button>
+
+
             </div>
             <div className="col" id="profile-rides-list">
 
               <RideList rides={this.state.user.rides}/>
               <ForumsList forums={this.state.user.forums}/>
               <FriendsBox followers={this.state.user.followers}/>
+
 
             </div>
           </div>

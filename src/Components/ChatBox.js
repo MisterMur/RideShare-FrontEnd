@@ -6,7 +6,7 @@ class ChatBox extends Component{
     super(props)
     this.state = {
       formInput: '',
-      currentUser: 1,
+      currentUser: this.props.currentUser,
       currentChat: this.props.currentChat,
       messages: this.props.currentChat.messages
     }
@@ -14,6 +14,7 @@ class ChatBox extends Component{
 
   renderMessages = () => {
     return this.state.messages.map(message => {
+
       return (
         <div>
         <div class="incoming_msg">
@@ -41,6 +42,7 @@ class ChatBox extends Component{
   }
 
   handleMessageSubmit = () => {
+    // debugger
     fetch('http://localhost:3000/api/v1/messages',
       {method:
         "POST",
@@ -50,7 +52,7 @@ class ChatBox extends Component{
         },
         body: JSON.stringify({
           forum_id: this.state.currentChat.id,
-          user_id: this.state.currentUser,
+          user_id: this.props.currentUser.id,
           content: this.state.formInput
         })
       }
@@ -66,6 +68,7 @@ class ChatBox extends Component{
   }
 
   render(){
+    // debugger
     return (
       <Fragment>
       <div class="container">
