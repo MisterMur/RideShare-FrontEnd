@@ -119,7 +119,6 @@ class Leaderboard extends React.Component {
 
         return (
           <div key={idx}>
-
             <h1>User:{leader.name}</h1>
             <p>Miles: {this.getTotalMiles(leader)}</p>
             <p>Total Earned:{this.getTotalEarned(leader)}</p>

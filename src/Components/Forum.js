@@ -11,7 +11,7 @@ class Forum extends React.Component {
       <div onClick={(e)=>this.props.handleForumClick(e)}>
           <tr>
             <td style={{width: ""}} scope="row">{this.props.idx}</td>
-            <td scope="row" className="col">{this.props.forum.topic}</td>
+            <td id={this.props.forum.topic} scope="row" className="col">{this.props.forum.topic}</td>
           </tr>
       </div>
     )
