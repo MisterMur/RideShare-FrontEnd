@@ -1,8 +1,6 @@
 import React, { Component, Fragment} from 'react';
 import { Link, Route } from 'react-router-dom'
-import logo from './logo.svg';
 import './App.css';
-import Company from './Components/Company.js'
 import Header from './Components/Header.js'
 import Rides from './Components/Rides.js'
 import ForumsPage from './Components/ForumsPage.js'
@@ -44,7 +42,7 @@ class App extends Component {
       this.setState({
         users: users,
 
-        currentUser: users.find(user=> user.name === "Zev")
+        currentUser: users.find(user=> user.name === "Brian")
 
       })
     })

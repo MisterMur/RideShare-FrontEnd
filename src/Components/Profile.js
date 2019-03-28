@@ -62,6 +62,9 @@ class Profile extends React.Component {
     })
 
   }
+  handleDelete=(e)=>{
+    console.log('in handle delete function',e.target)
+  }
 
 
   renderModal = () => {
@@ -75,7 +78,6 @@ class Profile extends React.Component {
           handleAfterClose={this.handleAfterClose}
           handleEditFormChange={this.handleEditFormChange}
           handleSubmit={this.handleSubmit}
-
         />
       )
     }
@@ -86,6 +88,16 @@ class Profile extends React.Component {
       // debugger
       return(
         <ProfileCard user={this.props.user} companies={this.props.user.companies}/>
+      )
+    }
+  }
+  renderEditButton=()=>{
+    if(this.props.user==this.props.currentUser){
+      return(
+        <div>
+        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
+        <button type="button" className="btn btn-primary"  id="edit-profile" onClick={this.handleDelete}> Delete Profile </button>
+        </div>
       )
     }
   }
@@ -103,7 +115,7 @@ class Profile extends React.Component {
           <div className="row justify-content-center">
             <div className="col-3 justify-content-center" id="profile-card-container">
               {this.renderProfileCard()}
-              <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
+              {this.renderEditButton()}
               {this.renderModal()}
             </div>
             <div className="col" id="profile-rides-list">

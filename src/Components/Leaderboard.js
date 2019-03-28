@@ -1,5 +1,5 @@
 import React,{Fragment} from "react"
-import { Link, Route } from 'react-router-dom'
+import {  Route } from 'react-router-dom'
 import Profile from './Profile.js'
 import Leader from './Leader.js'
 
@@ -61,7 +61,7 @@ class Leaderboard extends React.Component {
       newUsers.sort((usera,userb)=>{
         return this.getTotalMiles(usera)-this.getTotalMiles(userb)
       })
-      console.log('mile leaders',users.reverse()[0])
+      console.log('mile leaders',newUsers.reverse()[0])
 
       return newUsers.reverse()[0]
     }
@@ -83,6 +83,7 @@ class Leaderboard extends React.Component {
       })
     }
     // this.setState({mostExperience:newUsers.reverse()[0]})
+    console.log('experience leaders', newUsers)
     return newUsers.reverse()[0]
   }
 
@@ -96,7 +97,6 @@ class Leaderboard extends React.Component {
 
   }
   getEarnerLeader=(users)=>{
-    // debugger
     let newUsers=[...users]
     if(newUsers!==[]){
       newUsers.sort((usera,userb)=>{
@@ -146,7 +146,6 @@ class Leaderboard extends React.Component {
         // }/>
     )
   }
-
   renderLeaderBoard=()=>{
     // console.log('mile leader',this.getMileLeader(this.props.leaders))
     // console.log('Miles:',this.getTotalMiles())
@@ -154,49 +153,55 @@ class Leaderboard extends React.Component {
 
       return (
         <Fragment>
-          <div className="container">
-          <div className="row">
-          <div className="col-5">
-          <div className="list-group" >
-            <Leader
-              title={'Highest Rating: '}
-              design={'list-group-item google-plus'}
-              icon={'icon glyphicon glyphicon-star'}
-              getUser={this.getRatingLeader(this.props.leaders)}
-              handleClick={this.handleUserClick}
-            />
-            <Leader
-              title={'Longest Duration: '}
-              design={'list-group-item facebook-like'}
-              icon={'icon glyphicon glyphicon-hourglass'}
-              getUser={this.getRatingLeader(this.props.leaders)}
-              handleClick={this.handleUserClick}
-            />
-            <Leader
-              title={'Most Miles: '}
-              design={'list-group-item twitter'}
-              icon={'icon glyphicon glyphicon-road'}
-              getUser={this.getMileLeader(this.props.leaders)}
-              handleClick={this.handleUserClick}
-            />
-            <Leader
-              title={'Highest Earner: '}
-              design={'list-group-item vimeo'}
-              icon={'icon glyphicon glyphicon-usd'}
-              getUser={this.getEarnerLeader(this.props.leaders)}
-              handleClick={this.handleUserClick}
-            />
-            <Leader
-              title={'Most Experience: '}
-              design={'list-group-item tumblr'}
-              icon={'icon glyphicon glyphicon-hourglass'}
-              getUser={this.getRatingLeader(this.props.leaders)}
-              handleClick={this.handleUserClick}
-            />
-          </div>
-          </div>
-          </div>
-          </div>
+        <div class="container">
+        <div class="row">
+        <div class="col-md-9">
+        <div class="list-group" >
+        <Leader
+        title={'Highest Rating: '}
+        design={'list-group-item google-plus'}
+        icon={'icon glyphicon glyphicon-star'}
+        getUser={this.getRatingLeader(this.props.leaders)}
+        handleClick={this.handleUserClick}
+        superlative={'rating'}
+        />
+
+      {/*  <Leader
+        title={'Longest Duration: '}
+        design={'list-group-item facebook-like'}
+        icon={'icon glyphicon glyphicon-hourglass'}
+        getUser={this.getRatingLeader(this.props.leaders)}
+        handleClick={this.handleUserClick}
+        />*/}
+        <Leader
+        title={'Most Miles: '}
+        design={'list-group-item twitter'}
+        icon={'icon glyphicon glyphicon-road'}
+        getUser={this.getMileLeader(this.props.leaders)}
+        handleClick={this.handleUserClick}
+        getStat={this.getTotalMiles}
+        />
+        <Leader
+        title={'Highest Earner: '}
+        design={'list-group-item youtube'}
+        icon={'icon glyphicon glyphicon-usd'}
+        getUser={this.getEarnerLeader(this.props.leaders)}
+        handleClick={this.handleUserClick}
+        superlative={''}
+        getStat={this.getTotalEarned}
+        />
+        <Leader
+        title={'Most Experience: '}
+        design={'list-group-item tumblr'}
+        icon={'icon glyphicon glyphicon-hourglass'}
+        getUser={this.getExperienceLeader(this.props.leaders)}
+        handleClick={this.handleUserClick}
+        superlative={'experience'}
+        />
+        </div>
+        </div>
+        </div>
+        </div>
         </Fragment>
       )
     }

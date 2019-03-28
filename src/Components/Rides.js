@@ -65,7 +65,7 @@ class Rides extends React.Component {
     this.state.allRides.map((ride) =>
       {
         for (let i = 0; i < myFriends.length; i ++){
-          if (ride.user_id == myFriends[i] ){
+          if (ride.user_id === myFriends[i] ){
           filtered.push(ride)
           }
         }
@@ -82,16 +82,16 @@ class Rides extends React.Component {
 
   handleSortSubmit = (e) => {
     e.preventDefault()
-    if (e.target.value == "distance"){
+    if (e.target.value === "distance"){
       let filtered = this.state.filteredRides.sort((a, b) => (a.distance < b.distance)? 1 : -1)
       this.setState({filteredRides: filtered})
     }
-    else if (e.target.value == "price"){
+    else if (e.target.value === "price"){
       let filtered = this.state.filteredRides.sort((a, b) => (a.price < b.price)? 1 : -1)
       this.setState({filteredRides: filtered})
     }
     //DID NOT TEST THIS YET
-    else if (e.target.value == "recent"){
+    else if (e.target.value === "recent"){
       let filtered = this.state.filteredRides.sort((a, b) => (a.end_at > b.end_at)? 1 : -1)
       this.setState({filteredRides: filtered})
     }
@@ -101,16 +101,16 @@ class Rides extends React.Component {
   handleFilterSubmit = (e) => {
     e.preventDefault()
 
-    if (e.target.value == "all"){
+    if (e.target.value === "all"){
       this.setState({filteredRides: this.state.allRides})
     }
 
-    else if (e.target.value == "uber"){
+    else if (e.target.value === "uber"){
       let filtered = this.state.allRides.filter(ride => ride.company_id === 1)
       this.setState({filteredRides: filtered})
     }
 
-    else if (e.target.value == "lyft"){
+    else if (e.target.value === "lyft"){
       let filtered = this.state.allRides.filter(ride => ride.company_id === 2)
       this.setState({filteredRides: filtered})
     }

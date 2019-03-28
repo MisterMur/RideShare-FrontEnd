@@ -16,7 +16,7 @@ const ProfileCard = (props) => {
 
   console.log("rendering profile card")
   return(
-    <div>
+
       <div className="profile-card" className="card" >
         <img src="https://cdn-images-1.medium.com/max/1200/1*kfM2czy7JbViNrmS4kcmFQ.jpeg" alt="No Profile Image" className="card-img-top"/>
         <div className="card-header">
@@ -31,7 +31,7 @@ const ProfileCard = (props) => {
         </ul>
       </div>
 
-    </div>
+  
   )
 }
 

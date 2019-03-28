@@ -54,7 +54,7 @@ class Modal extends React.Component{
     if(this.props.state.user){
       // debugger
       let companyIds = this.state.companiesValue.map(company => company.id)
-      return this.props.props.allCompanies.map(company=> {
+      return this.props.props.allCompanies.map((company,key)=> {
         return(
           <label>{company.name}
             <input onChange={() => this.handleCheckChange(company)} type="checkbox" checked={companyIds.includes(company.id)}></input>
