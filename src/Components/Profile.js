@@ -10,27 +10,40 @@ class Profile extends React.Component {
     super(props)
     this.state={
       modal: false,
-      user:props.user,
-      name:props.user.name,
-      car: props.user.car,
-      companies:props.user.companies,
-      experience:props.user.experience,
-      location:props.user.location,
-      rating:props.user.rating,
-      id:props.user.id
+      user:"",
+      // name:props.user.name,
+      // car: props.user.car,
+      // companies:props.user.companies,
+      // experience:props.user.experience,
+      // location:props.user.location,
+      // rating:props.user.rating,
+      // id:props.user.id
     }
     console.log('profile constructor props',props)
   }
-  componentWillReceiveProps(props){
-    this.setState({
-      user:props.user,
-      name:props.user.name,
-      car: props.user.car,
-      companies:props.user.companies,
-      experience:props.user.experience,
-      location:props.user.location,
-      rating:props.user.rating,
-      id:props.user.id
+  // componentWillReceiveProps(props){
+  //   this.setState({
+  //     user:props.user,
+  //     // name:props.user.name,
+  //     // car: props.user.car,
+  //     // companies:props.user.companies,
+  //     // experience:props.user.experience,
+  //     // location:props.user.location,
+  //     // rating:props.user.rating,
+  //     // id:props.user.id
+  //   })
+  // }
+
+  componentDidMount(){
+    let userUrl = 'http://localhost:3000/api/v1/users'
+    let id = parseInt(this.props.match.params.id)
+    // debugger
+    fetch(`${userUrl}/${id}`)
+    .then(res => res.json())
+    .then(res => {
+      this.setState({
+        user: res
+      })
     })
   }
 
@@ -56,9 +69,11 @@ class Profile extends React.Component {
 
   patchEditProfile(e, state){
     // debugger
+    let userUrl = 'http://localhost:3000/api/v1/users'
+    let id = parseInt(this.props.match.params.id)
+    // debugger
     e.preventDefault()
-    const profileUrl=`http://localhost:3000/api/v1/users/${this.state.id}`
-    fetch(profileUrl,{
+    fetch(`${userUrl}/${id}`,{
       headers:{
         'accepts':'application/json',
         'content-type':'application/json'
@@ -73,27 +88,18 @@ class Profile extends React.Component {
         rating:state.ratingValue,
       })
     })
-    .then(res=>{
-      console.log(res)
-      return res.json()
-    })
-    .then(editProfile=>{
-      // debugger
+    .then(r => r.json())
+    .then(res => {
       this.setState({
-        modal:false,
-        user: editProfile,
-        name: editProfile.name,
-        car: editProfile.car,
-        experience: editProfile.experience,
-        location: editProfile.location,
-        rating: editProfile.rating,
-        companies: state.companiesValue
+        user: res,
+        modal: false
       })
     })
   }
 
   renderModal = () => {
-    if(this.props.user) {
+    if(this.state.user) {
+      // debugger
       return(
         <Modal
           state={this.state}
@@ -109,6 +115,7 @@ class Profile extends React.Component {
   }
 
   render() {
+    // debugger
     console.log("rendering profile", this.state)
 
     // console.log("hit profile route", this.props)
@@ -118,13 +125,13 @@ class Profile extends React.Component {
         <div className = "container col-11">
           <div className="row justify-content-center">
             <div className="col-3 justify-content-center" id="profile-card-container">
-              <ProfileCard user={this.state.user} companies={this.state.companies}/>
+              <ProfileCard user={this.state.user} companies={this.state.user.companies}/>
               <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
               {this.renderModal()}
             </div>
             <div className="col" id="profile-rides-list">
-              <RideList rides={this.props.user.rides}/>
-              <ForumsList forums={this.props.user.forums}/>
+              <RideList rides={this.state.user.rides}/>
+              <ForumsList forums={this.state.user.forums}/>
             </div>
           </div>
         </div>

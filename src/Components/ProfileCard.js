@@ -27,7 +27,7 @@ const ProfileCard = (props) => {
           <li onMouseOver={handleHover} className="list-group-item">Experience: {props.user.experience} </li>
           <li onMouseOver={handleHover} className="list-group-item">Rating: {props.user.rating} </li>
           <li onMouseOver={handleHover} className="list-group-item">Companies: {handleCompnaies()} </li>
-          <li onMouseOver={handleHover} className="list-group-item">Base Locaion: {props.user.location}</li>
+          <li onMouseOver={handleHover} className="list-group-item">Base Location: {props.user.location}</li>
         </ul>
       </div>
 

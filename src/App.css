@@ -32,9 +32,7 @@
   width: 1% !important;
 } */
 
-#profile-rides-list {
-  padding-top: 0px;
-}
+
 
 #edit-profile {
   margin-top: 10px;
@@ -124,9 +122,9 @@ outline: none;
 }
 
 .ride-list {
-  padding-left: 50px;
-  padding-right: 50px;
-  border: 2px solid blue;
-  padding: 10px;
-  border-radius: 25px;
+  /* padding-left: 50px; */
+  /* padding-right: 50px; */
+  /* border: 2px solid blue; */
+  /* padding: 10px; */
+  /* border-radius: 25px; */
 }
