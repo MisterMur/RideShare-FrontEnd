@@ -36,7 +36,7 @@ class App extends Component {
   // }
 
   componentDidMount(){
-    const userUrl = 'http://localhost:3000/api/v1/users'
+    const userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
     fetch(userUrl)
     .then(res=>res.json())
     .then(users=>{
@@ -47,7 +47,7 @@ class App extends Component {
       })
     })
 
-    const companyUrl = 'http://localhost:3000/api/v1/companies'
+    const companyUrl = 'https://ride-share-api.herokuapp.com/api/v1/companies'
     fetch(companyUrl)
     .then(res=>res.json())
     .then(companies=>{
@@ -56,7 +56,7 @@ class App extends Component {
         allCompanies: companies
       })
     })
-    const rideUrl = 'http://localhost:3000/api/v1/rides'
+    const rideUrl = 'https://ride-share-api.herokuapp.com/api/v1/rides'
     fetch(rideUrl)
     .then(res=>res.json())
     .then(rides=>{
@@ -65,7 +65,7 @@ class App extends Component {
         rides
       })
     })
-    const forumUrl = 'http://localhost:3000/api/v1/forums'
+    const forumUrl = 'https://ride-share-api.herokuapp.com/api/v1/forums'
     fetch(forumUrl)
     .then(res=>res.json())
     .then(allForums=>{
@@ -84,7 +84,7 @@ class App extends Component {
 
   patchEditProfile = (e, state) => {
     // debugger
-    let userUrl = 'http://localhost:3000/api/v1/users'
+    let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
     let id = this.state.currentUser.id
     // let id = parseInt(this.match.params.id)
     // debugger
@@ -132,7 +132,7 @@ class App extends Component {
           <Route path="/profile/:id" exact render={(props) => {
               // debugger
               let id = parseInt(props.match.params.id)
-              let userUrl = 'http://localhost:3000/api/v1/users'
+              let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
             if(this.state.users){
               if(id !== this.state.currentUser.id){
                 let ourUser = this.state.users.find(u => u.id === id )

@@ -28,7 +28,7 @@ class Profile extends React.Component {
 
   // componentWillReceiveProps(props){
   //
-  //   let userUrl = 'http://localhost:3000/api/v1/users'
+  //   let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
   //   let id = parseInt(this.props.match.params.id)
   //   // debugger
   //   fetch(`${userUrl}/${id}`)

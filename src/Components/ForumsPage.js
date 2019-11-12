@@ -13,7 +13,7 @@ class Forums extends React.Component {
   }
 
   componentDidMount(){
-    fetch('http://localhost:3000/api/v1/forums')
+    fetch('https://ride-share-api.herokuapp.com/api/v1/forums')
     .then(r => r.json())
     .then(r => {
       this.setState({allForums: r})

@@ -43,7 +43,7 @@ class ChatBox extends Component{
 
   handleMessageSubmit = () => {
     // debugger
-    fetch('http://localhost:3000/api/v1/messages',
+    fetch('https://ride-share-api.herokuapp.com/api/v1/messages',
       {method:
         "POST",
         headers: {
