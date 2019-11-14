@@ -70,9 +70,6 @@ body{
     transform: rotate(360deg);
   }
 
-  .card {
-
-  }
 }
 
 
@@ -165,7 +162,7 @@ img{ max-width:100%;}
 .srch_bar {
   display: inline-block;
   text-align: right;
-  width: 60%; padding:
+  width: 60%; padding:0px;
 }
 .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
 

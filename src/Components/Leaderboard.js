@@ -1,5 +1,5 @@
 import React,{Fragment} from "react"
-import {  Route } from 'react-router-dom'
+import  Route from 'react-router-dom'
 import Profile from './Profile.js'
 import Leader from './Leader.js'
 
