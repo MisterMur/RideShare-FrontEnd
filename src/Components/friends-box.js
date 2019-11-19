@@ -13,7 +13,7 @@ class FriendsBox extends Component {
           <div class="card-body">
             <h5 class="card-title">Name: {follower.name}</h5>
             <p class="card-text">I drive a: {follower.car}</p>
-            <a href={`http://localhost:3001/profile/${follower.id}`} class="btn btn-primary">Check out my profile!</a>
+            <a href={`https://rideshare-frontend.netlify.com/profile/${follower.id}`} class="btn btn-primary">Check out my profile!</a>
           </div>
         </div>)
       })
