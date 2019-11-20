@@ -91,6 +91,7 @@ class Profile extends React.Component {
 }
   renderProfileCard = () => {
     if(this.state.user){
+      console.log('rendering profilecard',this.props.user)
       // debugger
       return(
         <ProfileCard user={this.props.user} companies={this.props.user.companies}/>
@@ -136,9 +137,9 @@ class Profile extends React.Component {
             </div>
             <div className="col" id="profile-rides-list">
 
-              <RideList rides={this.state.user.rides}/>
-              <ForumsList forums={this.state.user.forums}/>
-              <FriendsBox followers={this.state.user.followers}/>
+              <RideList rides={this.props.user.rides}/>
+              <ForumsList forums={this.props.user.forums}/>
+              <FriendsBox followers={this.props.user.followers}/>
 
 
             </div>

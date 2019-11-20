@@ -133,7 +133,7 @@ class App extends Component {
           <Route path="/profile/:id" exact render={(props) => {
               // debugger
               let id = parseInt(props.match.params.id)
-              let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
+              // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
             if(this.state.users){
               if(id !== this.state.currentUser.id){
                 let ourUser = this.state.users.find(u => u.id === id )

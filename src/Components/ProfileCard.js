@@ -31,7 +31,7 @@ const ProfileCard = (props) => {
         </ul>
       </div>
 
-  
+
   )
 }
 

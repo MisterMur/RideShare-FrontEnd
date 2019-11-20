@@ -1,24 +1,26 @@
 import React, {Component} from 'react'
 import Profile from './Profile.js'
+import {Link,Route,Router} from 'react-router-dom'
+
 import Fragment from 'react'
 import FollowerCard from './FollowerCard.js'
+
 class FriendsBox extends Component {
+
   handleUserClick=(e,user)=>{
     // debugger
-    console.log('in handle user click ',user)
+    // console.log('in handle user click ',user)
     return (
-      // <Route path={`/profile/${user.id}`} exact render= {() => {
-      //   return (
-          <Profile
-            user={user}
-            rides={this.props.rides}
-            forum={this.props.forums}
-            allCompanies={this.props.allCompanies}
-          />
-        // )}
-        // }/>
+              <Profile
+                {...this.props}
+                user={this.props.user}
+              />
+
+
     )
-  }
+  }//end of handle user click
+
+
   followerCards = () => {
 
     // href={`https://rideshare-frontend.netlify.com/profile/${follower.id}`}

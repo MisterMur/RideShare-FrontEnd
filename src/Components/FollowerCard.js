@@ -1,8 +1,10 @@
 import React from "react";
-import Profile from './Profile.js';
-import {Link} from 'react-router-dom'
-var randImg = 'http://lorempixel.com/400/200/sports/'
+import {Link,Route,Router} from 'react-router-dom'
+import Profile from './Profile.js'
 
+
+
+var randImg = 'http://lorempixel.com/400/200/sports/'
 
 class FollowerCard extends React.Component {
   constructor(props){
@@ -18,7 +20,18 @@ class FollowerCard extends React.Component {
   //         />
   //   )
   // }
+  // <Link to={`/profile/${this.props.follower.id}`}>
+  // </Link>
 
+
+
+
+  // <Route path={`/profile/${this.props.follower.id}`} user={this.props.follower} />
+  // <button
+  //   type="button"
+  //   class="btn btn-primary"
+  //   >
+  //   Check out my profile!</button>
   render() {
     return (
       <div class="card follower-container" >
@@ -27,15 +40,13 @@ class FollowerCard extends React.Component {
           <h5 class="card-title">Name: {this.props.follower.name}</h5>
           <p class="card-text">I drive a: {this.props.follower.car}</p>
 
-          <div onClick={(e,)=>this.props.handleUserClick(e,this.props.follower)}>
+          <div onClick={(e,user)=>this.props.handleUserClick(e,this.props.follower)}>
             <Link to={`/profile/${this.props.follower.id}`}>
               <button
                 type="button"
                 class="btn btn-primary"
-                id={this.props.follower.id}
                 >
                 Check out my profile!</button>
-
             </Link>
 
           </div>
