@@ -117,7 +117,7 @@ class Rides extends React.Component {
   }
 
   render() {
-    console.log("hit rides route")
+    // console.log("hit rides route")
     return (
       <div className = "container col-11">
         <Leaderboard

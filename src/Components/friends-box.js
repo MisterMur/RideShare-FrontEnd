@@ -1,21 +1,41 @@
 import React, {Component} from 'react'
-var randImg = 'http://lorempixel.com/400/200/sports/'
-
+import Profile from './Profile.js'
+import Fragment from 'react'
+import FollowerCard from './FollowerCard.js'
 class FriendsBox extends Component {
-
+  handleUserClick=(e,user)=>{
+    // debugger
+    console.log('in handle user click ',user)
+    return (
+      // <Route path={`/profile/${user.id}`} exact render= {() => {
+      //   return (
+          <Profile
+            user={user}
+            rides={this.props.rides}
+            forum={this.props.forums}
+            allCompanies={this.props.allCompanies}
+          />
+        // )}
+        // }/>
+    )
+  }
   followerCards = () => {
 
+    // href={`https://rideshare-frontend.netlify.com/profile/${follower.id}`}
     if (this.props.followers){
-       return this.props.followers.map(follower => {
+       return this.props.followers.map((follower,key) => {
+         // debugger
         return (
-          <div class="card follower-container" >
-          <img class="card-img-top" src={randImg} alt="Card image cap"/>
-          <div class="card-body">
-            <h5 class="card-title">Name: {follower.name}</h5>
-            <p class="card-text">I drive a: {follower.car}</p>
-            <a href={`https://rideshare-frontend.netlify.com/profile/${follower.id}`} class="btn btn-primary">Check out my profile!</a>
-          </div>
-        </div>)
+
+          <FollowerCard
+            handleUserClick={this.handleUserClick}
+            key={key}
+            idx={key+1}
+            follower={follower}
+            />
+        )
+
+
       })
     }
   }

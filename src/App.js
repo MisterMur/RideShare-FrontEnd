@@ -10,7 +10,9 @@ import Profile from './Components/Profile.js'
 // function Forum() {
 //   return <h2> Forums </h2>
 // }
-
+const userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
+const companyUrl = 'https://ride-share-api.herokuapp.com/api/v1/companies'
+const rideUrl = 'https://ride-share-api.herokuapp.com/api/v1/rides'
 
 class App extends Component {
 
@@ -25,6 +27,8 @@ class App extends Component {
     friendships: [],
     currentUser: ''
   }
+
+
   //
   // getCompanies(){
   //   let companies = [...this.state.companies]
@@ -36,7 +40,6 @@ class App extends Component {
   // }
 
   componentDidMount(){
-    const userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
     fetch(userUrl)
     .then(res=>res.json())
     .then(users=>{
@@ -47,7 +50,6 @@ class App extends Component {
       })
     })
 
-    const companyUrl = 'https://ride-share-api.herokuapp.com/api/v1/companies'
     fetch(companyUrl)
     .then(res=>res.json())
     .then(companies=>{
@@ -56,7 +58,6 @@ class App extends Component {
         allCompanies: companies
       })
     })
-    const rideUrl = 'https://ride-share-api.herokuapp.com/api/v1/rides'
     fetch(rideUrl)
     .then(res=>res.json())
     .then(rides=>{
@@ -84,7 +85,7 @@ class App extends Component {
 
   patchEditProfile = (e, state) => {
     // debugger
-    let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
+    // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
     let id = this.state.currentUser.id
     // let id = parseInt(this.match.params.id)
     // debugger

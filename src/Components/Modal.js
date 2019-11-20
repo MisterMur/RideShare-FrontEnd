@@ -26,7 +26,7 @@ class Modal extends React.Component{
 
 
   handleCheckChange = (company) => {
-    console.log("handling check change")
+    // console.log("handling check change")
     let companyIds = this.state.companiesValue.map(company => company.id)
     if(companyIds.includes(company.id)){
       // debugger
@@ -131,8 +131,8 @@ class Modal extends React.Component{
 
   render(){
     // debugger
-    console.log(this.state)
-    console.log(this.props)
+    // console.log(this.state)
+    // console.log(this.props)
     return(
       <Fragment>
         {this.renderEditModal()}

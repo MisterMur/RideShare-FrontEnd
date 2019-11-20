@@ -38,7 +38,7 @@ class Leaderboard extends React.Component {
   }
   getTotalEarned=(user)=>{
     let totalEarned=0
-    console.log('get total earnd',user)
+    // console.log('get total earnd',user)
     if(user.rides){
       user.rides.map(r=>totalEarned+=r.price)
       return totalEarned
@@ -61,7 +61,7 @@ class Leaderboard extends React.Component {
       newUsers.sort((usera,userb)=>{
         return this.getTotalMiles(usera)-this.getTotalMiles(userb)
       })
-      console.log('mile leaders',newUsers.reverse()[0])
+      // console.log('mile leaders',newUsers.reverse()[0])
 
       return newUsers.reverse()[0]
     }
@@ -83,7 +83,7 @@ class Leaderboard extends React.Component {
       })
     }
     // this.setState({mostExperience:newUsers.reverse()[0]})
-    console.log('experience leaders', newUsers)
+    // console.log('experience leaders', newUsers)
     return newUsers.reverse()[0]
   }
 
@@ -103,8 +103,8 @@ class Leaderboard extends React.Component {
         // console.log('user a',usera)
         // console.log('user b',userb)
 
-        console.log('user a  earned',this.getTotalEarned(usera))
-        console.log('user b earned',this.getTotalEarned(userb))
+        // console.log('user a  earned',this.getTotalEarned(usera))
+        // console.log('user b earned',this.getTotalEarned(userb))
 
         return this.getTotalEarned(usera)-this.getTotalEarned(userb)
       })
