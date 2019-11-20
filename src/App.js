@@ -5,8 +5,9 @@ import Header from './Components/Header.js'
 import Rides from './Components/Rides.js'
 import ForumsPage from './Components/ForumsPage.js'
 import Profile from './Components/Profile.js'
+import {Navbar, Nav, NavItem,NavDropdown} from 'react-bootstrap';
 
-
+// import NavDropDown from 'react-bootstrap/NavDropDown'
 // function Forum() {
 //   return <h2> Forums </h2>
 // }
@@ -114,19 +115,57 @@ class App extends Component {
     })
   }
 
+renderHeader=()=>{
+  return (
+    <>
+    <Header />
+    <Navbar bg='dark' expand='sm' role="banner" class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+         <div class="navbar-header">
+           <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-left"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+         </div>
+         <div class="navbar-inverse side-collapse in">
+           <nav role="navigation" class="navbar-collapse">
+             <ul class="nav navbar-nav">
+               {this.renderProfileLink()}
+               <Link to="/rides">Rides</Link>
+               <Link to="/forums">Forums</Link>
 
+             </ul>
+           </nav>
+         </div>
+       </div>
+     </Navbar>
+  </>
+  )
+
+}
+
+renderbootstrapheader=()=>{
+  return (
+    <>
+    <Header />
+    <Navbar bg="dark" expand="md">
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link>{this.renderProfileLink()}</Nav.Link>
+          <Nav.Link><Link to="/rides">Rides</Link></Nav.Link>
+          <Nav.Link><Link to="/forums">Forums</Link></Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+
+    </>
+  )
+}
 
 
   render() {
     //console.log('in app render', this.state)
     return (
       <Fragment>
-        <Header />
-        <div className="container col-11">
-          {this.renderProfileLink()}
-          <Link to="/rides">Rides</Link>
-          <Link to="/forums">Forums</Link>
-        </div>
+        {this.renderbootstrapheader()}
 
 
 
