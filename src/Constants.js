@@ -1,7 +1,14 @@
-export  const USERURL='https://ride-share-api.herokuapp.com/api/v1/users'
-export  const COMPANYURL = 'https://ride-share-api.herokuapp.com/api/v1/companies'
-export  const RIDEURL = 'https://ride-share-api.herokuapp.com/api/v1/rides'
-
+//development vals
+export  const USERURL='localhost:3000/api/v1/users/'
+export  const COMPANYURL ='localhost:3000/api/v1/companies/'
+export  const RIDEURL = 'localhost:3000/api/v1/rides/'
+export const FRIENDSHIPURL = 'http://localhost:3000/api/v1/friendships'
+export const LOGINURL = 'http://localhost:3000/api/v1/login'
+//production vals
+// export  const USERURL='http://ride-share-api.herokuapp.com/api/v1/users/'
+// export  const COMPANYURL = 'http://ride-share-api.herokuapp.com/api/v1/companies/'
+// export  const RIDEURL = 'http://ride-share-api.herokuapp.com/api/v1/rides/'
+// export const FRIENDSHIPURL = 'http://ride-share-api.herokuapp.com/api/v1/friendships'
 
 export const ADD_USER='ADD_USER'
 export const LOGIN_USER='LOGIN_USER'

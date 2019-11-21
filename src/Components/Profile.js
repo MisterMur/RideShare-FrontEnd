@@ -7,6 +7,9 @@ import ReactModal from 'react-modal'
 import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
 import {USERURL} from '../Constants.js'
+import {connect} from 'react-redux'
+import {postNewFriendship} from '../Actions.js'
+
 class Profile extends React.Component {
   constructor(props){
     super(props)
@@ -98,6 +101,7 @@ class Profile extends React.Component {
   handleFollow = () => {
     console.log(this);
     let tempUser ={...this.props.user}
+      this.props.postNewFriendship(this.props.currentUser,this.props.user)
     // this.setState(prevState=>{
     //   currentUser:{
     //     currentUser.followers:[...prevState.curentUser.followers, tempUser]
@@ -221,5 +225,7 @@ renderFollowButton=()=>{
       </Fragment>
     )
   }
+}const actions={
+  postNewFriendship
 }
-export default Profile
+export default connect(null,actions) (Profile)

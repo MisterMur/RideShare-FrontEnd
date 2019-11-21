@@ -1,12 +1,15 @@
 import React, { Component, Fragment} from 'react';
-import { Link, Route } from 'react-router-dom'
+import { Link, Route,Switch } from 'react-router-dom'
 import './App.css';
+import {Grid} from 'semantic-ui-react'
 import Header from './Components/Header.js'
 import Rides from './Components/Rides.js'
 import ForumsPage from './Components/ForumsPage.js'
 import Profile from './Components/Profile.js'
 import { connect } from 'react-redux';
 import { fetchUsers } from './Actions';
+import LoginForm from './Components/LoginForm.js'
+import SignupForm from './Components/SignupForm.js'
 
 import {Navbar, Nav, NavItem,NavDropdown} from 'react-bootstrap';
 
@@ -162,93 +165,109 @@ renderbootstrapheader=()=>{
     </>
   )
 }
+renderMainPage =()=>{
+  return (
+    <>
+    <Fragment>
+    <Route path="/profile/:id" exact render={(props) => {
+        // debugger
+        let id = parseInt(props.match.params.id)
+        // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
+      if(this.state.users){
+        if(id !== this.state.currentUser.id){
+          let ourUser = this.state.users.find(u => u.id === id )
+          // debugger
+          return (
+            <Profile
+              {...props}
+              allCompanies={this.state.allCompanies}
+              currentUser={this.state.currentUser}
+              user={ourUser}
+              handleEdit={this.patchEditProfile}
+            />
+          )
+        }
+        else {
+          let ourOtherUser = this.state.currentUser
+          // debugger
+          return (
+            <Profile
+              {...props}
+              allCompanies={this.state.allCompanies}
+              currentUser={this.state.currentUser}
+              user={ourOtherUser}
+              handleEdit={this.patchEditProfile}
+            />
+          )
+        }}
+    }}/>
+
+
+    <Route path="/rides" exact render={() => {
+      return (
+        <Fragment>
+        <Rides
+          allUsers={this.state.users}
+          user={this.state.currentUser}
+          forum={this.state.forums}
+          rides={this.state.rides}
+          allCompanies={this.state.allCompanies}
+        />
+        </Fragment>
+      )}
+
+      }/>
+    {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
+    <Route path="/forums" exact render={() => {
+      return (
+        <Fragment>
+        <ForumsPage
+        users={this.state.users}
+        currentUser={this.state.currentUser}
+        />
+        </Fragment>
+      )}
+
+      }/>
+      <Route path="/" exact render={() => {
+        return (
+          <Fragment>
+          <Rides
+            allUsers={this.state.users}
+            users={this.state.users}
+            user={this.state.currentUser}
+            forum={this.state.forums}
+            rides={this.state.rides}
+            allCompanies={this.state.allCompanies}
+          />
+          </Fragment>
+        )}
+      }/>
+
+
+</Fragment>
+
+    </>
+  )
+}
 
 
   render() {
     //console.log('in app render', this.state)
     return (
-      <Fragment>
+      <>
+        <Grid>
         {this.renderbootstrapheader()}
+				<Grid.Row centered>
+					<Switch>
+						<Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.setCurrentUser} />} />
+						<Route path="/signup" component={SignupForm} />
+					</Switch>
+				</Grid.Row>
+			</Grid>
+        {this.renderMainPage()}
 
-
-
-          <Route path="/profile/:id" exact render={(props) => {
-              // debugger
-              let id = parseInt(props.match.params.id)
-              // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-            if(this.state.users){
-              if(id !== this.state.currentUser.id){
-                let ourUser = this.state.users.find(u => u.id === id )
-                // debugger
-                return (
-                  <Profile
-                    {...props}
-                    allCompanies={this.state.allCompanies}
-                    currentUser={this.state.currentUser}
-                    user={ourUser}
-                    handleEdit={this.patchEditProfile}
-                  />
-                )
-              }
-              else {
-                let ourOtherUser = this.state.currentUser
-                // debugger
-                return (
-                  <Profile
-                    {...props}
-                    allCompanies={this.state.allCompanies}
-                    currentUser={this.state.currentUser}
-                    user={ourOtherUser}
-                    handleEdit={this.patchEditProfile}
-                  />
-                )
-              }}
-          }}/>
-
-
-          <Route path="/rides" exact render={() => {
-            return (
-              <Fragment>
-              <Rides
-                allUsers={this.state.users}
-                user={this.state.currentUser}
-                forum={this.state.forums}
-                rides={this.state.rides}
-                allCompanies={this.state.allCompanies}
-              />
-              </Fragment>
-            )}
-
-            }/>
-          {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
-          <Route path="/forums" exact render={() => {
-            return (
-              <Fragment>
-              <ForumsPage
-              users={this.state.users}
-              currentUser={this.state.currentUser}
-              />
-              </Fragment>
-            )}
-
-            }/>
-            <Route path="/" exact render={() => {
-              return (
-                <Fragment>
-                <Rides
-                  allUsers={this.state.users}
-                  users={this.state.users}
-                  user={this.state.currentUser}
-                  forum={this.state.forums}
-                  rides={this.state.rides}
-                  allCompanies={this.state.allCompanies}
-                />
-                </Fragment>
-              )}
-            }/>
-
-
-      </Fragment>
+      </>
     );
   }
 }

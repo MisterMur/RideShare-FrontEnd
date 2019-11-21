@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import { ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER} from './Constants';
+import { FRIENDSHIPURL ,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -41,4 +41,48 @@ export function fetchUsers() {
         dispatch(setLoggedInUser(users=>users.name==="Brian"))
     })
   }
+}
+export function postNewFriendship(currentUser,follower){
+  // const scheduleUrl='http://localhost:3000/api/v1/schedules'
+  // console.log('in handle add schedule',e)
+  // debugger
+
+  // fetch( 'http://localhost:3000/api/v1/friendships' ,{
+  //   method:"POST",
+  //   headers:{
+  //     'Content-Type':'application/json',
+  //     'Accepts':'application/json'
+  //   },
+  //   body:JSON.stringify({
+  //     followee_id:currentUser.id,
+  //     follower_id:follower.id
+  //   })
+  // }).then(console.log)
+
+  return dispatch=>{
+    return fetch( FRIENDSHIPURL ,{
+      method:"POST",
+      headers:{
+        'Content-Type':'application/json',
+        'Accepts':'application/json'
+      },
+      body:JSON.stringify({
+        follower_id:currentUser.id,
+        followee_id:follower.id
+      })
+    }).then(console.log)
+    .then(handleErrors)
+    .then(function(){
+      dispatch(fetchUsers())
+    })
+  }
+}
+
+
+
+function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
 }
