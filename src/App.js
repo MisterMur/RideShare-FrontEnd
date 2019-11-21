@@ -5,6 +5,9 @@ import Header from './Components/Header.js'
 import Rides from './Components/Rides.js'
 import ForumsPage from './Components/ForumsPage.js'
 import Profile from './Components/Profile.js'
+import { connect } from 'react-redux';
+import { fetchUsers } from './Actions';
+
 import {Navbar, Nav, NavItem,NavDropdown} from 'react-bootstrap';
 
 // import NavDropDown from 'react-bootstrap/NavDropDown'
@@ -250,18 +253,13 @@ renderbootstrapheader=()=>{
   }
 }
 
-export default App;
 
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchUsers: (n) => dispatch(fetchUsers())
+  }
+}
 
+// export default connect(null, mapDispatchToProps);
 
-
-// <Route path="/profile" exact render={() => {
-//   return (
-//     <Profile
-//     user={this.state.currentUser}
-//     rides={this.state.rides}
-//     forum={this.state.forums}
-//     allCompanies={this.state.allCompanies}
-//     />
-//   )}
-// }/>
+export default App

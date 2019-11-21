@@ -5,7 +5,8 @@ import ForumsList from './ForumsList.js'
 import Modal from './Modal.js'
 import ReactModal from 'react-modal'
 import FriendsBox from './friends-box'
-
+import {Button} from 'react-bootstrap'
+import {USERURL} from '../Constants.js'
 class Profile extends React.Component {
   constructor(props){
     super(props)
@@ -25,6 +26,15 @@ class Profile extends React.Component {
     }
     console.log('profile constructor props',props)
   }
+
+//   componentWillMount() {
+//   //
+//     this.setState((prevState)=>{
+//       currentUser:prevState.currentUser
+//     });
+//
+// }
+
 
   // componentWillReceiveProps(props){
   //
@@ -87,7 +97,47 @@ class Profile extends React.Component {
 
   handleFollow = () => {
     console.log(this);
+    let tempUser ={...this.props.user}
+    // this.setState(prevState=>{
+    //   currentUser:{
+    //     currentUser.followers:[...prevState.curentUser.followers, tempUser]
+    //   }
+    // })
+    // this.setState(({currentUser})=>({currentUser:{
+    //   ...currentUser,
+    //   currentUser.followers:[...followers,tempUser]
+    // }}))
     // debugger
+    // fetch(`${USERURL}/${this.state.currentUser.id}`,{
+    //   headers:{
+    //     'accepts':'application/json',
+    //     'content-type':'application/json'
+    //   },
+    //   method:'PATCH',
+    //   body:JSON.stringify({
+    //     followers:[...this.state.currentUser.followers,tempUser]
+    //   })
+    // })
+    // .then(r => r.json())
+    // .then(currentUser => {
+    //   this.setState({
+    //     currentUser
+    //   })
+    // })
+}//hand follow
+handleUnFollow = () => {
+  console.log(this);
+  let tempUser = Object.assign({},this.props.currentUser)
+  // debugger
+  // tempUser.followers = tempUser.followers.filter(f=>f.id=this.props.user.id)
+  this.setState(prevState=>({
+    currentUser:{
+      ...prevState.currentUser,
+      followers:tempUser.followers.filter(f=>f.id==this.props.user.id)
+    }
+  })
+)
+
 }
   renderProfileCard = () => {
     if(this.state.user){
@@ -109,15 +159,37 @@ class Profile extends React.Component {
       )
     }else{
       return (
-
-        <button type="button" className="btn btn-primary"  id="follow-user" onClick={() => this.handleFollow()}> Follow this user </button>
+        <>
+          {this.renderFollowButton()}
+        </>
       )
     }
   }
 
+renderFollowButton=()=>{
+  //if current user isnt following yet, render follow button
+  //if current user is following render unfollow button
+  let followList = this.props.currentUser.followers
+  if(!  followList.find(x=>x.id ===this.props.user.id))
+  {
+    return   (
+      <>
+        <Button className="btn btn-primary"  id="follow-user" onClick={() => this.handleFollow()}> Follow this user </Button>
+      </>
+  )
+  }
+  else{
+    return (
+      <>
+        <Button className="btn btn-primary"  id="follow-user" onClick={() => this.handleUnFollow()}> Unfollow this user </Button>
+      </>
+    )
+  }
+}
 
 
   render() {
+
 
 
     console.log("rendering profile", this.state)
