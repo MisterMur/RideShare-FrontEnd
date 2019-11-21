@@ -83,6 +83,32 @@ class App extends Component {
     })
   }
 
+
+	setCurrentUser = (response) => {
+    // we need to set the current user and the token
+		// localStorage.setItem("token", response.jwt)
+		this.setState({
+			currentUser: response
+		})
+	}
+
+	updateUser = (user) => {
+    // this is just so all of our data is as up to date as possible now that we are
+    // just keep state at the top level of our application in order to correctly update
+    // we must have the state be updated properly
+		this.setState({
+			currentUser: user
+		})
+	}
+
+	logout = () => {
+    // we need to reset state and remove the current user and remove the token
+		// localStorage.removeItem("token")
+		this.setState({
+			currentUser: null
+		}, () => { this.props.history.push("/login") })
+	}
+
   renderProfileLink = () => {
     if(this.state.currentUser){
       return <Link to={`/profile/${this.state.currentUser.id}`}>Profile</Link>
@@ -261,7 +287,7 @@ renderMainPage =()=>{
 				<Grid.Row centered>
 					<Switch>
 						<Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.setCurrentUser} />} />
-						<Route path="/signup" component={SignupForm} />
+						<Route path="/signup"  render={routerProps => <SignupForm {...routerProps} setCurrentUser={this.setCurrentUser} />} />
 					</Switch>
 				</Grid.Row>
 			</Grid>

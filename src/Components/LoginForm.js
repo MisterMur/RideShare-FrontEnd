@@ -29,10 +29,12 @@ class LoginForm extends React.Component {
 				alert(response.errors)
 			} else {
 					// we need to login at the top level where we are holding our current user!
-					// setState in App to currentuser
+					// setState in App to currentuse
+					// debugger
+					debugger
 					this.props.setCurrentUser(response.user)
 					localStorage.setItem('jwt', response.jwt)
-					this.props.history.push(`/users/${response.user.id}`)
+					this.props.history.push(`/users/${response.id}`)
 				}
 			})
 	}

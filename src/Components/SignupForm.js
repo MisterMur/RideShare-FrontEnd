@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Button } from 'semantic-ui-react'
+import {USERURL} from '../Constants.js'
 
 class SignupForm extends React.Component {
 	state = {
@@ -16,7 +17,7 @@ class SignupForm extends React.Component {
 	}
 
 	createUser = () => {
-		fetch("http://localhost:3001/api/v1/users", {
+		fetch(USERURL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -27,10 +28,13 @@ class SignupForm extends React.Component {
 		.then(res => res.json())
 		.then((response) => {
 
-			if (response.errors){
-				alert(response.errors)
+			if (response.error){
+				alert(response.error)
 			} else {
-				this.props.history.push(`/users/${response.user.id}`)
+				// debugger
+				this.props.setCurrentUser(response.user)
+				localStorage.setItem('jwt', response.jwt)
+				this.props.history.push(`/users/${response.id}`)
 			}
 		})
 	}
