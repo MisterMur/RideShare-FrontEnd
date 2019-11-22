@@ -7,33 +7,58 @@ import Rides from './Components/Rides.js'
 import ForumsPage from './Components/ForumsPage.js'
 import Profile from './Components/Profile.js'
 import { connect } from 'react-redux';
-import { fetchUsers } from './Actions';
+
+import {getProfileFetch, setLogout,fetchUsers} from './Actions';
+
 import LoginForm from './Components/LoginForm.js'
 import SignupForm from './Components/SignupForm.js'
 
-import {Navbar, Nav, NavItem,NavDropdown} from 'react-bootstrap';
+import {Navbar, Nav, NavItem,NavDropdown,Button} from 'react-bootstrap';
+import {AUTOLOGINURL,USERURL} from './Constants.js'
 
 // import NavDropDown from 'react-bootstrap/NavDropDown'
 // function Forum() {
 //   return <h2> Forums </h2>
 // }
-const userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-const companyUrl = 'https://ride-share-api.herokuapp.com/api/v1/companies'
-const rideUrl = 'https://ride-share-api.herokuapp.com/api/v1/rides'
+// const userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
+// const companyUrl = 'https://ride-share-api.herokuapp.com/api/v1/companies'
+// const rideUrl = 'https://ride-share-api.herokuapp.com/api/v1/rides'
 
 class App extends Component {
 
-  state = {
-    modal: false,
-    allCompanies:[],
-    users: "",
-    // users: [],
-    rides: [],
-    forums:[],
-    allForums:[],
-    friendships: [],
-    currentUser: ''
+  // state = {
+  //   allCompanies:[],
+  //   users: "",
+  //   // users: [],
+  //   rides: [],
+  //   forums:[],
+  //   allForums:[],
+  //   friendships: [],
+  //   currentUser: null
+  // }
+
+componentDidMount() {
+
+   this.props.getProfileFetch()
+
+  const jwt = localStorage.getItem('jwt')
+
+  if (jwt){
+    fetch(AUTOLOGINURL, {
+      headers: {
+        "Authorization": jwt
+      }
+    })
+      .then(res => res.json())
+      .then((response) => {
+        if (response.errors) {
+          alert(response.errors)
+        } else {
+          this.setState({currentUser: response})
+        }
+      })
   }
+}
 
 
   //
@@ -46,6 +71,7 @@ class App extends Component {
   //   })
   // }
 
+  /*
   componentDidMount(){
     fetch(userUrl)
     .then(res=>res.json())
@@ -83,10 +109,19 @@ class App extends Component {
     })
   }
 
+*/
+handleLogout = event => {
+  event.preventDefault()
+  // Remove the token from localStorage
+  localStorage.removeItem("token")
+  // Remove the user object from the Redux store
+  this.props.logoutUser()
+}
 
 	setCurrentUser = (response) => {
     // we need to set the current user and the token
 		// localStorage.setItem("token", response.jwt)
+
 		this.setState({
 			currentUser: response
 		})
@@ -100,18 +135,21 @@ class App extends Component {
 			currentUser: user
 		})
 	}
-
-	logout = () => {
-    // we need to reset state and remove the current user and remove the token
-		// localStorage.removeItem("token")
-		this.setState({
-			currentUser: null
-		}, () => { this.props.history.push("/login") })
-	}
+  //
+	// logout = () => {
+  //   // we need to reset state and remove the current user and remove the token
+	// 	// localStorage.removeItem("token")
+	// 	this.setState({
+	// 		currentUser: null
+	// 	}, () => { this.props.history.push("/login") })
+	// }
 
   renderProfileLink = () => {
-    if(this.state.currentUser){
-      return <Link to={`/profile/${this.state.currentUser.id}`}>Profile</Link>
+    // console.log('in render profile link')
+    // debugger
+    if(this.props.currentUser){
+      console.log(this.props)
+      return <Link to={`/profile/${this.props.currentUser.id}`}>Profile</Link>
     }
   }
 
@@ -123,7 +161,7 @@ class App extends Component {
     // let id = parseInt(this.match.params.id)
     // debugger
     e.preventDefault()
-    fetch(`${userUrl}/${id}`,{
+    fetch(`${USERURL}/${id}`,{
       headers:{
         'accepts':'application/json',
         'content-type':'application/json'
@@ -173,6 +211,12 @@ renderHeader=()=>{
 
 }
 
+// <Nav className="mr-auto">
+//   <Nav.Link>{this.renderProfileLink()}</Nav.Link>
+//   <Nav.Link><Link to="/rides">Rides</Link></Nav.Link>
+//   <Nav.Link><Link to="/forums">Forums</Link></Nav.Link>
+// </Nav>
+
 renderbootstrapheader=()=>{
   return (
     <>
@@ -180,11 +224,19 @@ renderbootstrapheader=()=>{
     <Navbar bg="dark" expand="md">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link>{this.renderProfileLink()}</Nav.Link>
-          <Nav.Link><Link to="/rides">Rides</Link></Nav.Link>
-          <Nav.Link><Link to="/forums">Forums</Link></Nav.Link>
+
+        <Nav pullRight>
+          <NavItem componentClass='span'>
+            {this.renderProfileLink()}
+          </NavItem>
+          <NavItem componentClass='span'>
+            <Link to="/rides">Rides</Link>
+          </NavItem>
+          <NavItem componentClass='span'>
+            <Link to="/forums">Forums</Link>
+          </NavItem>
         </Nav>
+
       </Navbar.Collapse>
     </Navbar>
 
@@ -259,12 +311,12 @@ renderMainPage =()=>{
         return (
           <Fragment>
           <Rides
-            allUsers={this.state.users}
-            users={this.state.users}
-            user={this.state.currentUser}
-            forum={this.state.forums}
-            rides={this.state.rides}
-            allCompanies={this.state.allCompanies}
+            allUsers={this.props.users}
+            users={this.props.users}
+            user={this.props.currentUser}
+            forum={this.props.forums}
+            rides={this.props.rides}
+            allCompanies={this.props.allCompanies}
           />
           </Fragment>
         )}
@@ -276,35 +328,66 @@ renderMainPage =()=>{
     </>
   )
 }
-
-
+//for logout render button
+// {this.props.currentUser.username
+//   ? <Button onClick={this.handleLogout}>Log Out</Button>
+//   : null
+// }
   render() {
     //console.log('in app render', this.state)
     return (
-      <>
-        <Grid>
-        {this.renderbootstrapheader()}
-				<Grid.Row centered>
-					<Switch>
-						<Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.setCurrentUser} />} />
-						<Route path="/signup"  render={routerProps => <SignupForm {...routerProps} setCurrentUser={this.setCurrentUser} />} />
-					</Switch>
-				</Grid.Row>
-			</Grid>
-        {this.renderMainPage()}
+   <div>
+     <Switch>
+       <Route path="/signup"  render={routerProps => <SignupForm {...routerProps} renderHeader={this.renderbootstrapheader}/>}/>
+       <Route path="/login" render={routerProps => <LoginForm {...routerProps} renderHeader={this.renderbootstrapheader}/>}/>
+       <Route path="/rides" render={routerProps=><Rides {...routerProps} renderHeader={this.renderbootstrapheader}/>}/>
+       <Route path="/forums" render={routerProps=><ForumsPage {...routerProps} renderHeader={this.renderbootstrapheader}/>}/>
+     </Switch>
 
-      </>
-    );
+   </div>
+ );
+    // return (
+    //   <>
+    //     <Grid>
+    //     {this.renderbootstrapheader()}
+		// 		<Grid.Row centered>
+		// 			<Switch>
+		// 				<Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.setCurrentUser} />} />
+		// 				<Route path="/signup"  render={routerProps => <SignupForm {...routerProps} setCurrentUser={this.setCurrentUser} />} />
+		// 			</Switch>
+		// 		</Grid.Row>
+		// 	</Grid>
+    //     {this.renderMainPage()}
+    //
+    //   </>
+    // );
   }
 }
 
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => ({
+  getProfileFetch: () => dispatch(getProfileFetch()),
+  fetchUsers: () => dispatch(fetchUsers()),
+  setLogout: () => dispatch(setLogout())
+})
+function mapStateToProps(state) {
+  // maps the state from the store to the props
   return {
-    fetchUsers: (n) => dispatch(fetchUsers())
+    allCompanies:[],
+    rides: [],
+    forums:[],
+    allForums:[],
+    users:[],
+    currentUser: null
   }
 }
 
-// export default connect(null, mapDispatchToProps);
+// higher order function => it returns another function or takes one as an arguement or both
+// higher order component => function that takes a component returns another compoonbent
+// const HOC = connect(mapStateToProps)
+//
+// export default HOC(App);
 
-export default App
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+// export default App

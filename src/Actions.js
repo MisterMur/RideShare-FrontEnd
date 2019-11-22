@@ -1,11 +1,18 @@
 import UUID from 'uuid';
-import { FRIENDSHIPURL ,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER} from './Constants';
+import { FRIENDSHIPURL ,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
   return {
     type: ADD_USER,
     payload: { id: UUID(), name, email }
+  }
+}
+
+export function logoutUser()  {
+  return {
+
+    type: LOGOUT_USER
   }
 }
 
@@ -79,6 +86,105 @@ export function postNewFriendship(currentUser,follower){
 }
 
 
+export function createUser (login_data) {
+  return dispatch =>{
+
+    fetch(USERURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accepts": "application/json",
+      },
+      body: JSON.stringify(login_data)
+    })
+    .then(res => res.json())
+    .then((response) => {
+
+      if (response.error){
+        alert(response.error)
+      } else {
+        // debugger
+        // localStorage.setItem("token", response.jwt)
+
+        this.props.setCurrentUser(response.user)
+        localStorage.setItem('jwt', response.jwt)
+        dispatch (setLoggedInUser(response.user))
+        this.props.history.push(`/users/${response.user.id}`)
+      }
+    })
+  }
+}
+export function userLoginFetch  (user,callback) {
+  return dispatch =>{
+    fetch(LOGINURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accepts": "application/json",
+      },
+      body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+    .then((response) => {
+      if (response.errors) {
+        alert(response.errors)
+      } else {
+        // we need to login at the top level where we are holding our current user!
+        // setState in App to currentuse
+        // debugger
+        // debugger
+        // this.props.setCurrentUser(response.user)
+        localStorage.setItem('jwt', response.jwt)
+        dispatch(setLoggedInUser(response.user))
+        // this.props.history.push(`/profile/${response.user.id}`)
+
+        // return <><Link to={`/profile/${this.props.currentUser.id}`}>Profile</Link></>
+
+
+      }
+    })
+
+  }
+  callback()
+
+}
+
+export function getProfileFetch() {
+  return dispatch => {
+    const token = localStorage.token;
+    if (token) {
+      return fetch("http://localhost:3000/api/v1/profile", {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          "Accepts": 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          if (data.message) {
+            // An error will occur if the token is invalid.
+            // If this happens, you may want to remove the invalid token.
+            localStorage.removeItem("token")
+          } else {
+            dispatch(setLoggedInUser(data.user))
+          }
+        })
+    }
+  }
+}
+export function setLogout ()  {
+  // we need to reset state and remove the current user and remove the token
+  return function(dispatch) {
+    dispatch({ type: LOGOUT_USER });
+
+    localStorage.removeItem("jwt")
+
+    dispatch(logoutUser())
+    this.props.history.push("/login")
+  }
+}
 
 function handleErrors(response) {
   if (!response.ok) {

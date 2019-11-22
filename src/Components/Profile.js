@@ -2,7 +2,7 @@ import React,{Fragment} from "react";
 import ProfileCard from './ProfileCard'
 import RideList from './RideList.js'
 import ForumsList from './ForumsList.js'
-import ReactModal from 'react-modal'
+import Modal from './Modal.js'
 
 import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
@@ -84,7 +84,7 @@ class Profile extends React.Component {
     if(this.props.user) {
       // debugger
       return(
-        <ReactModal
+        <Modal
           state={this.state}
           props={this.props}
           handleAfterOpen={this.handleAfterOpen}
@@ -172,8 +172,8 @@ handleUnFollow = () => {
 renderFollowButton=()=>{
   //if current user isnt following yet, render follow button
   //if current user is following render unfollow button
-  debugger
   let followList = this.props.currentUser.followers
+  debugger
   if(!  followList.find(x=>x.id ===this.props.user.id))
   {
     return   (

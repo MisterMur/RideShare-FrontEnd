@@ -3,10 +3,6 @@ import {Link} from 'react-router-dom'
 
 class Leader extends React.Component {
 
-  constructor(props){
-    super(props)
-  }
-
   render() {
     // console.log(`/profile/${this.props.getUser.id}`)
     if(this.props.getUser){

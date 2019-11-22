@@ -34,10 +34,12 @@ class Forums extends React.Component {
 
   render(){
     return (
+      <>
+      {this.props.renderHeader()}
       <div>
       {!this.state.openChat ? <ForumsList handleForumClick={this.handleForumClick} forums={this.state.allForums}/> : <ChatBox
       currentUser={this.props.currentUser} closeChat={this.closeChat} users={this.props.users}currentChat={this.state.allForums.find(forum => forum.topic === this.state.clickedForum)}/>}
-      </div>
+    </div></>
     )
   }
 
