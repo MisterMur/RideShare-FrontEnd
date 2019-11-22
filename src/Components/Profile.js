@@ -2,11 +2,10 @@ import React,{Fragment} from "react";
 import ProfileCard from './ProfileCard'
 import RideList from './RideList.js'
 import ForumsList from './ForumsList.js'
-import Modal from './Modal.js'
 import ReactModal from 'react-modal'
+
 import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
-import {USERURL} from '../Constants.js'
 import {connect} from 'react-redux'
 import {postNewFriendship} from '../Actions.js'
 
@@ -85,7 +84,7 @@ class Profile extends React.Component {
     if(this.props.user) {
       // debugger
       return(
-        <Modal
+        <ReactModal
           state={this.state}
           props={this.props}
           handleAfterOpen={this.handleAfterOpen}
@@ -100,8 +99,8 @@ class Profile extends React.Component {
 
   handleFollow = () => {
     console.log(this);
-    let tempUser ={...this.props.user}
-      this.props.postNewFriendship(this.props.currentUser,this.props.user)
+    // let tempUser ={...this.props.user}
+    this.props.postNewFriendship(this.props.currentUser,this.props.user)
     // this.setState(prevState=>{
     //   currentUser:{
     //     currentUser.followers:[...prevState.curentUser.followers, tempUser]
@@ -137,7 +136,7 @@ handleUnFollow = () => {
   this.setState(prevState=>({
     currentUser:{
       ...prevState.currentUser,
-      followers:tempUser.followers.filter(f=>f.id==this.props.user.id)
+      followers:tempUser.followers.filter(f=>f.id===this.props.user.id)
     }
   })
 )
@@ -173,6 +172,7 @@ handleUnFollow = () => {
 renderFollowButton=()=>{
   //if current user isnt following yet, render follow button
   //if current user is following render unfollow button
+  debugger
   let followList = this.props.currentUser.followers
   if(!  followList.find(x=>x.id ===this.props.user.id))
   {

@@ -20,7 +20,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync build/ s3://brianjmurillo.com --acl public-read"
+    "deploy": "aws s3 sync build/ s3://brianjmurillo.com --acl public-read",
+    "clean": "rmdir /s /q node_modules",
+    "reinstall": "npm run clean && npm install",
+    "rebuild": "npm run clean && npm install && rmdir /s /q dist && npm run build --prod"
   },
   "eslintConfig": {
     "extends": "react-app"

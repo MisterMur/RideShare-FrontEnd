@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Button } from 'semantic-ui-react'
-import {LOGINURL,USERURL} from '../Constants.js'
+import {LOGINURL} from '../Constants.js'
 
 class LoginForm extends React.Component {
 	state = {
@@ -31,10 +31,10 @@ class LoginForm extends React.Component {
 					// we need to login at the top level where we are holding our current user!
 					// setState in App to currentuse
 					// debugger
-					debugger
+					// debugger
 					this.props.setCurrentUser(response.user)
 					localStorage.setItem('jwt', response.jwt)
-					this.props.history.push(`/users/${response.id}`)
+					this.props.history.push(`/users/${response.user.id}`)
 				}
 			})
 	}

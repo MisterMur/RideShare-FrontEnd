@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import ForumsList from './ForumsList.js'
 import ChatBox from './ChatBox'
 
