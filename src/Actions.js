@@ -19,6 +19,7 @@ export function logoutUser()  {
 
 
 export function setLoggedInUser(src) {
+  console.log('set logged in user',src)
   return {
     type: LOGIN_USER,
     payload: src,
@@ -115,6 +116,7 @@ export function createUser (login_data) {
   }
 }
 export function userLoginFetch  (user,callback) {
+  console.log('in userlogin fetch')
   return dispatch =>{
     fetch(LOGINURL, {
       method: "POST",
@@ -145,7 +147,7 @@ export function userLoginFetch  (user,callback) {
     })
 
   }
-  callback()
+  
 
 }
 

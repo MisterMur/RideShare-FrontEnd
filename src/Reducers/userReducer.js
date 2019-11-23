@@ -1,4 +1,7 @@
+import {push} from 'react-router-redux';
+import history from '../history.js'
 import { ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER} from '../Constants';
+
 
 const initialUserState = {
   users: [],
@@ -21,7 +24,15 @@ export default function userReducer(state = initialUserState, action) {
     case "RESET":
       return initialUserState;
     case LOGIN_USER:
-      // console.log('in LOGIN_USER Reducer');
+      // debugger
+      // browserHistory.push(`/profile/${this.props.currentUser.id}`)
+      // dispatch(push(`/profile/${action.payload.id}`))
+      console.log('in LOGIN_USER Reducer');
+
+      history.push(`/profile/${action.payload.id}`);
+
+      console.log('pushed login reducer')
+
       return {...state,currentUser:action.payload};
 
     case ADD_FOLLOWER:

@@ -1,5 +1,9 @@
 import React, { Component, Fragment} from 'react';
-import { Link, Route,Switch } from 'react-router-dom'
+import ReactDOM from 'react-dom'
+import { Link, Route,Switch, Redirect} from 'react-router-dom'
+// import { Router, Route, browserHistory,Switch,Redirect } from 'react-router'
+// import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+
 import './App.css';
 import {Grid} from 'semantic-ui-react'
 import Header from './Components/Header.js'
@@ -15,6 +19,7 @@ import SignupForm from './Components/SignupForm.js'
 
 import {Navbar, Nav, NavItem,NavDropdown,Button} from 'react-bootstrap';
 import {AUTOLOGINURL,USERURL} from './Constants.js'
+import history from './history.js'
 
 // import NavDropDown from 'react-bootstrap/NavDropDown'
 // function Forum() {
@@ -23,6 +28,8 @@ import {AUTOLOGINURL,USERURL} from './Constants.js'
 // const userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
 // const companyUrl = 'https://ride-share-api.herokuapp.com/api/v1/companies'
 // const rideUrl = 'https://ride-share-api.herokuapp.com/api/v1/rides'
+
+
 
 class App extends Component {
 
@@ -216,7 +223,47 @@ renderHeader=()=>{
 //   <Nav.Link><Link to="/rides">Rides</Link></Nav.Link>
 //   <Nav.Link><Link to="/forums">Forums</Link></Nav.Link>
 // </Nav>
+renderProfileRoute=()=>{
+  return (
+    <>
+    <Route path="/profile/:id" exact render={(props) => {
+        // debugger
+        let id = parseInt(props.match.params.id)
+        // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
+        debugger
+      if(this.props.currentUser){
+        debugger
+        if(id !== this.props.currentUser.id){
+          let ourUser = this.props.users.find(u => u.id === id )
+          // debugger
+          return (
+            <Profile
+              {...props}
+              allCompanies={this.props.allCompanies}
+              currentUser={this.props.currentUser}
+              user={ourUser}
+              handleEdit={this.patchEditProfile}
+            />
+          )
+        }
+        else {
+          // let ourOtherUser = this.state.currentUser
+          // debugger
+          return (
+            <Profile
+              {...props}
+              allCompanies={this.props.allCompanies}
+              currentUser={this.props.currentUser}
+              user={this.props.currentUser}
+              handleEdit={this.patchEditProfile}
+            />
+          )
+        }}
+    }}/>
+    </>
+  )
 
+}
 renderbootstrapheader=()=>{
   return (
     <>
@@ -243,6 +290,8 @@ renderbootstrapheader=()=>{
     </>
   )
 }
+
+
 renderMainPage =()=>{
   return (
     <>
@@ -251,8 +300,8 @@ renderMainPage =()=>{
         // debugger
         let id = parseInt(props.match.params.id)
         // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-      if(this.state.users){
-        if(id !== this.state.currentUser.id){
+      if(this.props.currentUser){
+        if(id !== this.props.currentUser.id){
           let ourUser = this.state.users.find(u => u.id === id )
           // debugger
           return (
@@ -266,14 +315,14 @@ renderMainPage =()=>{
           )
         }
         else {
-          let ourOtherUser = this.state.currentUser
+          // let ourOtherUser = this.state.currentUser
           // debugger
           return (
             <Profile
               {...props}
-              allCompanies={this.state.allCompanies}
-              currentUser={this.state.currentUser}
-              user={ourOtherUser}
+              allCompanies={this.props.allCompanies}
+              currentUser={this.props.currentUser}
+              user={this.props.currentUser}
               handleEdit={this.patchEditProfile}
             />
           )
@@ -338,10 +387,12 @@ renderMainPage =()=>{
     return (
    <div>
      <Switch>
-       <Route path="/signup"  render={routerProps => <SignupForm {...routerProps} renderHeader={this.renderbootstrapheader}/>}/>
-       <Route path="/login" render={routerProps => <LoginForm {...routerProps} renderHeader={this.renderbootstrapheader}/>}/>
-       <Route path="/rides" render={routerProps=><Rides {...routerProps} renderHeader={this.renderbootstrapheader}/>}/>
-       <Route path="/forums" render={routerProps=><ForumsPage {...routerProps} renderHeader={this.renderbootstrapheader}/>}/>
+       <Redirect exact from="/" to="/login" />
+       <Route path="/signup"  render={routerProps => <SignupForm {...routerProps} renderProfileLink={this.renderProfileLink} renderHeader={this.renderbootstrapheader}/>}/>
+       <Route path="/login" render={routerProps => <LoginForm {...routerProps} renderProfileLink={this.renderProfileLink}  renderHeader={this.renderbootstrapheader}/>}/>
+       {this.renderProfileRoute()}
+       <Route path="/rides" render={routerProps=><Rides {...routerProps} renderProfileLink={this.renderProfileLink} renderHeader={this.renderbootstrapheader}/>}/>
+       <Route path="/forums" render={routerProps=><ForumsPage {...routerProps}renderProfileLink={this.renderProfileLink}  renderHeader={this.renderbootstrapheader}/>}/>
      </Switch>
 
    </div>

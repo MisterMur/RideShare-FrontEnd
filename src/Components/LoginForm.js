@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import {userLoginFetch} from '../Actions';
-
+import Profile from './Profile.js'
 import { Form, Button } from 'semantic-ui-react'
 import {LOGINURL} from '../Constants.js'
 
@@ -28,48 +28,33 @@ class LoginForm extends React.Component {
 	}
 
 	handleSubmit = () => {
-
+		console.log('in handle submit login')
 		this.props.userLoginFetch(this.state)
 
-		// this.props.history.push(`/profile/${this.props.currentUser.id}`)
-
-
-
-		// fetch(LOGINURL, {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 		"Accepts": "application/json",
-		// 	},
-		// 	body: JSON.stringify(this.state)
-		// })
-		// .then(res => res.json())
-		// .then((response) => {
-		// 	if (response.errors) {
-		// 		alert(response.errors)
-		// 	} else {
-		// 			// we need to login at the top level where we are holding our current user!
-		// 			// setState in App to currentuse
-		// 			// debugger
-		// 			// debugger
-		// 			this.props.setCurrentUser(response.user)
-		// 			localStorage.setItem('jwt', response.jwt)
-		// 			this.props.history.push(`/profile/${response.user.id}`)
-		//
-		// 			// return <><Link to={`/profile/${this.props.currentUser.id}`}>Profile</Link></>
-		//
-		//
-		// 		}
-		// 	})
 	}
 
-
+goToProfile=()=>{
+	if(this.props.currentUser)
+	{
+		return(
+			<>
+			<Profile
+				allCompanies={this.props.allCompanies}
+				currentUser={this.props.currentUser}
+				user={this.props.currentUser}
+				handleEdit={this.patchEditProfile}
+			/>
+			</>
+		)
+	}
+}
 
 
 
 	render(){
 		return (<>
 			{this.props.renderHeader()}
+			{this.props.goToProfile()}
 			<Form onSubmit={this.handleSubmit}>
 		    <Form.Field>
 		      <label>Username</label>
