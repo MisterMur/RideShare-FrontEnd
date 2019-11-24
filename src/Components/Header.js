@@ -22,7 +22,9 @@ class Header extends React.Component {
     console.log('rendering profile link',this.props)
     // debugger
     if(this.props.currentUser){
-      return <Link to={`/profile/${this.props.currentUser.id}`}>Profile</Link>
+      // return <Link to={`/profile/${this.props.currentUser.id}`}>Profile</Link>
+        return <Link to={`/profile`}>Profile</Link>
+
     }
     else{
       return <Link to={`/login`}>Profile</Link>
@@ -33,7 +35,7 @@ class Header extends React.Component {
       <>
       <Nav position="right">
         <NavItem componentClass='span' onClick={()=>this.props.history.push(`/users/${this.props.currentUser.id}`)} >
-      
+
         </NavItem>
         <Link className="item" to="/login" onClick={this.logout} >
           Logout

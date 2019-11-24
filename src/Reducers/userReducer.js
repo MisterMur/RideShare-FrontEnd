@@ -1,6 +1,6 @@
 import {push} from 'react-router-redux';
 import history from '../history.js'
-import { ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,FETCH_ALL_USERS} from '../Constants';
+import { ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,FETCH_ALL_USERS,FETCH_ALL_COMPANIES} from '../Constants';
 
 
 const initialUserState = {
@@ -23,6 +23,8 @@ export default function userReducer(state = initialUserState, action) {
       return { ...state, users: [...state.users, action.payload] };
     case "RESET":
       return initialUserState;
+      case FETCH_ALL_COMPANIES:
+      return {...state,allCompanies:[...state.allCompanies,action.payload]}
     case LOGIN_USER:
       // debugger
       // browserHistory.push(`/profile/${this.props.currentUser.id}`)

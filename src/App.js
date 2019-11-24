@@ -13,7 +13,7 @@ import LoginForm from './Components/LoginForm.js'
 import SignupForm from './Components/SignupForm.js'
 import ForumsPage from './Components/ForumsPage.js'
 import Profile from './Components/Profile.js'
-import {getProfileFetch, setLogout,fetchUsers,fetchRides,fetchForums} from './Actions';
+import {getProfileFetch, setLogout,fetchUsers,fetchRides,fetchForums,fetchCompanies} from './Actions';
 
 import './App.css';
 
@@ -30,12 +30,12 @@ class App extends React.Component {
 	}
 	renderProfileRoute=()=>{
 	  return (
-	    <>
-	    <Route path="/profile/:id" exact render={(props) => {
+			<>
+	    <Route path="/users/:id" exact render={(props) => {
 	        // debugger
 	        let id = parseInt(props.match.params.id)
 	        // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-	        debugger
+	        // debugger
 	      if(this.props.currentUser){
 	        debugger
 	        if(id !== this.props.currentUser.id){
@@ -64,7 +64,8 @@ class App extends React.Component {
 	          )
 	        }}
 	    }}/>
-	    </>
+		</>
+
 	  )
 
 	}
@@ -73,8 +74,9 @@ class App extends React.Component {
 
   render() {
 		console.log('app props',this.props)
-		// {this.renderProfileRoute()}
 		// <Route path="/users/:id" exact render={routerProps => <Profile currentUser={this.props.currentUser} {...routerProps} />} />
+		// <Route path="/profile" component={Profile} />
+		{this.renderProfileRoute()}
     return (
       <>
       <Grid>
@@ -82,6 +84,8 @@ class App extends React.Component {
         <Grid.Row centered>
           <Switch>
 						<Route path="/users/:id" component={Profile} />
+						<Route path="/profile" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
+
 
             <Route path="/forums" component={ForumsPage} />
             <Route path="/rides" component={Rides} />
@@ -102,7 +106,8 @@ const mapDispatchToProps = dispatch => ({
   setLogout: () => dispatch(setLogout()),
 	fetchRides:() => dispatch(fetchRides()),
 	fetchForums:() => dispatch(fetchForums()),
-	fetchUsers:()=>dispatch(fetchUsers())
+	fetchUsers:()=>dispatch(fetchUsers()),
+	fetchCompanies:()=>dispatch(fetchCompanies())
 })
 function mapStateToProps(state) {
   // maps the state from the store to the props

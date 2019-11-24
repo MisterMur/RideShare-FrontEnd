@@ -7,7 +7,7 @@ import Modal from './Modal.js'
 import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {postNewFriendship} from '../Actions.js'
+import {postNewFriendship,fetchCompanies,fetchUsers,patchEditProfile} from '../Actions.js'
 
 class Profile extends React.Component {
   constructor(props){
@@ -234,6 +234,7 @@ function mapStateToProps(state) {
   // maps the state from the store to the props
 	// debugger
 	const { user } = state
+
 	console.log('mapping state in profile',user)
   return {
     allCompanies:user.allCompanies,
@@ -247,5 +248,11 @@ function mapStateToProps(state) {
 // const mapDispatchToProps = dispatch => ({
 //   postNewFriendship: () => dispatch(postNewFriendship())
 // })
+const mapDispatchToProps = dispatch => ({
+  fetchCompanies:()=>dispatch(fetchCompanies()),
+  patchEditProfile:(d)=>dispatch(patchEditProfile(d)),
+
+	fetchUsers:()=>dispatch(fetchUsers())
+})
 
 export default connect(mapStateToProps,null) (Profile)

@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {FORUMSURL, RIDEURL,FRIENDSHIPURL ,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+import {FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -34,6 +34,12 @@ export function setAllUsers(src){
     payload:src
   }
 }
+export function setAllCompanies(src){
+  return {
+    type: FETCH_ALL_COMPANIES,
+    payload:src
+  }
+}
 
 
 
@@ -58,15 +64,73 @@ export function RemoveFollower(follower){
   }
 }
 
+export function patchEditProfile  ( data)  {
+  // debugger
+  // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
+  return function (dispatch){
+
+    let id = this.state.currentUser.id
+    // let id = parseInt(this.match.params.id)
+    // debugger
+    // e.preventDefault()
+    fetch(`${USERURL}/${id}`,{
+      headers:{
+        'accepts':'application/json',
+        'content-type':'application/json'
+      },
+      method:'PATCH',
+      body:JSON.stringify({
+        name:data.nameValue,
+        experience:data.experienceValue,
+        car:data.carValue,
+        companies:data.companiesValue,
+        location:data.locationValue,
+        rating:data.ratingValue,
+      })
+    }).then(handleErrors)
+    .then(res => {
+      dispatch(fetchUsers())
+
+    })
+  }
+}
+
+export function fetchCurrentUser(user) {
+  // does that seem cool? ehhhh
+  return function(dispatch) {
+    dispatch({ type: FETCH_CURRENT_USER });
+    fetch(`${USERURL}/${user.id}`)
+    .then(res=>res.json())
+    .then(current=>{
+        // console.log('fetched users',users)
+        dispatch(setLoggedInUser(current))
+
+    })
+  }
+}
+
 export function fetchUsers() {
   // does that seem cool? ehhhh
   return function(dispatch) {
-    dispatch({ type: 'FETCH_USERS' });
+    dispatch({ type: FETCH_ALL_USERS });
     fetch(USERURL)
     .then(res=>res.json())
     .then(users=>{
         console.log('fetched users',users)
         dispatch(setAllUsers(users))
+
+    })
+  }
+}
+export function fetchCompanies() {
+  // does that seem cool? ehhhh
+  return function(dispatch) {
+    dispatch({ type: FETCH_ALL_COMPANIES });
+    fetch(COMPANYURL)
+    .then(res=>res.json())
+    .then(companies=>{
+        // console.log('fetched users',companies)
+        dispatch(setAllForums(companies))
 
     })
   }
@@ -102,7 +166,7 @@ export function postNewFriendship(currentUser,follower){
         follower_id:currentUser.id,
         followee_id:follower.id
       })
-    }).then(console.log)
+    })
     .then(handleErrors)
     .then(function(){
       dispatch(fetchUsers())
@@ -176,6 +240,7 @@ export function userLoginFetch  (user,callback) {
 
 
 }
+
 
 export function getProfileFetch() {
   return dispatch => {
