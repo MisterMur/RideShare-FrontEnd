@@ -8,7 +8,7 @@ import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {postNewFriendship,fetchCompanies,fetchUsers,patchEditProfile} from '../Actions.js'
-
+import {USERURL} from '../Constants'
 class Profile extends React.Component {
   constructor(props){
     super(props)
@@ -28,14 +28,12 @@ class Profile extends React.Component {
     }
     console.log('profile constructor props',props)
   }
+  componentDidMount(){
+    this.props.fetchCompanies();
 
-//   componentWillMount() {
-//   //
-//     this.setState((prevState)=>{
-//       currentUser:prevState.currentUser
-//     });
-//
-// }
+  }
+
+
 
 
   // componentWillReceiveProps(props){
@@ -69,7 +67,7 @@ class Profile extends React.Component {
   handleSubmit=(e, state)=>{
     e.preventDefault()
     console.log('in save edit user',this.state)
-    this.props.handleEdit(e, state)
+    this.patchEditProfile(e, state)
     this.setState({
       modal: false
     })
@@ -81,12 +79,15 @@ class Profile extends React.Component {
 
 
   renderModal = () => {
+    console.log('rendar modal with ', this.props.allCompanies)
     if(this.props.user) {
       // debugger
       return(
         <Modal
           state={this.state}
           props={this.props}
+          companiesValue={this.props.allCompanies}
+          currentUser={this.props.currentUser}
           handleAfterOpen={this.handleAfterOpen}
           handleAfterClose={this.handleAfterClose}
           handleEditFormChange={this.handleEditFormChange}
@@ -96,6 +97,36 @@ class Profile extends React.Component {
     }
   }
 
+  patchEditProfile = (e, state) => {
+    // debugger
+    // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
+    let id = this.props.currentUser.id
+    // let id = parseInt(this.match.params.id)
+    // debugger
+    e.preventDefault()
+    fetch(`${USERURL}/${id}`,{
+      headers:{
+        'accepts':'application/json',
+        'content-type':'application/json'
+      },
+      method:'PATCH',
+      body:JSON.stringify({
+        name:state.nameValue,
+        experience:state.experienceValue,
+        car:state.carValue,
+        companies:state.companiesValue,
+        location:state.locationValue,
+        rating:state.ratingValue,
+      })
+    })
+    .then(r => r.json())
+    .then(res => {
+      this.setState({
+        currentUser: res,
+        modal: false
+      })
+    })
+  }
 
   handleFollow = () => {
     console.log(this);
@@ -142,6 +173,7 @@ handleUnFollow = () => {
 )
 
 }
+
   renderProfileCard = () => {
     if(this.state.user){
       console.log('rendering profilecard',this.props.user)
@@ -237,7 +269,7 @@ function mapStateToProps(state) {
 
 	console.log('mapping state in profile',user)
   return {
-    allCompanies:user.allCompanies,
+    allCompanies:user.allCompanies[1],
     rides:user.rides,
     forums:user.forums,
     allForums:user.allForums,
@@ -255,4 +287,4 @@ const mapDispatchToProps = dispatch => ({
 	fetchUsers:()=>dispatch(fetchUsers())
 })
 
-export default connect(mapStateToProps,null) (Profile)
+export default connect(mapStateToProps,mapDispatchToProps) (Profile)

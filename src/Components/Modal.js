@@ -9,28 +9,29 @@ class Modal extends React.Component{
     ratingValue: this.props.props.user.rating,
     locationValue: this.props.props.user.location,
     carValue: this.props.props.user.car,
-    companiesValue: this.props.props.user.companies
+    companiesValue: []
   })
 
   componentDidMount(){
-    // debugger
+
+
     this.setState({
-      nameValue: this.props.props.user.name,
-      experienceValue: this.props.props.user.experience,
-      ratingValue: this.props.props.user.rating,
-      locationValue: this.props.props.user.location,
-      carValue: this.props.props.user.car,
-      companiesValue: this.props.props.user.companies
+      nameValue: this.props.currentUser.name,
+      experienceValue: this.props.currentUser.experience,
+      ratingValue: this.props.currentUser.rating,
+      locationValue: this.props.currentUser.location,
+      carValue: this.props.currentUser.car,
+      companiesValue: this.props.companiesValue
     })
   }
 
 
   handleCheckChange = (company) => {
     // console.log("handling check change")
-    let companyIds = this.state.companiesValue.map(company => company.id)
+    let companyIds = this.props.companiesValue.map(company => company.id)
     if(companyIds.includes(company.id)){
       // debugger
-      let companiesCopy = [...this.state.companiesValue]
+      let companiesCopy = [...this.props.companiesValue]
       // debugger
       let newCompanies = companiesCopy.filter(co => co.id !== company.id)
       this.setState({
@@ -39,7 +40,7 @@ class Modal extends React.Component{
     }
     else {
       // debugger
-      let otherCompaniesCopy = [...this.state.companiesValue]
+      let otherCompaniesCopy = [...this.props.companiesValue]
       otherCompaniesCopy.push(company)
       // debugger
       let newCompanies = otherCompaniesCopy
@@ -51,9 +52,10 @@ class Modal extends React.Component{
 
 
   renderChecks = () => {
+    // debugger
     if(this.props.state.user){
       // debugger
-      let companyIds = this.state.companiesValue.map(company => company.id)
+      let companyIds = this.props.companiesValue.map(company => company.id)
       return this.props.props.allCompanies.map((company,key)=> {
         return(
           <label>{company.name}

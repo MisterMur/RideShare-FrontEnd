@@ -23,7 +23,8 @@ export default function userReducer(state = initialUserState, action) {
       return { ...state, users: [...state.users, action.payload] };
     case "RESET":
       return initialUserState;
-      case FETCH_ALL_COMPANIES:
+    case FETCH_ALL_COMPANIES:
+      console.log('in reducer all companies', action.payload)
       return {...state,allCompanies:[...state.allCompanies,action.payload]}
     case LOGIN_USER:
       // debugger

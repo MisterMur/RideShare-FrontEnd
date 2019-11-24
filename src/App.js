@@ -76,6 +76,7 @@ class App extends React.Component {
 		console.log('app props',this.props)
 		// <Route path="/users/:id" exact render={routerProps => <Profile currentUser={this.props.currentUser} {...routerProps} />} />
 		// <Route path="/profile" component={Profile} />
+		// debugger
 		{this.renderProfileRoute()}
     return (
       <>

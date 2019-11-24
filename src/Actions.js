@@ -35,6 +35,7 @@ export function setAllUsers(src){
   }
 }
 export function setAllCompanies(src){
+  console.log('setting all companies')
   return {
     type: FETCH_ALL_COMPANIES,
     payload:src
@@ -129,8 +130,8 @@ export function fetchCompanies() {
     fetch(COMPANYURL)
     .then(res=>res.json())
     .then(companies=>{
-        // console.log('fetched users',companies)
-        dispatch(setAllForums(companies))
+        console.log('fetched companies',companies)
+        dispatch(setAllCompanies(companies))
 
     })
   }
