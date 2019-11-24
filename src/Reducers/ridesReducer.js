@@ -1,7 +1,7 @@
 
 import {push} from 'react-router-redux';
 import history from '../history.js'
-import {SET_ALL_RIDES} from '../Constants';
+import {FETCH_ALL_RIDES} from '../Constants';
 
 
 const initialRidesState = {
@@ -14,7 +14,7 @@ const initialRidesState = {
 export default function ridesReducer(state = initialRidesState, action) {
   // console.log('userReducer');
   switch(action.type) {
-    case SET_ALL_RIDES:
+    case FETCH_ALL_RIDES:
       console.log('setting rides',action.payload)
       return { ...state, rides: [...state.rides, action.payload] };
 

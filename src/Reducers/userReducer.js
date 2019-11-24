@@ -1,6 +1,6 @@
 import {push} from 'react-router-redux';
 import history from '../history.js'
-import { ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER} from '../Constants';
+import { ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,FETCH_ALL_USERS} from '../Constants';
 
 
 const initialUserState = {
@@ -36,6 +36,8 @@ export default function userReducer(state = initialUserState, action) {
       // console.log('pushed login reducer')
 
       return {...state,currentUser:action.payload};
+    case FETCH_ALL_USERS:
+      return{...state,users:[...state.users,action.payload]}
 
     case ADD_FOLLOWER:
       return {...state,currentUser:action.payload     };

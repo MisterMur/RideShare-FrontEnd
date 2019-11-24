@@ -2,6 +2,8 @@ import React from "react";
 import Leaderboard from './Leaderboard.js'
 import RideList from './RideList'
 import { connect } from 'react-redux';
+import {fetchUsers,fetchRides} from '../Actions';
+
 
 
 class Rides extends React.Component {
@@ -13,6 +15,10 @@ class Rides extends React.Component {
       filteredRides: this.props.rides,
       textInput: ''
     }
+  }
+  componentDidMount(){
+    this.props.fetchRides();
+    this.props.fetchUsers();
   }
 
   componentWillReceiveProps(){
@@ -120,19 +126,24 @@ class Rides extends React.Component {
 
   render() {
     console.log("hit rides route")
-    
+    // debugger
+
     return (
       <>
 
       <div className = "container col-11">
+        {this.props.users?
+
         <Leaderboard
-          leaders={this.props.allUsers}
+          leaders={this.props.users}
           allUsers={this.props.users}
           user={this.props.currentUser}
           forum={this.props.forums}
           rides={this.props.rides}
           allCompanies={this.props.allCompanies}
-        />
+          />
+        :     null}
+
         <div className="col-12" id="profile-rides-list">
         <RideList rides={this.state.filteredRides} displayDropdown={this.returnDropdown}/>
         </div>
@@ -141,19 +152,27 @@ class Rides extends React.Component {
     )
   }
 }
+const mapDispatchToProps = dispatch => ({
+
+	fetchRides:() => dispatch(fetchRides()),
+	fetchUsers:()=>dispatch(fetchUsers())
+})
 function mapStateToProps(state) {
   // maps the state from the store to the props
 	// debugger
 
-	const { user } = state
+	const { user } = state;
+  const { rides} = state.rides;
+  const {forums}= state.forums;
 	console.log('mapping state in rides',user)
+  // debugger
   return {
     allCompanies:user.allCompanies,
-    rides:state.rides,
+    rides: rides[0],
     forums:user.forums,
-    allForums:user.allForums,
-    users:user.users,
+    allForums: forums[0],
+    users:user.users[0],
     currentUser:user.currentUser
   }
 }
-export default connect(mapStateToProps) (Rides)
+export default connect(mapStateToProps,mapDispatchToProps) (Rides)

@@ -1,7 +1,7 @@
 
 import {push} from 'react-router-redux';
 import history from '../history.js'
-import {SET_ALL_FURUMS} from '../Constants';
+import {FETCH_ALL_FORUMS} from '../Constants';
 
 
 const initialForumsState = {
@@ -14,7 +14,7 @@ const initialForumsState = {
 export default function ridesReducer(state = initialForumsState, action) {
   // console.log('userReducer');
   switch(action.type) {
-    case SET_ALL_FURUMS:
+    case FETCH_ALL_FORUMS:
       return { ...state, forums: [...state.forums, action.payload] };
 
 

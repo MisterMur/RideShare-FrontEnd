@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {FORUMSURL, RIDEURL,FRIENDSHIPURL ,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,SET_ALL_RIDES,SET_ALL_FURUMS} from './Constants';
+import {FORUMSURL, RIDEURL,FRIENDSHIPURL ,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -18,13 +18,19 @@ export function logoutUser()  {
 export function setAllRides(src) {
   console.log('setting all rides ',src)
   return {
-    type: SET_ALL_RIDES,
+    type: FETCH_ALL_RIDES,
     payload: src
   }
 }
 export function setAllForums(src){
   return {
-    type: SET_ALL_FURUMS,
+    type: FETCH_ALL_FORUMS,
+    payload:src
+  }
+}
+export function setAllUsers(src){
+  return {
+    type: FETCH_ALL_USERS,
     payload:src
   }
 }
@@ -59,7 +65,9 @@ export function fetchUsers() {
     fetch(USERURL)
     .then(res=>res.json())
     .then(users=>{
-        dispatch(setLoggedInUser(users=>users.name==="Brian"))
+        console.log('fetched users',users)
+        dispatch(setAllUsers(users))
+
     })
   }
 }

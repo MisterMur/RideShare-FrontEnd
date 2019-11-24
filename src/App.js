@@ -81,7 +81,7 @@ class App extends React.Component {
         <Header history={this.props.history}  currentUser={this.props.currentUser} />
         <Grid.Row centered>
           <Switch>
-						<Route path="/users/:id"component={Profile} />
+						<Route path="/users/:id" component={Profile} />
 
             <Route path="/forums" component={ForumsPage} />
             <Route path="/rides" component={Rides} />
@@ -101,21 +101,22 @@ const mapDispatchToProps = dispatch => ({
   fetchUsers: () => dispatch(fetchUsers()),
   setLogout: () => dispatch(setLogout()),
 	fetchRides:() => dispatch(fetchRides()),
-	fetchForums:() => dispatch(fetchForums())
+	fetchForums:() => dispatch(fetchForums()),
+	fetchUsers:()=>dispatch(fetchUsers())
 })
 function mapStateToProps(state) {
   // maps the state from the store to the props
 	// debugger
-	const { user } = state
-	const {rides}=state
-	const {forums}=state
-	console.log('mapping state in app',user)
-	// debugger
+	const { user } = state;
+  const { rides} = state.rides;
+  const {forums}= state.forums;
+	// console.log('mapping state in rides',user)
+  // debugger
   return {
     allCompanies:user.allCompanies,
-    rides:rides.rides,
+    rides: rides[0],
     forums:user.forums,
-    allForums:forums.forums,
+    allForums: forums[0],
     users:user.users,
     currentUser:user.currentUser
   }

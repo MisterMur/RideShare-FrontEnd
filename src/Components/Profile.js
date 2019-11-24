@@ -244,8 +244,8 @@ function mapStateToProps(state) {
     currentUser:user.currentUser
   }
 }
-const mapDispatchToProps = dispatch => ({
-  postNewFriendship: () => dispatch(postNewFriendship())
-})
+// const mapDispatchToProps = dispatch => ({
+//   postNewFriendship: () => dispatch(postNewFriendship())
+// })
 
-export default connect(mapStateToProps,mapDispatchToProps) (Profile)
+export default connect(mapStateToProps,null) (Profile)
