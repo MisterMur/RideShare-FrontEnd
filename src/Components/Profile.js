@@ -161,9 +161,9 @@ handleUnFollow = () => {
         </div>
       )
     }else{
+      // {this.renderFollowButton()}
       return (
         <>
-          {this.renderFollowButton()}
         </>
       )
     }
@@ -172,8 +172,12 @@ handleUnFollow = () => {
 renderFollowButton=()=>{
   //if current user isnt following yet, render follow button
   //if current user is following render unfollow button
-  let followList = this.props.currentUser.followers
-  debugger
+  let followList=null;
+  if(this.props.currentUser.followers){
+
+     followList = this.props.currentUser.followers
+  }
+  // debugger
   if(!  followList.find(x=>x.id ===this.props.user.id))
   {
     return   (
@@ -225,7 +229,23 @@ renderFollowButton=()=>{
       </Fragment>
     )
   }
-}const actions={
-  postNewFriendship
 }
-export default connect(null,actions) (Profile)
+function mapStateToProps(state) {
+  // maps the state from the store to the props
+	// debugger
+	const { user } = state
+	console.log('mapping state in profile',user)
+  return {
+    allCompanies:user.allCompanies,
+    rides:user.rides,
+    forums:user.forums,
+    allForums:user.allForums,
+    users:user.users,
+    currentUser:user.currentUser
+  }
+}
+const mapDispatchToProps = dispatch => ({
+  postNewFriendship: () => dispatch(postNewFriendship())
+})
+
+export default connect(mapStateToProps,mapDispatchToProps) (Profile)

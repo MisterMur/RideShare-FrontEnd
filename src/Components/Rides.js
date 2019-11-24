@@ -1,6 +1,8 @@
 import React from "react";
 import Leaderboard from './Leaderboard.js'
 import RideList from './RideList'
+import { connect } from 'react-redux';
+
 
 class Rides extends React.Component {
 
@@ -118,9 +120,9 @@ class Rides extends React.Component {
 
   render() {
     console.log("hit rides route")
+    
     return (
       <>
-      {this.props.renderHeader()}
 
       <div className = "container col-11">
         <Leaderboard
@@ -139,4 +141,19 @@ class Rides extends React.Component {
     )
   }
 }
-export default Rides
+function mapStateToProps(state) {
+  // maps the state from the store to the props
+	// debugger
+
+	const { user } = state
+	console.log('mapping state in rides',user)
+  return {
+    allCompanies:user.allCompanies,
+    rides:state.rides,
+    forums:user.forums,
+    allForums:user.allForums,
+    users:user.users,
+    currentUser:user.currentUser
+  }
+}
+export default connect(mapStateToProps) (Rides)

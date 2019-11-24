@@ -1,16 +1,63 @@
 import React from "react";
+import {Navbar, Nav, NavItem,NavDropdown,Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom'
+import { connect } from 'react-redux';
+import { setLogout} from '../Actions';
+
+
 
 class Header extends React.Component {
 
+    logout = () => {
+     // event.preventDefault()
+     // Remove the token from localStorage
+     localStorage.removeItem("jwt")
+     // Remove the user object from the Redux store
+     this.props.setLogout()
+   }
 
   renderProfileLink = () => {
     // console.log('in render profile link')
     // debugger
+    console.log('rendering profile link',this.props)
+    // debugger
     if(this.props.currentUser){
-      console.log(this.props)
       return <Link to={`/profile/${this.props.currentUser.id}`}>Profile</Link>
     }
+    else{
+      return <Link to={`/login`}>Profile</Link>
+    }
   }
+  renderLogout =() =>{
+    return (
+      <>
+      <Nav position="right">
+        <NavItem componentClass='span' onClick={()=>this.props.history.push(`/users/${this.props.currentUser.id}`)} >
+      
+        </NavItem>
+        <Link className="item" to="/login" onClick={this.logout} >
+          Logout
+        </Link>
+      </Nav>
+      </>
+    )
+  }
+  renderLoginSignup = () =>{
+    return (
+      <>
+      <Nav position="right">
+        <Link className="span" to="/login">
+          Login
+        </Link>
+        <Link className="span" to="/signup">
+          Sign Up
+        </Link>
+      </Nav>
+      </>
+    )
+
+  }
+
 
   renderNav=()=>{
     return(
@@ -29,6 +76,7 @@ class Header extends React.Component {
                 <NavItem componentClass='span'>
                   <Link to="/forums">Forums</Link>
                 </NavItem>
+                {this.props.currentUser ? this.renderLogout() : this.renderLoginSignup() }
               </Nav>
 
             </Navbar.Collapse>
@@ -58,12 +106,20 @@ class Header extends React.Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  setLogout: () => dispatch(setLogout())
+})
+
 function mapStateToProps(state) {
   // maps the state from the store to the props
+	// debugger
+	const { user } = state
+	// console.log('mapping state in header',user)
   return {
-    currentUser: null
+
+    currentUser:user.currentUser
   }
 }
 
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

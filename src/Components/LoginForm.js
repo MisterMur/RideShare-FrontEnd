@@ -12,13 +12,13 @@ class LoginForm extends React.Component {
 		password: "",
 	}
 	componentWillReceiveProps(newProps) {
-  if(!newProps.finished && this.props.finished) {
-		debugger
+  // if(!newProps.finished && this.props.finished) {
 		if(this.props.currentUser){
+				// debugger
 
 			this.props.navigate(`profile/${this.props.currentUser.id}`);
 		}
-  }
+  //}
 }
 
 	handleChange = (event) => {
@@ -53,8 +53,7 @@ goToProfile=()=>{
 
 	render(){
 		return (<>
-			{this.props.renderHeader()}
-			{this.props.goToProfile()}
+
 			<Form onSubmit={this.handleSubmit}>
 		    <Form.Field>
 		      <label>Username</label>
@@ -72,5 +71,12 @@ goToProfile=()=>{
 const mapDispatchToProps = dispatch => ({
   userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
 })
+function mapStateToProps(state) {
+  // maps the state from the store to the props
+  return {
+    currentUser: null
+  }
+}
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

@@ -55,7 +55,6 @@ class SignupForm extends React.Component {
 
 	render(){
 		return (<>
-				{this.props.renderHeader()}
 			<Form onSubmit={this.handleSubmit}>
 		    <Form.Field>
 		      <label>Username</label>

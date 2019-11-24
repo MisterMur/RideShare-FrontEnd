@@ -27,11 +27,13 @@ export default function userReducer(state = initialUserState, action) {
       // debugger
       // browserHistory.push(`/profile/${this.props.currentUser.id}`)
       // dispatch(push(`/profile/${action.payload.id}`))
-      console.log('in LOGIN_USER Reducer');
+      console.log('in LOGIN_USER Reducer',action.payload);
 
-      history.push(`/profile/${action.payload.id}`);
+      // history.push(`/profile/${action.payload.id}`);
+      // this.props.history.push(`/users/${response.user.id}`)
 
-      console.log('pushed login reducer')
+      // debugger
+      // console.log('pushed login reducer')
 
       return {...state,currentUser:action.payload};
 
