@@ -16,7 +16,7 @@ class Profile extends React.Component {
       modal: false,
       // user:"",
       user:this.props.user,
-      curentUser: this.props.currentUser,
+      // curentUser: this.props.currentUser,
       editedUser: this.props.user
       // name:props.user.name,
       // car: props.user.car,
@@ -34,7 +34,15 @@ class Profile extends React.Component {
   }
 
 
+componentWillReceiveProps(newProps){
+  // debugger
+  // this.props.fetchCurrentUser(resUser.user)
+  // debugger
 
+    this.setState({user:newProps.currentUser})
+
+
+}
 
   // componentWillReceiveProps(props){
   //
@@ -107,7 +115,6 @@ class Profile extends React.Component {
     if(this.props.currentUser){
       userData.id=this.props.currentUser.id;
       // debugger
-
       fetch(`${USERURL}/${this.props.currentUser.id}`,{
         headers:{
           'accepts':'application/json',
@@ -130,7 +137,7 @@ class Profile extends React.Component {
         console.log('in path edit profile',resUser)
         this.setState({
           modal: false
-        },this.props.fetchCurrentUser(userData))
+        }  ,this.props.fetchCurrentUser(resUser.user)  )
       })
     }
   }

@@ -99,6 +99,7 @@ export function patchEditProfile  ( data)  {
 export function fetchCurrentUser(user) {
   // does that seem cool? ehhhh
   return function(dispatch) {
+    console.log('fetching current user',user)
     dispatch({ type: FETCH_CURRENT_USER });
     fetch(`${USERURL}/${user.id}`)
     .then(res=>res.json())
