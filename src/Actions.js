@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+import {AUTOLOGINURL,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -248,22 +248,24 @@ export function userLoginFetch  (user,callback) {
 
 export function getProfileFetch() {
   return dispatch => {
-    console.log('in get profile fetch')
+    console.log('in get profile fetchauto login')
     const jwt = localStorage.getItem('jwt')
 
     if (jwt){
-      fetch("http://localhost:3001/api/v1/auto_login", {
+      console.log('jwt exists in auto login')
+      fetch(AUTOLOGINURL, {
         headers: {
-          "Authorization": jwt
+          "Authorization": `Bearer ${jwt}`
         }
       })
       .then(res => res.json())
       .then((response) => {
+        // debugger
         if (response.errors) {
           alert(response.errors)
           localStorage.removeItem('jwt')
         } else {
-          console.log('setting user',response)
+          console.log('setting userfrom auto login',response)
           dispatch(setLoggedInUser(response))
         }
       })

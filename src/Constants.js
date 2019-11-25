@@ -6,7 +6,7 @@ export  const FORUMSURL = 'http://localhost:3000/api/v1/forums'
 
 export const FRIENDSHIPURL = 'http://localhost:3000/api/v1/friendships'
 export const LOGINURL = 'http://localhost:3000/api/v1/login'
-export const AUTOLOGINURL = 'http://localhost:3001/api/v1/auto_login'
+export const AUTOLOGINURL = 'http://localhost:3000/api/v1/auto_login'
 
 //production vals
 // export  const USERURL='http://ride-share-api.herokuapp.com/api/v1/users/'
