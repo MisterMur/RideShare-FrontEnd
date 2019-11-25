@@ -7,7 +7,7 @@ import Modal from './Modal.js'
 import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {postNewFriendship,fetchCompanies,fetchUsers,patchEditProfile} from '../Actions.js'
+import {postNewFriendship,fetchCompanies,fetchCurrentUser,fetchUsers,patchEditProfile} from '../Actions.js'
 import {USERURL} from '../Constants'
 class Profile extends React.Component {
   constructor(props){
@@ -97,35 +97,42 @@ class Profile extends React.Component {
     }
   }
 
-  patchEditProfile = (e, state) => {
+  patchEditProfile = (e, userData) => {
     // debugger
     // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-    let id = this.props.currentUser.id
+    // let id = this.props.currentUser.id
     // let id = parseInt(this.match.params.id)
     // debugger
     e.preventDefault()
-    fetch(`${USERURL}/${id}`,{
-      headers:{
-        'accepts':'application/json',
-        'content-type':'application/json'
-      },
-      method:'PATCH',
-      body:JSON.stringify({
-        name:state.nameValue,
-        experience:state.experienceValue,
-        car:state.carValue,
-        companies:state.companiesValue,
-        location:state.locationValue,
-        rating:state.ratingValue,
+    if(this.props.currentUser){
+      userData.id=this.props.currentUser.id;
+      // debugger
+
+      fetch(`${USERURL}/${this.props.currentUser.id}`,{
+        headers:{
+          'accepts':'application/json',
+          'content-type':'application/json'
+        },
+        method:'PATCH',
+        body:JSON.stringify({
+          id:userData.id,
+          name:userData.nameValue,
+          experience:userData.experienceValue,
+          car:userData.carValue,
+          companies:userData.options,
+          location:userData.locationValue,
+          rating:userData.ratingValue,
+
+        })
       })
-    })
-    .then(r => r.json())
-    .then(res => {
-      this.setState({
-        currentUser: res,
-        modal: false
+      .then(r => r.json())
+      .then(resUser => {
+        console.log('in path edit profile',resUser)
+        this.setState({
+          modal: false
+        },this.props.fetchCurrentUser(userData))
       })
-    })
+    }
   }
 
   handleFollow = () => {
@@ -176,10 +183,10 @@ handleUnFollow = () => {
 
   renderProfileCard = () => {
     if(this.state.user){
-      console.log('rendering profilecard',this.props.user)
+      console.log('rendering profilecard',this.state.user)
       // debugger
       return(
-        <ProfileCard user={this.props.user} companies={this.props.user.companies}/>
+        <ProfileCard user={this.state.user} companies={this.state.user.companies}/>
       )
     }
   }
@@ -283,6 +290,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   fetchCompanies:()=>dispatch(fetchCompanies()),
   patchEditProfile:(d)=>dispatch(patchEditProfile(d)),
+  fetchCurrentUser:(u)=>dispatch(fetchCurrentUser(u)),
 
 	fetchUsers:()=>dispatch(fetchUsers())
 })

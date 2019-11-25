@@ -103,7 +103,7 @@ export function fetchCurrentUser(user) {
     fetch(`${USERURL}/${user.id}`)
     .then(res=>res.json())
     .then(current=>{
-        // console.log('fetched users',users)
+        console.log('fetched current user',current)
         dispatch(setLoggedInUser(current))
 
     })
@@ -195,11 +195,11 @@ export function createUser (login_data) {
       } else {
         // debugger
         // localStorage.setItem("token", response.jwt)
-
-        this.props.setCurrentUser(response.user)
+        console.log('creat user',response)
+        // this.props.setCurrentUser(response.user)
         localStorage.setItem('jwt', response.jwt)
         dispatch (setLoggedInUser(response.user))
-        this.props.history.push(`/users/${response.user.id}`)
+        // this.props.history.push(`/users/${response.user.id}`)
       }
     })
   }
@@ -219,13 +219,15 @@ export function userLoginFetch  (user,callback) {
     .then((response) => {
       if (response.errors) {
         alert(response.errors)
-        console.log('response gotf error',response.error)
+        console.log('response gotf error',response)
       } else {
         // we need to login at the top level where we are holding our current user!
         // setState in App to currentuse
         // debugger
         // debugger
         // this.props.setCurrentUser(response.user)
+        // debugger
+        console.log('set jwt toeken')
         // debugger
         localStorage.setItem('jwt', response.jwt)
         dispatch(setLoggedInUser(response.user))

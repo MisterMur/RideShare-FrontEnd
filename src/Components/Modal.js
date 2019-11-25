@@ -9,26 +9,79 @@ class Modal extends React.Component{
     ratingValue: this.props.props.user.rating,
     locationValue: this.props.props.user.location,
     carValue: this.props.props.user.car,
-    companiesValue: []
+    userCompanies:this.props.currentUser.companies,
+    companiesValue: [],
+    options:[]
   })
 
   componentDidMount(){
+    console.log('modal compdidmount current user',this.props.currentUser)
 
 
+    // companiesValue: this.props.curentUser.companies,
     this.setState({
       nameValue: this.props.currentUser.name,
       experienceValue: this.props.currentUser.experience,
       ratingValue: this.props.currentUser.rating,
       locationValue: this.props.currentUser.location,
       carValue: this.props.currentUser.car,
-      companiesValue: this.props.companiesValue
+      companiesValue: this.props.companiesValue,
+      allCompanies:this.props.companiesValue,
+      userCompanies:this.props.currentUser.companies
     })
   }
+handleCheckBox =(company)=>{
+  if(this.state.userCompanies && this.state.allCompanies){
+    this.state.allCompanies.map(c=>{
+      this.state.userCompanies.find(c);
+    })
 
+  }
+}
+
+onChange=(e,c)=> {
+   // current array of options
+   const options = this.state.options
+   let index
+
+   // check if the check box is checked or unchecked
+   if (e.target.checked) {
+     // add the numerical value of the checkbox to options array
+     // options.push(+e.target.value)
+     options.push(c)
+   } else {
+     // or remove the value from the unchecked checkbox from the array
+     // index = options.indexOf(+e.target.value)
+     // options.splice(index, 1)
+     options=options.filter(o=>o.name!==c.name)
+   }
+
+   // update the state with the new array of options
+   this.setState({ options: options })
+ }
+renderCheckBoxes = () => {
+  // debugger
+  console.log('rendering checkboxes',this.props.companiesValue);
+
+  if(this.props.companiesValue){
+    // debugger
+    let companyIds = this.props.companiesValue.map(company => company.id)
+    // return this.props.props.allCompanies.map((company,key)=> {
+
+    return this.props.companiesValue.map((company,key)=> {
+      return(
+        <label>{company.name}
+          <input onChange={(e,) => this.onChange(e,company)} type="checkbox" value={company.name} checked={this.onChange.bind(this)}></input>
+        </label>
+      )
+    })
+  }
+}
 
   handleCheckChange = (company) => {
-    // console.log("handling check change")
-    let companyIds = this.props.companiesValue.map(company => company.id)
+    console.log("handling check change",company)
+    console.log('handle check change state comapnyvalues',this.state.companiesValue)
+    let companyIds = this.props.comapnieValue.map(company => company.id)
     if(companyIds.includes(company.id)){
       // debugger
       let companiesCopy = [...this.props.companiesValue]
@@ -53,10 +106,13 @@ class Modal extends React.Component{
 
   renderChecks = () => {
     // debugger
+    // console.log('rendering checkboxes');
     if(this.props.state.user){
       // debugger
       let companyIds = this.props.companiesValue.map(company => company.id)
-      return this.props.props.allCompanies.map((company,key)=> {
+      // return this.props.props.allCompanies.map((company,key)=> {
+
+      return this.props.companiesValue.map((company,key)=> {
         return(
           <label>{company.name}
             <input onChange={() => this.handleCheckChange(company)} type="checkbox" checked={companyIds.includes(company.id)}></input>
@@ -119,7 +175,7 @@ class Modal extends React.Component{
             </label><br/>
 
             <label>Companies:
-              {this.renderChecks()}
+              {this.renderCheckBoxes()}
             </label><br/>
 
             <button type="submit" onClick={(e, state)=>this.props.handleSubmit(e, this.state)}>Save Edit</button>

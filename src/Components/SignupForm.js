@@ -43,15 +43,16 @@ class SignupForm extends React.Component {
 
 	handleSubmit = () => {
 		if(this.state.password === this.state.passwordConfirmation){
-			this.createUser()
+			// this.createUser()
+			console.log('in handle submit create user')
 			this.props.createUser(this.state)
 		} else {
 			alert("Passwords don't match!")
 		}
 	}
-	handleSubmit = event => {
-	event.preventDefault()
-}
+// 	handleSubmit = event => {
+// 	event.preventDefault()
+// }
 
 	render(){
 		return (<>
