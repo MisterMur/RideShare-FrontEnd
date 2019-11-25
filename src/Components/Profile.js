@@ -17,7 +17,8 @@ class Profile extends React.Component {
       // user:"",
       user:this.props.user,
       // curentUser: this.props.currentUser,
-      editedUser: this.props.user
+      editedUser: this.props.user,
+      isCurrentUserProfile:null
       // name:props.user.name,
       // car: props.user.car,
       // companies:props.user.companies,
@@ -30,6 +31,7 @@ class Profile extends React.Component {
   }
   componentDidMount(){
     this.props.fetchCompanies();
+    this.setState({isCurrentUserProfile:this.props.isCurrentUserProfile})
 
   }
 
@@ -38,8 +40,14 @@ componentWillReceiveProps(newProps){
   // debugger
   // this.props.fetchCurrentUser(resUser.user)
   // debugger
+  if(newProps.isCurrentUserProfile){
 
     this.setState({user:newProps.currentUser})
+  }
+  else{
+    this.setState({user:newProps.user})
+  }
+
 
 
 }
@@ -263,9 +271,9 @@ renderFollowButton=()=>{
             </div>
             <div className="col" id="profile-rides-list">
 
-              <RideList rides={this.props.user.rides}/>
-              <ForumsList forums={this.props.user.forums}/>
-              <FriendsBox followers={this.props.user.followers}/>
+              <RideList rides={this.state.user.rides}/>
+              <ForumsList forums={this.state.user.forums}/>
+              <FriendsBox followers={this.state.user.followers}/>
 
 
             </div>

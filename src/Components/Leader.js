@@ -11,7 +11,7 @@ class Leader extends React.Component {
         <div onClick={(e,)=>this.props.handleClick(e,this.props.getUser)}
         name={this.props.superlative}>
 
-          <Link to={`/profile/${this.props.getUser.id}`}>
+          <Link to={`/user/${this.props.getUser.id}`}>
 
           <div className={this.props.design}>
             <h3 class="pull-right">

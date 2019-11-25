@@ -3,6 +3,10 @@ import  Route from 'react-router-dom'
 import Profile from './Profile.js'
 import Leader from './Leader.js'
 
+import { connect } from 'react-redux';
+import {fetchUsers,fetchRides} from '../Actions';
+
+
 
 class Leaderboard extends React.Component {
 
@@ -30,9 +34,11 @@ class Leaderboard extends React.Component {
 
   }
   getTotalMiles=(user)=>{
-    let totalMiles=0
+    let totalMiles=0;
     if(user.rides){
       user.rides.map(r=>totalMiles+=r.distance)
+      // console.log('in get total miles user:',user)
+
       return totalMiles
     }
   }
@@ -132,22 +138,36 @@ class Leaderboard extends React.Component {
   handleUserClick=(e,user)=>{
     // debugger
     console.log('in handle user click ',user)
-    return (
-      // <Route path={`/profile/${user.id}`} exact render= {() => {
-      //   return (
-          <Profile
-            user={user}
-            rides={this.props.rides}
-            forum={this.props.forums}
-            allCompanies={this.props.allCompanies}
+    if (!user===this.props.currentUser){
+      return (
+        <Profile
+          user={user}
+          rides={this.props.rides}
+          forum={this.props.forums}
+          isCurrentUserProfile={false}
+          currentUser={this.props.currentUser}
+          allCompanies={this.props.allCompanies}
           />
-        // )}
-        // }/>
-    )
+      )
+    }
+    else{
+      return (
+        <Profile
+          user={user}
+          rides={this.props.rides}
+          forum={this.props.forums}
+          isCurrentUserProfile={true}
+          currentUser={this.props.currentUser}
+          allCompanies={this.props.allCompanies}
+          />
+      )
+
+    }
   }
   renderLeaderBoard=()=>{
+    console.log("in render leaderboard")
     // console.log('mile leader',this.getMileLeader(this.props.leaders))
-    // console.log('Miles:',this.getTotalMiles())
+    console.log('Miles:',this.getTotalMiles(this.props.leaders))
     if(this.props.leaders){
 
       return (
@@ -186,7 +206,7 @@ class Leaderboard extends React.Component {
         icon={'icon glyphicon glyphicon-usd'}
         getUser={this.getEarnerLeader(this.props.leaders)}
         handleClick={this.handleUserClick}
-        superlative={''}
+        superlative={'money'}
         getStat={this.getTotalEarned}
         />
         <Leader
@@ -216,4 +236,24 @@ class Leaderboard extends React.Component {
     )
   }
 }
-export default Leaderboard
+const mapDispatchToProps = dispatch => ({
+
+	fetchRides:() => dispatch(fetchRides()),
+	fetchUsers:()=>dispatch(fetchUsers())
+})
+function mapStateToProps(state) {
+  // maps the state from the store to the props
+	// debugger
+  // debugger
+	const { user } = state;
+  const { rides} = state.rides;
+	console.log('mapping state in rides',user)
+  // debugger
+  return {
+    allCompanies:user.allCompanies,
+    rides: rides[0],
+    users:user.users[2],
+    currentUser:user.currentUser
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps) (Leaderboard)

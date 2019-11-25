@@ -28,6 +28,49 @@ class App extends React.Component {
 		this.props.fetchForums();
 
 	}
+	renderUserPage=()=>{
+		return (
+		 <>
+		 <Route path="/users/:id" exact render={(props) => {
+
+				 let paramid = parseInt(props.match.params.id)
+				 if(this.props.currentUser){
+
+					  debugger
+						if(paramid !== this.props.currentUser.id){
+							let userFromParams = this.props.users.find(u => u.id === paramid )
+							return (
+							 <Profile
+								 {...props}
+								 allCompanies={this.props.allCompanies}
+								 currentUser={this.props.currentUser}
+								 user={userFromParams}
+							 />)
+					 }
+				 }	}} />
+			 </>
+	 )
+ }
+ renderPage=(rout)=>{
+	 let paramid = parseInt(rout.match.params.id)
+	 console.log('in render page',this.props)
+	 if(this.props.currentUser){
+
+			// debugger
+			if(paramid !== this.props.currentUser.id){
+				let userFromParams = this.props.users.find(u => u.id === paramid )
+				return (
+				 <Profile
+					 {...rout}
+					 allCompanies={this.props.allCompanies}
+					 isCurrentUserProfile={false}
+					 currentUser={this.props.currentUser}
+					 user={userFromParams}
+				 />)
+		 }
+	 }
+
+ }
 	renderProfileRoute=()=>{
 	  return (
 			<>
@@ -77,15 +120,16 @@ class App extends React.Component {
 		// <Route path="/users/:id" exact render={routerProps => <Profile currentUser={this.props.currentUser} {...routerProps} />} />
 		// <Route path="/profile" component={Profile} />
 		// debugger
-		{this.renderProfileRoute()}
+		// <Route path="/users/:id" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
+		// {this.renderProfileRoute()}
     return (
       <>
       <Grid>
         <Header history={this.props.history}  currentUser={this.props.currentUser} />
         <Grid.Row centered>
           <Switch>
-						<Route path="/users/:id" component={Profile} />
-						<Route path="/profile" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
+						<Route path="/profile" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies}	 isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
+						<Route path="/user/:id" render={(routerProps) => this.renderPage(routerProps)} />
 
 
             <Route path="/forums" component={ForumsPage} />
@@ -123,7 +167,7 @@ function mapStateToProps(state) {
     rides: rides[0],
     forums:user.forums,
     allForums: forums[0],
-    users:user.users,
+    users:user.users[1],
     currentUser:user.currentUser
   }
 }

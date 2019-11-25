@@ -13,6 +13,7 @@ class Rides extends React.Component {
     this.state = {
       allRides: this.props.rides,
       filteredRides: this.props.rides,
+      users:[],
       textInput: ''
     }
   }
@@ -23,6 +24,7 @@ class Rides extends React.Component {
 
   componentWillReceiveProps(){
     this.setState({
+      users: this.props.users,
       allRides: this.props.rides,
       filteredRides: this.props.rides
     })
@@ -125,7 +127,7 @@ class Rides extends React.Component {
   }
 
   render() {
-    console.log("hit rides route")
+    console.log("hit rides route: props.users",this.props.users)
     // debugger
 
     return (
@@ -160,7 +162,7 @@ const mapDispatchToProps = dispatch => ({
 function mapStateToProps(state) {
   // maps the state from the store to the props
 	// debugger
-
+  // debugger
 	const { user } = state;
   const { rides} = state.rides;
   const {forums}= state.forums;
@@ -171,7 +173,7 @@ function mapStateToProps(state) {
     rides: rides[0],
     forums:user.forums,
     allForums: forums[0],
-    users:user.users[0],
+    users:user.users[2],
     currentUser:user.currentUser
   }
 }

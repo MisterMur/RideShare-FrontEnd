@@ -47,7 +47,7 @@ class FollowerCard extends React.Component {
             I drive a: {this.props.follower.car}
           </Card.Text>
           <div onClick={(e,user)=>this.props.handleUserClick(e,this.props.follower)}>
-            <Link to={`/profile/${this.props.follower.id}`}>
+            <Link to={`/user/${this.props.follower.id}`}>
               <Button
                 type="button"
                 class="btn btn-primary"
