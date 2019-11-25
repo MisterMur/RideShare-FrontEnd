@@ -43,85 +43,38 @@ onChange=(e,c)=> {
    // current array of options
    const options = this.state.options
    let index
-
-   // check if the check box is checked or unchecked
    if (e.target.checked) {
-     // add the numerical value of the checkbox to options array
-     // options.push(+e.target.value)
-     options.push(c)
-   } else {
-     // or remove the value from the unchecked checkbox from the array
-     // index = options.indexOf(+e.target.value)
-     // options.splice(index, 1)
-     options=options.filter(o=>o.name!==c.name)
-   }
+     console.log('pushing into options',c)
+     //add checked item to array of selecteed company options
+       options.push(c)
 
+   } else {
+     //remove the unchecked item from array of selected company options
+       options.pop(c)
+
+   }
    // update the state with the new array of options
    this.setState({ options: options })
  }
 renderCheckBoxes = () => {
-  // debugger
-  console.log('rendering checkboxes',this.props.companiesValue);
 
   if(this.props.companiesValue){
-    // debugger
-    let companyIds = this.props.companiesValue.map(company => company.id)
-    // return this.props.props.allCompanies.map((company,key)=> {
-
+    // create a list of company ids in the option array
+    //  to use as keys to  distaguish if they are already in the array
+    let companyIds = this.state.options.map(company => company.id)
+    console.log('options company ids',companyIds)
+    //map over list of all comapnies and create a checkbox for each
     return this.props.companiesValue.map((company,key)=> {
       return(
+        <>
         <label>{company.name}
-          <input onChange={(e,) => this.onChange(e,company)} type="checkbox" value={company.name} checked={this.onChange.bind(this)}></input>
+          <input type="checkbox" checked={companyIds.includes(company.id)} onChange={(e) => this.onChange(e,company)} ></input>
         </label>
+        </>
       )
     })
   }
 }
-
-  handleCheckChange = (company) => {
-    console.log("handling check change",company)
-    console.log('handle check change state comapnyvalues',this.state.companiesValue)
-    let companyIds = this.props.comapnieValue.map(company => company.id)
-    if(companyIds.includes(company.id)){
-      // debugger
-      let companiesCopy = [...this.props.companiesValue]
-      // debugger
-      let newCompanies = companiesCopy.filter(co => co.id !== company.id)
-      this.setState({
-        companiesValue: newCompanies
-      })
-    }
-    else {
-      // debugger
-      let otherCompaniesCopy = [...this.props.companiesValue]
-      otherCompaniesCopy.push(company)
-      // debugger
-      let newCompanies = otherCompaniesCopy
-      this.setState({
-        companiesValue: newCompanies
-      })
-    }
-  }
-
-
-  renderChecks = () => {
-    // debugger
-    // console.log('rendering checkboxes');
-    if(this.props.state.user){
-      // debugger
-      let companyIds = this.props.companiesValue.map(company => company.id)
-      // return this.props.props.allCompanies.map((company,key)=> {
-
-      return this.props.companiesValue.map((company,key)=> {
-        return(
-          <label>{company.name}
-            <input onChange={() => this.handleCheckChange(company)} type="checkbox" checked={companyIds.includes(company.id)}></input>
-          </label>
-        )
-      })
-    }
-  }
-
 
   handleEditFormChange=(e)=>{
     console.log('handling edit', e)
