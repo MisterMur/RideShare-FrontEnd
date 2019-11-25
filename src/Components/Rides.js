@@ -87,10 +87,8 @@ class Rides extends React.Component {
   handleSearch = (e) => {
     this.setState({textInput: e.target.value})
     let filtered = this.state.allRides.filter(ride =>
-       ride.start_location.includes(e.target.value.toLowerCase())
-    || ride.end_location.includes(e.target.value.toLowerCase())
-    || ride.start_location.includes(e.target.value.toUpperCase())
-    ||  ride.end_location.includes(e.target.value.toUpperCase()))
+       ride.start_location.toLowerCase().includes(e.target.value.toLowerCase())
+    || ride.end_location.toLowerCase().includes(e.target.value.toLowerCase()) )
     this.setState({filteredRides: filtered})
   }
 
