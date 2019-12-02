@@ -9,7 +9,6 @@ import store from './store'
 
 // Create an enhanced history that syncs navigation events with the store
 // const history = syncHistoryWithStore(browserHistory, store)
-// import history from './history.js'
 
 
 ReactDOM.render(
