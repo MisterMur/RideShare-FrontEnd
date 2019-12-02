@@ -1,5 +1,6 @@
 //development vals
-export const prodURL = 'http://ride-share-api.herokuapp.com/api/v1/'
+export const prodURL = 'https://ride-share-api.herokuapp.com/api/v1/'
+// export const prodURL = 'http://localhost:3000/api/v1/'
 
 
 export const USERURL=prodURL+'users/'
