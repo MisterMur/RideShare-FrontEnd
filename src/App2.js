@@ -19,7 +19,6 @@ import SignupForm from './Components/SignupForm.js'
 
 import {Navbar, Nav, NavItem,NavDropdown,Button} from 'react-bootstrap';
 import {AUTOLOGINURL,USERURL} from './Constants.js'
-import history from './history.js'
 
 // import NavDropDown from 'react-bootstrap/NavDropDown'
 // function Forum() {

@@ -1,6 +1,6 @@
 
 import {push} from 'react-router-redux';
-import history from '../history.js'
+
 import {FETCH_ALL_FORUMS} from '../Constants';
 
 
