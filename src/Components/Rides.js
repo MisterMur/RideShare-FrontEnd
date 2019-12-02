@@ -1,6 +1,10 @@
 import React from "react";
 import Leaderboard from './Leaderboard.js'
 import RideList from './RideList'
+import { connect } from 'react-redux';
+import {fetchUsers,fetchRides} from '../Actions';
+
+
 
 class Rides extends React.Component {
 
@@ -9,12 +13,18 @@ class Rides extends React.Component {
     this.state = {
       allRides: this.props.rides,
       filteredRides: this.props.rides,
+      users:[],
       textInput: ''
     }
+  }
+  componentDidMount(){
+    this.props.fetchRides();
+    this.props.fetchUsers();
   }
 
   componentWillReceiveProps(){
     this.setState({
+      users: this.props.users,
       allRides: this.props.rides,
       filteredRides: this.props.rides
     })
@@ -76,7 +86,9 @@ class Rides extends React.Component {
 
   handleSearch = (e) => {
     this.setState({textInput: e.target.value})
-    let filtered = this.state.allRides.filter(ride => ride.end_location.includes(e.target.value) || ride.start_location.includes(e.target.value))
+    let filtered = this.state.allRides.filter(ride =>
+       ride.start_location.toLowerCase().includes(e.target.value.toLowerCase())
+    || ride.end_location.toLowerCase().includes(e.target.value.toLowerCase()) )
     this.setState({filteredRides: filtered})
   }
 
@@ -117,22 +129,54 @@ class Rides extends React.Component {
   }
 
   render() {
-    // console.log("hit rides route")
+    console.log("hit rides route: props.users",this.props.users)
+    // debugger
+
     return (
+      <>
+
       <div className = "container col-11">
+        {this.props.users?
+
         <Leaderboard
-          leaders={this.props.allUsers}
+          leaders={this.props.users}
           allUsers={this.props.users}
           user={this.props.currentUser}
           forum={this.props.forums}
           rides={this.props.rides}
           allCompanies={this.props.allCompanies}
-        />
+          />
+        :     null}
+
         <div className="col-12" id="profile-rides-list">
         <RideList rides={this.state.filteredRides} displayDropdown={this.returnDropdown}/>
         </div>
       </div>
+      </>
     )
   }
 }
-export default Rides
+const mapDispatchToProps = dispatch => ({
+
+	fetchRides:() => dispatch(fetchRides()),
+	fetchUsers:()=>dispatch(fetchUsers())
+})
+function mapStateToProps(state) {
+  // maps the state from the store to the props
+	// debugger
+  // debugger
+	const { user } = state;
+  const { rides} = state.rides;
+  const {forums}= state.forums;
+	console.log('mapping state in rides',user)
+  // debugger
+  return {
+    allCompanies:user.allCompanies,
+    rides: rides[0],
+    forums:user.forums,
+    allForums: forums[0],
+    users:user.users[2],
+    currentUser:user.currentUser
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps) (Rides)

@@ -1,267 +1,179 @@
 import React, { Component, Fragment} from 'react';
-import { Link, Route } from 'react-router-dom'
-import './App.css';
+import ReactDOM from 'react-dom'
+import { Link, Route,Switch, Redirect} from 'react-router-dom'
+// import { Router, Route, browserHistory,Switch,Redirect } from 'react-router'
+// import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import { connect } from 'react-redux';
+
+import {Grid} from 'semantic-ui-react'
+
 import Header from './Components/Header.js'
 import Rides from './Components/Rides.js'
+import LoginForm from './Components/LoginForm.js'
+import SignupForm from './Components/SignupForm.js'
 import ForumsPage from './Components/ForumsPage.js'
 import Profile from './Components/Profile.js'
-import {Navbar, Nav, NavItem,NavDropdown} from 'react-bootstrap';
+import {getProfileFetch, setLogout,fetchUsers,fetchRides,fetchForums,fetchCompanies} from './Actions';
 
-// import NavDropDown from 'react-bootstrap/NavDropDown'
-// function Forum() {
-//   return <h2> Forums </h2>
-// }
-const userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-const companyUrl = 'https://ride-share-api.herokuapp.com/api/v1/companies'
-const rideUrl = 'https://ride-share-api.herokuapp.com/api/v1/rides'
-
-class App extends Component {
-
-  state = {
-    modal: false,
-    allCompanies:[],
-    users: "",
-    // users: [],
-    rides: [],
-    forums:[],
-    allForums:[],
-    friendships: [],
-    currentUser: ''
-  }
+import './App.css';
 
 
-  //
-  // getCompanies(){
-  //   let companies = [...this.state.companies]
-  //   console.log(companies)
-  //   return companies.map(company=>{
-  //     console.log('in fetch,  company:',company)
-  //     return <Company company={company}/>
-  //   })
-  // }
 
-  componentDidMount(){
-    fetch(userUrl)
-    .then(res=>res.json())
-    .then(users=>{
-      this.setState({
-        users: users,
-        currentUser: users.find(user=> user.name === "Brian")
+class App extends React.Component {
 
-      })
-    })
+	componentDidMount() {
+    this.props.getProfileFetch();
+		this.props.fetchRides();
+		console.log('in app compononentdismount fetching users')
+		this.props.fetchUsers();
+		this.props.fetchForums();
 
-    fetch(companyUrl)
-    .then(res=>res.json())
-    .then(companies=>{
+	}
+	renderUserPage=()=>{
+		return (
+		 <>
+		 <Route path="/users/:id" exact render={(props) => {
 
-      this.setState({
-        allCompanies: companies
-      })
-    })
-    fetch(rideUrl)
-    .then(res=>res.json())
-    .then(rides=>{
+				 let paramid = parseInt(props.match.params.id)
+				 if(this.props.currentUser){
 
-      this.setState({
-        rides
-      })
-    })
-    const forumUrl = 'https://ride-share-api.herokuapp.com/api/v1/forums'
-    fetch(forumUrl)
-    .then(res=>res.json())
-    .then(allForums=>{
-      this.setState({
-        allForums
-      })
-    })
-  }
+					  debugger
+						if(paramid !== this.props.currentUser.id){
+							let userFromParams = this.props.users.find(u => u.id === paramid )
+							return (
+							 <Profile
+								 {...props}
+								 allCompanies={this.props.allCompanies}
+								 currentUser={this.props.currentUser}
+								 user={userFromParams}
+							 />)
+					 }
+				 }	}} />
+			 </>
+	 )
+ }
+ renderPage=(rout)=>{
+	 let paramid = parseInt(rout.match.params.id)
+	 console.log('in render page',this.props)
+	 if(this.props.currentUser){
 
-  renderProfileLink = () => {
-    if(this.state.currentUser){
-      return <Link to={`/profile/${this.state.currentUser.id}`}>Profile</Link>
-    }
-  }
+			// debugger
+			if(paramid !== this.props.currentUser.id){
+				if(this.props.users){
 
+					let userFromParams = this.props.users.find(u => u.id === paramid )
+					return (
+						<Profile
+							{...rout}
+							allCompanies={this.props.allCompanies}
+							isCurrentUserProfile={false}
+							currentUser={this.props.currentUser}
+							user={userFromParams}
+							/>)
+				}
+		 }
+	 }
 
-  patchEditProfile = (e, state) => {
-    // debugger
-    // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-    let id = this.state.currentUser.id
-    // let id = parseInt(this.match.params.id)
-    // debugger
-    e.preventDefault()
-    fetch(`${userUrl}/${id}`,{
-      headers:{
-        'accepts':'application/json',
-        'content-type':'application/json'
-      },
-      method:'PATCH',
-      body:JSON.stringify({
-        name:state.nameValue,
-        experience:state.experienceValue,
-        car:state.carValue,
-        companies:state.companiesValue,
-        location:state.locationValue,
-        rating:state.ratingValue,
-      })
-    })
-    .then(r => r.json())
-    .then(res => {
-      this.setState({
-        currentUser: res,
-        modal: false
-      })
-    })
-  }
+ }
+	renderProfileRoute=()=>{
+	  return (
+			<>
+	    <Route path="/users/:id" exact render={(props) => {
+	        // debugger
+	        let id = parseInt(props.match.params.id)
+	        // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
+	        // debugger
+	      if(this.props.currentUser){
+	        debugger
+	        if(id !== this.props.currentUser.id){
+	          let ourUser = this.props.users.find(u => u.id === id )
+	          // debugger
+	          return (
+	            <Profile
+	              {...props}
+	              allCompanies={this.props.allCompanies}
+	              currentUser={this.props.currentUser}
+	              user={ourUser}
+	            />
+	          )
+	        }
+	        else {
+	          // let ourOtherUser = this.state.currentUser
+	          // debugger
+	          return (
+	            <Profile
+	              {...props}
+	              allCompanies={this.props.allCompanies}
+	              currentUser={this.props.currentUser}
+	              user={this.props.currentUser}
 
-renderHeader=()=>{
-  return (
-    <>
-    <Header />
-    <Navbar bg='dark' expand='sm' role="banner" class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-         <div class="navbar-header">
-           <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-left"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-         </div>
-         <div class="navbar-inverse side-collapse in">
-           <nav role="navigation" class="navbar-collapse">
-             <ul class="nav navbar-nav">
-               {this.renderProfileLink()}
-               <Link to="/rides">Rides</Link>
-               <Link to="/forums">Forums</Link>
+	            />
+	          )
+	        }}
+	    }}/>
+		</>
 
-             </ul>
-           </nav>
-         </div>
-       </div>
-     </Navbar>
-  </>
-  )
+	  )
 
-}
+	}
 
-renderbootstrapheader=()=>{
-  return (
-    <>
-    <Header />
-    <Navbar bg="dark" expand="md">
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link>{this.renderProfileLink()}</Nav.Link>
-          <Nav.Link><Link to="/rides">Rides</Link></Nav.Link>
-          <Nav.Link><Link to="/forums">Forums</Link></Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-
-    </>
-  )
-}
 
 
   render() {
-    //console.log('in app render', this.state)
+		console.log('app props',this.props)
+		// <Route path="/users/:id" exact render={routerProps => <Profile currentUser={this.props.currentUser} {...routerProps} />} />
+		// <Route path="/profile" component={Profile} />
+		// debugger
+		// <Route path="/users/:id" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
+		// {this.renderProfileRoute()}
     return (
-      <Fragment>
-        {this.renderbootstrapheader()}
+      <>
+      <Grid>
+        <Header history={this.props.history}  currentUser={this.props.currentUser} />
+        <Grid.Row centered>
+          <Switch>
+						<Route path="/profile" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies}	 isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
+						<Route path="/user/:id" render={(routerProps) => this.renderPage(routerProps)} />
 
 
-
-          <Route path="/profile/:id" exact render={(props) => {
-              // debugger
-              let id = parseInt(props.match.params.id)
-              // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-            if(this.state.users){
-              if(id !== this.state.currentUser.id){
-                let ourUser = this.state.users.find(u => u.id === id )
-                // debugger
-                return (
-                  <Profile
-                    {...props}
-                    allCompanies={this.state.allCompanies}
-                    currentUser={this.state.currentUser}
-                    user={ourUser}
-                    handleEdit={this.patchEditProfile}
-                  />
-                )
-              }
-              else {
-                let ourOtherUser = this.state.currentUser
-                // debugger
-                return (
-                  <Profile
-                    {...props}
-                    allCompanies={this.state.allCompanies}
-                    currentUser={this.state.currentUser}
-                    user={ourOtherUser}
-                    handleEdit={this.patchEditProfile}
-                  />
-                )
-              }}
-          }}/>
-
-
-          <Route path="/rides" exact render={() => {
-            return (
-              <Fragment>
-              <Rides
-                allUsers={this.state.users}
-                user={this.state.currentUser}
-                forum={this.state.forums}
-                rides={this.state.rides}
-                allCompanies={this.state.allCompanies}
-              />
-              </Fragment>
-            )}
-
-            }/>
-          {/* WE ONLY DOING THE FISRT USER FOR NOW, K?*/}
-          <Route path="/forums" exact render={() => {
-            return (
-              <Fragment>
-              <ForumsPage
-              users={this.state.users}
-              currentUser={this.state.currentUser}
-              />
-              </Fragment>
-            )}
-
-            }/>
-            <Route path="/" exact render={() => {
-              return (
-                <Fragment>
-                <Rides
-                  allUsers={this.state.users}
-                  users={this.state.users}
-                  user={this.state.currentUser}
-                  forum={this.state.forums}
-                  rides={this.state.rides}
-                  allCompanies={this.state.allCompanies}
-                />
-                </Fragment>
-              )}
-            }/>
-
-
-      </Fragment>
-    );
+            <Route path="/forums" component={ForumsPage} />
+            <Route path="/rides" component={Rides} />
+            <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.props.setCurrentUser} />} />
+            <Route path="/signup" component={SignupForm} />
+          </Switch>
+        </Grid.Row>
+      </Grid>
+      </>
+    )
   }
 }
 
-export default App;
+
+const mapDispatchToProps = dispatch => ({
+  getProfileFetch: () => dispatch(getProfileFetch()),
+  setLogout: () => dispatch(setLogout()),
+	fetchRides:() => dispatch(fetchRides()),
+	fetchForums:() => dispatch(fetchForums()),
+	fetchUsers:()=>dispatch(fetchUsers()),
+	fetchCompanies:()=>dispatch(fetchCompanies())
+})
+function mapStateToProps(state) {
+  // maps the state from the store to the props
+	// debugger
+	const { user } = state;
+  const { rides} = state.rides;
+  const {forums}= state.forums;
+	// console.log('mapping state in rides',user)
+
+  return {
+    allCompanies:user.allCompanies,
+    rides: rides[0],
+    forums:user.forums,
+    allForums: forums[0],
+    users:user.users[1],
+    currentUser:user.currentUser
+  }
+}
 
 
-
-
-// <Route path="/profile" exact render={() => {
-//   return (
-//     <Profile
-//     user={this.state.currentUser}
-//     rides={this.state.rides}
-//     forum={this.state.forums}
-//     allCompanies={this.state.allCompanies}
-//     />
-//   )}
-// }/>
+export default connect(mapStateToProps, mapDispatchToProps)(App);
