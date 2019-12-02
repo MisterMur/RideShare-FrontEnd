@@ -33,6 +33,7 @@
 } */
 
 
+
 #edit-profile {
   margin-top: 10px;
 }
@@ -309,13 +310,3 @@ pre {
 /******
 ****end of bootsnip
 ***/
-.col-centered{
-    float: none;
-    margin: 0 auto;
-}
-.centered {
-  height: 100vh; /* Magic here */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}

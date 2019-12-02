@@ -9,72 +9,61 @@ class Modal extends React.Component{
     ratingValue: this.props.props.user.rating,
     locationValue: this.props.props.user.location,
     carValue: this.props.props.user.car,
-    userCompanies:this.props.currentUser.companies,
-    companiesValue: [],
-    options:[]
+    companiesValue: this.props.props.user.companies
   })
 
   componentDidMount(){
-    console.log('modal compdidmount current user',this.props.currentUser)
-
-
-    // companiesValue: this.props.curentUser.companies,
+    // debugger
     this.setState({
-      nameValue: this.props.currentUser.name,
-      experienceValue: this.props.currentUser.experience,
-      ratingValue: this.props.currentUser.rating,
-      locationValue: this.props.currentUser.location,
-      carValue: this.props.currentUser.car,
-      companiesValue: this.props.companiesValue,
-      allCompanies:this.props.companiesValue,
-      userCompanies:this.props.currentUser.companies
+      nameValue: this.props.props.user.name,
+      experienceValue: this.props.props.user.experience,
+      ratingValue: this.props.props.user.rating,
+      locationValue: this.props.props.user.location,
+      carValue: this.props.props.user.car,
+      companiesValue: this.props.props.user.companies
     })
   }
-handleCheckBox =(company)=>{
-  if(this.state.userCompanies && this.state.allCompanies){
-    this.state.allCompanies.map(c=>{
-      this.state.userCompanies.find(c);
-    })
 
+
+  handleCheckChange = (company) => {
+    // console.log("handling check change")
+    let companyIds = this.state.companiesValue.map(company => company.id)
+    if(companyIds.includes(company.id)){
+      // debugger
+      let companiesCopy = [...this.state.companiesValue]
+      // debugger
+      let newCompanies = companiesCopy.filter(co => co.id !== company.id)
+      this.setState({
+        companiesValue: newCompanies
+      })
+    }
+    else {
+      // debugger
+      let otherCompaniesCopy = [...this.state.companiesValue]
+      otherCompaniesCopy.push(company)
+      // debugger
+      let newCompanies = otherCompaniesCopy
+      this.setState({
+        companiesValue: newCompanies
+      })
+    }
   }
-}
 
-onChange=(e,c)=> {
-   // current array of options
-   const options = this.state.options
-   let index
-   if (e.target.checked) {
-     console.log('pushing into options',c)
-     //add checked item to array of selecteed company options
-       options.push(c)
 
-   } else {
-     //remove the unchecked item from array of selected company options
-       options.pop(c)
-
-   }
-   // update the state with the new array of options
-   this.setState({ options: options })
- }
-renderCheckBoxes = () => {
-
-  if(this.props.companiesValue){
-    // create a list of company ids in the option array
-    //  to use as keys to  distaguish if they are already in the array
-    let companyIds = this.state.options.map(company => company.id)
-    console.log('options company ids',companyIds)
-    //map over list of all comapnies and create a checkbox for each
-    return this.props.companiesValue.map((company,key)=> {
-      return(
-        <>
-        <label>{company.name}
-          <input type="checkbox" checked={companyIds.includes(company.id)} onChange={(e) => this.onChange(e,company)} ></input>
-        </label>
-        </>
-      )
-    })
+  renderChecks = () => {
+    if(this.props.state.user){
+      // debugger
+      let companyIds = this.state.companiesValue.map(company => company.id)
+      return this.props.props.allCompanies.map((company,key)=> {
+        return(
+          <label>{company.name}
+            <input onChange={() => this.handleCheckChange(company)} type="checkbox" checked={companyIds.includes(company.id)}></input>
+          </label>
+        )
+      })
+    }
   }
-}
+
 
   handleEditFormChange=(e)=>{
     console.log('handling edit', e)
@@ -128,7 +117,7 @@ renderCheckBoxes = () => {
             </label><br/>
 
             <label>Companies:
-              {this.renderCheckBoxes()}
+              {this.renderChecks()}
             </label><br/>
 
             <button type="submit" onClick={(e, state)=>this.props.handleSubmit(e, this.state)}>Save Edit</button>

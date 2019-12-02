@@ -4,8 +4,7 @@ import Profile from './Profile.js'
 import {Button,Card} from 'react-bootstrap'
 
 
-// var randImg = 'http://lorempixel.com/400/200/sports/'
-var randImg = 'https://sadanduseless.b-cdn.net/wp-content/uploads/2018/11/taxi-driver-calendar2.jpg'
+var randImg = 'http://lorempixel.com/400/200/sports/'
 
 class FollowerCard extends React.Component {
   constructor(props){
@@ -41,17 +40,17 @@ class FollowerCard extends React.Component {
     return (
       <>
       <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={this.props.follower.image_url} />
+        <Card.Img variant="top" src={randImg} />
         <Card.Body>
           <Card.Title>Name: {this.props.follower.name}</Card.Title>
           <Card.Text>
             I drive a: {this.props.follower.car}
           </Card.Text>
           <div onClick={(e,user)=>this.props.handleUserClick(e,this.props.follower)}>
-            <Link to={`/user/${this.props.follower.id}`}>
+            <Link to={`/profile/${this.props.follower.id}`}>
               <Button
                 type="button"
-                className="btn btn-primary"
+                class="btn btn-primary"
                 >
                 Check out my profile!</Button>
             </Link>
@@ -66,7 +65,7 @@ class FollowerCard extends React.Component {
 
   render() {
     return (
-      <div className="card follower-container" >
+      <div class="card follower-container" >
         {this.renderCard()}
       </div>
 
