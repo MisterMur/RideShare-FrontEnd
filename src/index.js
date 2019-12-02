@@ -7,9 +7,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from 'react-redux';
 import store from './store'
 
-// Create an enhanced history that syncs navigation events with the store
-// const history = syncHistoryWithStore(browserHistory, store)
-
 
 ReactDOM.render(
   <Provider store={store}>
