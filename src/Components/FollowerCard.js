@@ -51,7 +51,7 @@ class FollowerCard extends React.Component {
             <Link to={`/user/${this.props.follower.id}`}>
               <Button
                 type="button"
-                class="btn btn-primary"
+                className="btn btn-primary"
                 >
                 Check out my profile!</Button>
             </Link>
@@ -66,7 +66,7 @@ class FollowerCard extends React.Component {
 
   render() {
     return (
-      <div class="card follower-container" >
+      <div className="card follower-container" >
         {this.renderCard()}
       </div>
 

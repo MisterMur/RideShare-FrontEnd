@@ -24,6 +24,7 @@ class App extends React.Component {
 	componentDidMount() {
     this.props.getProfileFetch();
 		this.props.fetchRides();
+		console.log('in app compononentdismount fetching users')
 		this.props.fetchUsers();
 		this.props.fetchForums();
 
@@ -58,15 +59,18 @@ class App extends React.Component {
 
 			// debugger
 			if(paramid !== this.props.currentUser.id){
-				let userFromParams = this.props.users.find(u => u.id === paramid )
-				return (
-				 <Profile
-					 {...rout}
-					 allCompanies={this.props.allCompanies}
-					 isCurrentUserProfile={false}
-					 currentUser={this.props.currentUser}
-					 user={userFromParams}
-				 />)
+				if(this.props.users){
+
+					let userFromParams = this.props.users.find(u => u.id === paramid )
+					return (
+						<Profile
+							{...rout}
+							allCompanies={this.props.allCompanies}
+							isCurrentUserProfile={false}
+							currentUser={this.props.currentUser}
+							user={userFromParams}
+							/>)
+				}
 		 }
 	 }
 
@@ -147,7 +151,6 @@ class App extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   getProfileFetch: () => dispatch(getProfileFetch()),
-  fetchUsers: () => dispatch(fetchUsers()),
   setLogout: () => dispatch(setLogout()),
 	fetchRides:() => dispatch(fetchRides()),
 	fetchForums:() => dispatch(fetchForums()),
@@ -161,7 +164,7 @@ function mapStateToProps(state) {
   const { rides} = state.rides;
   const {forums}= state.forums;
 	// console.log('mapping state in rides',user)
-  // debugger
+
   return {
     allCompanies:user.allCompanies,
     rides: rides[0],

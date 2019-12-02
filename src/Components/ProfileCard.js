@@ -19,7 +19,7 @@ const ProfileCard = (props) => {
   // <img src="https://i.pinimg.com/originals/11/b0/bd/11b0bdd4216a2ff4918f93439860d471.jpg" alt="No Profile Image" className="card-img-top"/>
   return(
 
-      <div className="profile-card" className="card" >
+      <div className="profile-card"  >
         <img src={props.user.image_url} alt="No Profile Image" className="card-img-top"/>
 
         <div className="card-header">

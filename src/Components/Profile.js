@@ -248,39 +248,43 @@ renderFollowButton=()=>{
     )
   }
 }
+renderPage=()=>{
+  return (
+
+    <Fragment>
+      <div className = "container col-11">
+        <div className="row justify-content-center">
+          <div className="col-3 justify-content-center" id="profile-card-container">
+            {this.renderProfileCard()}
+            {this.renderEditButton()}
+            {this.renderModal()}
+
+          </div>
+          <div className="col" id="profile-rides-list">
+
+            <RideList rides={this.state.user.rides}/>
+            <ForumsList forums={this.state.user.forums}/>
+            <FriendsBox followers={this.state.user.followers}/>
+          </div>
+        </div>
+
+      </div>
+    </Fragment>
+  )
+
+}
 
 
   render() {
 
 
-
-    console.log("rendering profile", this.state)
-    // debugger
-
-
     return (
-      <Fragment>
-        <div className = "container col-11">
-          <div className="row justify-content-center">
-            <div className="col-3 justify-content-center" id="profile-card-container">
-              {this.renderProfileCard()}
-              {this.renderEditButton()}
-              {this.renderModal()}
+      <>
+      {this.props.currentUser ? this.renderPage() : <p>not logged in </p>}
+
+      </>
 
 
-            </div>
-            <div className="col" id="profile-rides-list">
-
-              <RideList rides={this.state.user.rides}/>
-              <ForumsList forums={this.state.user.forums}/>
-              <FriendsBox followers={this.state.user.followers}/>
-
-
-            </div>
-          </div>
-
-        </div>
-      </Fragment>
     )
   }
 }
@@ -288,14 +292,16 @@ function mapStateToProps(state) {
   // maps the state from the store to the props
 	// debugger
 	const { user } = state
+  // debugger
 
-	console.log('mapping state in profile',user)
+	// console.log('mapping state in profile',user)
+  // debugger
   return {
     allCompanies:user.allCompanies[1],
     rides:user.rides,
     forums:user.forums,
     allForums:user.allForums,
-    users:user.users,
+    users:user.users[1],
     currentUser:user.currentUser
   }
 }
@@ -305,9 +311,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   fetchCompanies:()=>dispatch(fetchCompanies()),
   patchEditProfile:(d)=>dispatch(patchEditProfile(d)),
-  fetchCurrentUser:(u)=>dispatch(fetchCurrentUser(u)),
-
-	fetchUsers:()=>dispatch(fetchUsers())
+  fetchCurrentUser:(u)=>dispatch(fetchCurrentUser(u))//,
+	// fetchUsers:()=>dispatch(fetchUsers())
 })
 
 export default connect(mapStateToProps,mapDispatchToProps) (Profile)

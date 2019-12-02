@@ -45,7 +45,7 @@ export function setAllCompanies(src){
 
 
 export function setLoggedInUser(src) {
-  console.log('setting logged in user',src)
+  // console.log('setting logged in user',src)
   return {
     type: LOGIN_USER,
     payload: src,

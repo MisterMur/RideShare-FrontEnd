@@ -17,14 +17,14 @@ class ChatBox extends Component{
 
       return (
         <div>
-        <div class="incoming_msg">
-          <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"/> </div>
-          <div class="received_msg">
-            <div class="received_withd_msg">
+        <div className="incoming_msg">
+          <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"/> </div>
+          <div className="received_msg">
+            <div className="received_withd_msg">
               <p>
               {message.content}
               </p>
-              <span class="time_date">  {this.props.users.find(user => user.id == message.user_id).name}   |  {message.created_at}  </span></div>
+              <span className="time_date">  {this.props.users.find(user => user.id == message.user_id).name}   |  {message.created_at}  </span></div>
           </div>
         </div>
         </div>

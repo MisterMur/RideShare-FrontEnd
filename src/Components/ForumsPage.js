@@ -29,17 +29,23 @@ class ForumsPage extends React.Component {
   closeChat = () => {
     this.setState({openChat: false})
   }
-
-
-
-
-  render(){
+  renderPage = ()=>{
     return (
       <>
       <div>
       {!this.state.openChat ? <ForumsList handleForumClick={this.handleForumClick} forums={this.props.allForums}/> : <ChatBox
       currentUser={this.props.currentUser} closeChat={this.closeChat} users={this.props.users} currentChat={this.props.allForums.find(forum => forum.topic === this.state.clickedForum)}/>}
     </div></>
+
+    )
+  }
+
+
+  render(){
+    return (
+      <>
+      {this.props.currentUser ? this.renderPage() : <p>Not Logged In </p>}
+      </>
     )
   }
 
