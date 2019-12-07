@@ -16,7 +16,7 @@ export function logoutUser()  {
   }
 }
 export function setAllRides(src) {
-  console.log('setting all rides ',src)
+  // console.log('setting all rides ',src)
   return {
     type: FETCH_ALL_RIDES,
     payload: src
@@ -35,7 +35,7 @@ export function setAllUsers(src){
   }
 }
 export function setAllCompanies(src){
-  console.log('setting all companies')
+  // console.log('setting all companies')
   return {
     type: FETCH_ALL_COMPANIES,
     payload:src
@@ -99,12 +99,12 @@ export function patchEditProfile  ( data)  {
 export function fetchCurrentUser(user) {
   // does that seem cool? ehhhh
   return function(dispatch) {
-    console.log('fetching current user',user)
+    // console.log('fetching current user',user)
     dispatch({ type: FETCH_CURRENT_USER });
     fetch(`${USERURL}/${user.id}`)
     .then(res=>res.json())
     .then(current=>{
-        console.log('fetched current user',current)
+        // console.log('fetched current user',current)
         dispatch(setLoggedInUser(current))
 
     })
@@ -118,7 +118,7 @@ export function fetchUsers() {
     fetch(USERURL)
     .then(res=>res.json())
     .then(users=>{
-        console.log('fetched users',users)
+        // console.log('fetched users',users)
         dispatch(setAllUsers(users))
 
     })
@@ -131,7 +131,7 @@ export function fetchCompanies() {
     fetch(COMPANYURL)
     .then(res=>res.json())
     .then(companies=>{
-        console.log('fetched companies',companies)
+        // console.log('fetched companies',companies)
         dispatch(setAllCompanies(companies))
 
     })
@@ -196,7 +196,7 @@ export function createUser (login_data) {
       } else {
         // debugger
         // localStorage.setItem("token", response.jwt)
-        console.log('creat user',response)
+        // console.log('creat user',response)
         // this.props.setCurrentUser(response.user)
         localStorage.setItem('jwt', response.jwt)
         dispatch (setLoggedInUser(response.user))
@@ -207,7 +207,7 @@ export function createUser (login_data) {
 }
 export function userLoginFetch  (user,callback) {
   return dispatch =>{
-    console.log('in userlogin fetch')
+    // console.log('in userlogin fetch')
     fetch(LOGINURL, {
       method: "POST",
       headers: {
@@ -220,7 +220,7 @@ export function userLoginFetch  (user,callback) {
     .then((response) => {
       if (response.errors) {
         alert(response.errors)
-        console.log('response gotf error',response)
+        // console.log('response gotf error',response)
       } else {
         // we need to login at the top level where we are holding our current user!
         // setState in App to currentuse
@@ -228,7 +228,7 @@ export function userLoginFetch  (user,callback) {
         // debugger
         // this.props.setCurrentUser(response.user)
         // debugger
-        console.log('set jwt toeken')
+        // console.log('set jwt toeken')
         // debugger
         localStorage.setItem('jwt', response.jwt)
         dispatch(setLoggedInUser(response.user))
@@ -248,11 +248,11 @@ export function userLoginFetch  (user,callback) {
 
 export function getProfileFetch() {
   return dispatch => {
-    console.log('in get profile fetchauto login')
+    // console.log('in get profile fetchauto login')
     const jwt = localStorage.getItem('jwt')
 
     if (jwt){
-      console.log('jwt exists in auto login')
+      // console.log('jwt exists in auto login')
       fetch(AUTOLOGINURL, {
         headers: {
           "Authorization": `Bearer ${jwt}`
@@ -265,7 +265,7 @@ export function getProfileFetch() {
           alert(response.errors)
           localStorage.removeItem('jwt')
         } else {
-          console.log('setting userfrom auto login',response)
+          // console.log('setting userfrom auto login',response)
           dispatch(setLoggedInUser(response))
         }
       })

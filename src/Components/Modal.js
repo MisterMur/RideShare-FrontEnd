@@ -15,10 +15,6 @@ class Modal extends React.Component{
   })
 
   componentDidMount(){
-    console.log('modal compdidmount current user',this.props.currentUser)
-
-
-    // companiesValue: this.props.curentUser.companies,
     this.setState({
       nameValue: this.props.currentUser.name,
       experienceValue: this.props.currentUser.experience,

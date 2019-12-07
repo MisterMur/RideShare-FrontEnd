@@ -14,20 +14,13 @@ class Profile extends React.Component {
     super(props)
     this.state={
       modal: false,
-      // user:"",
       user:this.props.user,
-      // curentUser: this.props.currentUser,
       editedUser: this.props.user,
+      clickedForum: null,
+      openChat: false,
       isCurrentUserProfile:null
-      // name:props.user.name,
-      // car: props.user.car,
-      // companies:props.user.companies,
-      // experience:props.user.experience,
-      // location:props.user.location,
-      // rating:props.user.rating,
-      // id:props.user.id
+
     }
-    console.log('profile constructor props',props)
   }
   componentDidMount(){
     this.props.fetchCompanies();
@@ -37,9 +30,6 @@ class Profile extends React.Component {
 
 
 componentWillReceiveProps(newProps){
-  // debugger
-  // this.props.fetchCurrentUser(resUser.user)
-  // debugger
   if(newProps.isCurrentUserProfile){
 
     this.setState({user:newProps.currentUser})
@@ -52,24 +42,10 @@ componentWillReceiveProps(newProps){
 
 }
 
-  // componentWillReceiveProps(props){
-  //
-  //   let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-  //   let id = parseInt(this.props.match.params.id)
-  //   // debugger
-  //   fetch(`${userUrl}/${id}`)
-  //   .then(res => res.json())
-  //   .then(res => {
-  //     this.setState({
-  //       user: res
-  //     })
-  //   })
-  // }
 
   handleEdit = (e) => {
     console.log(e)
     this.setState({modal:true})
-    // this.renderEditModal()
   }
 
   handleAfterOpen=()=>{
@@ -92,12 +68,15 @@ componentWillReceiveProps(newProps){
   handleDelete=(e)=>{
     console.log('in handle delete function',e.target)
   }
+  handleForumClick = (e) => {
+    this.setState({clickedForum: e.target.id})
+    this.setState({openChat: true})
+  }
 
 
   renderModal = () => {
     console.log('rendar modal with ', this.props.allCompanies)
     if(this.props.user) {
-      // debugger
       return(
         <Modal
           state={this.state}
@@ -114,15 +93,10 @@ componentWillReceiveProps(newProps){
   }
 
   patchEditProfile = (e, userData) => {
-    // debugger
-    // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-    // let id = this.props.currentUser.id
-    // let id = parseInt(this.match.params.id)
-    // debugger
+
     e.preventDefault()
     if(this.props.currentUser){
       userData.id=this.props.currentUser.id;
-      // debugger
       fetch(`${USERURL}/${this.props.currentUser.id}`,{
         headers:{
           'accepts':'application/json',
@@ -142,7 +116,6 @@ componentWillReceiveProps(newProps){
       })
       .then(r => r.json())
       .then(resUser => {
-        console.log('in path edit profile',resUser)
         this.setState({
           modal: false
         }  ,this.props.fetchCurrentUser(resUser.user)  )
@@ -198,8 +171,6 @@ handleUnFollow = () => {
 
   renderProfileCard = () => {
     if(this.state.user){
-      console.log('rendering profilecard',this.state.user)
-      // debugger
       return(
         <ProfileCard user={this.state.user} companies={this.state.user.companies}/>
       )
@@ -263,7 +234,7 @@ renderPage=()=>{
           <div className="col" id="profile-rides-list">
 
             <RideList rides={this.state.user.rides}/>
-            <ForumsList forums={this.state.user.forums}/>
+            <ForumsList forums={this.state.user.forums} handleForumClick={this.handleForumClick}/>
             <FriendsBox followers={this.state.user.followers}/>
           </div>
         </div>
@@ -290,29 +261,28 @@ renderPage=()=>{
 }
 function mapStateToProps(state) {
   // maps the state from the store to the props
-	// debugger
-	const { user } = state
-  // debugger
 
-	// console.log('mapping state in profile',user)
-  // debugger
+	const { user } = state
+  const { forums } = state
+  console.log('profile mapstatetoprops staete',forums.forums[0])
+  //issuing rendering only the users Forums
+  //setting allForums (meant to tbe user.allForums to forums.forums
+//to make sure rendering only one of each to users page for now)
+
   return {
     allCompanies:user.allCompanies[1],
     rides:user.rides,
-    forums:user.forums,
-    allForums:user.allForums,
+    forums:forums.forums[0],
+    allForums:forums.forums[0],
     users:user.users[1],
     currentUser:user.currentUser
   }
 }
-// const mapDispatchToProps = dispatch => ({
-//   postNewFriendship: () => dispatch(postNewFriendship())
-// })
+
 const mapDispatchToProps = dispatch => ({
   fetchCompanies:()=>dispatch(fetchCompanies()),
   patchEditProfile:(d)=>dispatch(patchEditProfile(d)),
   fetchCurrentUser:(u)=>dispatch(fetchCurrentUser(u))//,
-	// fetchUsers:()=>dispatch(fetchUsers())
 })
 
 export default connect(mapStateToProps,mapDispatchToProps) (Profile)

@@ -1,11 +1,10 @@
-import {push} from 'react-router-redux';
+// import {push} from 'react-router-redux';
 
 import { ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,FETCH_ALL_USERS,FETCH_ALL_COMPANIES,LOGOUT_USER} from '../Constants';
 
 
 const initialUserState = {
   users: [],
-  currentUser: "key here",
   allCompanies:[],
   forums:[],
   rides: [],
@@ -24,19 +23,8 @@ export default function userReducer(state = initialUserState, action) {
     case "RESET":
       return initialUserState;
     case FETCH_ALL_COMPANIES:
-      console.log('in reducer all companies', action.payload)
       return {...state,allCompanies:[...state.allCompanies,action.payload]}
     case LOGIN_USER:
-      // debugger
-      // browserHistory.push(`/profile/${this.props.currentUser.id}`)
-      // dispatch(push(`/profile/${action.payload.id}`))
-      console.log('in LOGIN_USER Reducer',action.payload);
-
-      // history.push(`/profile/${action.payload.id}`);
-      // this.props.history.push(`/users/${response.user.id}`)
-
-      // debugger
-      // console.log('pushed login reducer')
 
       return {...state,currentUser:action.payload};
     case FETCH_ALL_USERS:

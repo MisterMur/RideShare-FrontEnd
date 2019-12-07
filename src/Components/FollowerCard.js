@@ -1,5 +1,5 @@
 import React from "react";
-import {Link,Route,Router} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Profile from './Profile.js'
 import {Button,Card} from 'react-bootstrap'
 

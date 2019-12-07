@@ -25,8 +25,8 @@ class Leader extends React.Component {
 
               <p class="list-group-item-text">
                 {this.props.getStat?this.props.getStat(this.props.getUser):null}
-                {this.props.superlative=='rating'?this.props.getUser.rating:null}
-                {this.props.superlative=='experience'?this.props.getUser.experience:null}</p>
+                {this.props.superlative==='rating'?this.props.getUser.rating:null}
+                {this.props.superlative==='experience'?this.props.getUser.experience:null}</p>
                 </div>
                 </Link>
 

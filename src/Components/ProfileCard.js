@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 
 const ProfileCard = (props) => {
   // console.log(props);
@@ -14,9 +14,6 @@ const ProfileCard = (props) => {
     // console.log(e.target)
   }
 
-  console.log("rendering profile card")
-  // "https://cdn-images-1.medium.com/max/1200/1*kfM2czy7JbViNrmS4kcmFQ.jpeg"
-  // <img src="https://i.pinimg.com/originals/11/b0/bd/11b0bdd4216a2ff4918f93439860d471.jpg" alt="No Profile Image" className="card-img-top"/>
   return(
 
       <div className="profile-card"  >

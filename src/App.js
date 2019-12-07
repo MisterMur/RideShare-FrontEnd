@@ -1,4 +1,4 @@
-import React, { Component, Fragment} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom'
 import { Link, Route,Switch, Redirect} from 'react-router-dom'
 // import { Router, Route, browserHistory,Switch,Redirect } from 'react-router'
@@ -24,7 +24,7 @@ class App extends React.Component {
 	componentDidMount() {
     this.props.getProfileFetch();
 		this.props.fetchRides();
-		console.log('in app compononentdismount fetching users')
+		// console.log('in app compononentdismount fetching users')
 		this.props.fetchUsers();
 		this.props.fetchForums();
 
@@ -54,10 +54,8 @@ class App extends React.Component {
  }
  renderPage=(rout)=>{
 	 let paramid = parseInt(rout.match.params.id)
-	 console.log('in render page',this.props)
 	 if(this.props.currentUser){
 
-			// debugger
 			if(paramid !== this.props.currentUser.id){
 				if(this.props.users){
 
@@ -79,15 +77,11 @@ class App extends React.Component {
 	  return (
 			<>
 	    <Route path="/users/:id" exact render={(props) => {
-	        // debugger
 	        let id = parseInt(props.match.params.id)
-	        // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
-	        // debugger
 	      if(this.props.currentUser){
 	        debugger
 	        if(id !== this.props.currentUser.id){
 	          let ourUser = this.props.users.find(u => u.id === id )
-	          // debugger
 	          return (
 	            <Profile
 	              {...props}
@@ -98,8 +92,7 @@ class App extends React.Component {
 	          )
 	        }
 	        else {
-	          // let ourOtherUser = this.state.currentUser
-	          // debugger
+
 	          return (
 	            <Profile
 	              {...props}
@@ -120,25 +113,20 @@ class App extends React.Component {
 
 
   render() {
-		console.log('app props',this.props)
-		// <Route path="/users/:id" exact render={routerProps => <Profile currentUser={this.props.currentUser} {...routerProps} />} />
-		// <Route path="/profile" component={Profile} />
-		// debugger
-		// <Route path="/users/:id" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
-		// {this.renderProfileRoute()}
+
     return (
       <>
       <Grid>
         <Header history={this.props.history}  currentUser={this.props.currentUser} />
         <Grid.Row centered>
           <Switch>
+						<Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.props.setCurrentUser} />} />
 						<Route path="/profile" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies}	 isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
 						<Route path="/user/:id" render={(routerProps) => this.renderPage(routerProps)} />
 
 
             <Route path="/forums" component={ForumsPage} />
             <Route path="/rides" component={Rides} />
-            <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.props.setCurrentUser} />} />
             <Route path="/signup" component={SignupForm} />
           </Switch>
         </Grid.Row>

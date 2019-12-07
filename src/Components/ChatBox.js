@@ -8,28 +8,40 @@ class ChatBox extends Component{
       formInput: '',
       currentUser: this.props.currentUser,
       currentChat: this.props.currentChat,
-      messages: this.props.currentChat.messages
+      messages:this.props.currentChat.messages
     }
+  }
+  componentWillReceiveProps(newProps){
+
+    this.setState({
+      currentUser:newProps.currentUser,
+      currentChat:newProps.currentChat,
+      messages:newProps.currentChat.messages
+    })
+
   }
 
   renderMessages = () => {
-    return this.state.messages.map(message => {
 
-      return (
-        <div>
-        <div className="incoming_msg">
-          <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"/> </div>
-          <div className="received_msg">
-            <div className="received_withd_msg">
-              <p>
-              {message.content}
-              </p>
-              <span className="time_date">  {this.props.users.find(user => user.id == message.user_id).name}   |  {message.created_at}  </span></div>
-          </div>
-        </div>
-        </div>
-      )
-    })
+
+      return this.state.messages.map(message => {
+        return (
+          <div>
+            <div className="incoming_msg">
+              <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"/> </div>
+              <div className="received_msg">
+                <div className="received_withd_msg">
+                  <p>
+                    {message.content}
+                  </p>
+                  <span className="time_date">  {this.props.users.find(user => user.id === message.user_id).name}   |  {message.created_at}  </span></div>
+                </div>
+              </div>
+            </div>
+          )
+        })
+
+
 
   }
 
@@ -92,7 +104,7 @@ class ChatBox extends Component{
                 </div>
               </div>
             </div>
-            <p class="text-center top_spac"> Design by <a target="_blank" href="#">Jordan Ginor , Zev Spilman , Brian Murillo</a></p>
+            <p class="text-center top_spac"> Design by <a target="_blank" href="#">Brian Murillo</a></p>
           </div></div>
       </Fragment>
     )

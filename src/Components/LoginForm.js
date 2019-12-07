@@ -1,11 +1,8 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn,MDBInput } from 'mdbreact';
-import { Link } from 'react-router-dom'
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import { connect } from 'react-redux';
 import {userLoginFetch} from '../Actions';
-import Profile from './Profile.js'
 import { Form, Button } from 'semantic-ui-react'
-import {LOGINURL} from '../Constants.js'
 import '../App.css';
 
 
@@ -17,8 +14,8 @@ class LoginForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if(this.props.currentUser){
-      this.props.navigate(`profile/${this.props.currentUser.id}`);
+    if(newProps.currentUser){
+      this.props.history.push(`/profile`)
     }
   }
 
@@ -32,6 +29,7 @@ class LoginForm extends React.Component {
   handleSubmit = () => {
     console.log('in handle submit login')
     this.props.userLoginFetch(this.state)
+
 
   }
 
@@ -74,8 +72,9 @@ const mapDispatchToProps = dispatch => ({
 })
 function mapStateToProps(state) {
   // maps the state from the store to the props
+  const {user} = state
   return {
-    currentUser: null
+    currentUser: user.currentUser
   }
 }
 

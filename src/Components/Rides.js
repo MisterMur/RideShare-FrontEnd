@@ -162,14 +162,9 @@ const mapDispatchToProps = dispatch => ({
 	fetchUsers:()=>dispatch(fetchUsers())
 })
 function mapStateToProps(state) {
-  // maps the state from the store to the props
-	// debugger
-  // debugger
 	const { user } = state;
   const { rides} = state.rides;
   const {forums}= state.forums;
-	console.log('mapping state in rides',user)
-  // debugger
   return {
     allCompanies:user.allCompanies,
     rides: rides[0],

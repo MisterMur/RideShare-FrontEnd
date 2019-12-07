@@ -19,7 +19,7 @@ class Header extends React.Component {
   renderProfileLink = () => {
     // console.log('in render profile link')
     // debugger
-    console.log('rendering profile link',this.props)
+    // console.log('rendering profile link',this.props)
     // debugger
     if(this.props.currentUser){
       // return <Link to={`/profile/${this.props.currentUser.id}`}>Profile</Link>
