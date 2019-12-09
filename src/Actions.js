@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {AUTOLOGINURL,MESSAGEURL,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+import {AUTOLOGINURL,MESSAGEURL,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -38,6 +38,12 @@ export function setAllCompanies(src){
   // console.log('setting all companies')
   return {
     type: FETCH_ALL_COMPANIES,
+    payload:src
+  }
+}
+export function setAllForumMessages(src){
+  return {
+    type:FETCH_ALL_FORUM_MESSAGES,
     payload:src
   }
 }
@@ -148,6 +154,13 @@ export function fetchRides(){
     })
   }
 }
+export function fetchForumMessages(forum){
+  return function (dispatch){
+    fetch(FORUMSURL+forum.id)
+    .then(res=>res.json())
+    .then(f=>{dispatch(setAllForumMessages(f.messages))})
+  }
+}
 export function fetchForums(){
   return function (dispatch){
     fetch(FORUMSURL)
@@ -157,8 +170,8 @@ export function fetchForums(){
 }
 export function postNewMessage(currentUser,content,forum){
   return dispatch=>{
-    console.log('in postnew message reducer',currentUser)
-    console.log('inpost new message reducer forum:',forum)
+    // console.log('in postnew message reducer',currentUser)
+    // console.log('inpost new message reducer forum:',forum)
     console.log('inpost new message reducer content:',content)
     return fetch ( MESSAGEURL,{
       method:"POST",
@@ -172,7 +185,7 @@ export function postNewMessage(currentUser,content,forum){
         content: content
       })
     }
-    ).then(handleErrors)
+  ).then(handleErrors)
   }
 }
 

@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 
-import {postNewMessage,fetchUsers} from '../Actions.js'
+import {postNewMessage,fetchUsers,fetchForumMessages} from '../Actions.js'
 
 
 class ChatBox extends Component{
@@ -27,12 +27,25 @@ class ChatBox extends Component{
   //   })
   //
   // }
+  // componentDidMount(){
+  //   this.props.fetchForumMessages(this.state.currentChat)
+  //
+  //
+  // }
+
+  componentWillReceiveProps(newProps){
+    this.props.fetchForumMessages(newProps.currentChat)
+
+  }
 
   renderMessages = () => {
     if (this.state.messages){
       // console.log('render messages, thistate users', this.props.users)
-
+      // console.log('render messages',this.state.messages)
       return this.state.messages.map(message => {
+        // debugger
+        let messageName =this.props.users.find(user => user.id === message.user_id).name
+        let messageDate = message.created_at
         return (
           <div>
             <div className="incoming_msg">
@@ -42,7 +55,7 @@ class ChatBox extends Component{
                   <p>
                     {message.content}
                   </p>
-                  <span className="time_date">  {this.props.users.find(user => user.id === message.user_id).name}   |  {message.created_at}  </span></div>
+                  <span className="time_date">  {messageName ? messageName : 'NotFound'}   |  {message.created_at}  </span></div>
                 </div>
               </div>
             </div>
@@ -83,7 +96,7 @@ class ChatBox extends Component{
     // )
     // .then(r => r.json())
     this.props.postNewMessage(this.props.currentUser,this.state.formInput,this.state.currentChat)
-    .then(r => this.addNewMessage(r)).then(console.log)
+    //.then(r => this.props.fetchForumMessages(this.state.currentChat)).then(console.log)
   }
 
   addNewMessage = (r) => {
@@ -125,6 +138,7 @@ class ChatBox extends Component{
 }
 const mapDispatchToProps = dispatch => ({
   fetchUsers:()=>dispatch(fetchUsers()),
+  fetchForumMessages:(forum)=>dispatch(fetchForumMessages(forum)),
   postNewMessage:(user,forum,message)=>dispatch(postNewMessage(user,forum,message))
 
 
@@ -132,10 +146,14 @@ const mapDispatchToProps = dispatch => ({
 function mapStateToProps(state){
   const {user}= state;
   // debugger
-  console.log('chatbox mapstateprops user.users',user.users[2])
+  const {forums} = state
+  console.log('chatbox mapstateprops forum',forums.messages[0])
 
   return {
-    users:user.users[2]
+    users:user.users[2],
+    messages:forums.messages
+  //  messages:forum.messages
+
   }
 }
 

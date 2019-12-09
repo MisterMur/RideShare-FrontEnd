@@ -5,7 +5,12 @@ const ForumList = (props) => {
 
   const renderForum=()=>{
     if(props.forums){
-      return props.forums.map((forum,key)=>{
+
+      function uniqueForums(array) {
+       return array.filter((e, i) => array.findIndex(a => a.topic === e.topic) === i);
+      }
+
+      return uniqueForums(props.forums).map((forum,key)=>{
         return <Fragment>
           <Forum
             handleForumClick={props.handleForumClick}
