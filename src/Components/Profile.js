@@ -219,7 +219,21 @@ renderFollowButton=()=>{
     )
   }
 }
+renderUserForums=()=>{
+  console.log('in render user forums, ', this.state.user)
+  return (
+    <>
+    {this.state.user.forums.length!=0 ?
+      <ForumsList forums={this.state.user.forums} handleForumClick={this.handleForumClick}/>
+      :
+      <h3>No forums</h3>
+    }
+
+    </>
+  )
+}
 renderPage=()=>{
+  console.log('in profile renderPage(), this.state.user',this.state.user)
   return (
 
     <Fragment>
@@ -234,7 +248,8 @@ renderPage=()=>{
           <div className="col" id="profile-rides-list">
 
             <RideList rides={this.state.user.rides}/>
-            <ForumsList forums={this.state.user.forums} handleForumClick={this.handleForumClick}/>
+            {this.renderUserForums()}
+
             <FriendsBox followers={this.state.user.followers}/>
           </div>
         </div>

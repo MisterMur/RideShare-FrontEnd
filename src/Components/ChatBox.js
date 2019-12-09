@@ -1,9 +1,15 @@
 import React, {Component, Fragment} from 'react'
+import {connect} from 'react-redux'
+
+import {postNewMessage,fetchUsers} from '../Actions.js'
+
 
 class ChatBox extends Component{
 
   constructor(props){
+
     super(props)
+
     this.state = {
       formInput: '',
       currentUser: this.props.currentUser,
@@ -11,18 +17,20 @@ class ChatBox extends Component{
       messages:this.props.currentChat.messages
     }
   }
-  componentWillReceiveProps(newProps){
-
-    this.setState({
-      currentUser:newProps.currentUser,
-      currentChat:newProps.currentChat,
-      messages:newProps.currentChat.messages
-    })
-
-  }
+  // componentWillReceiveProps(newProps){
+  //
+  //
+  //   this.setState({
+  //     currentUser:newProps.currentUser,
+  //     currentChat:newProps.currentChat,
+  //     messages:newProps.currentChat.messages
+  //   })
+  //
+  // }
 
   renderMessages = () => {
-
+    if (this.state.messages){
+      // console.log('render messages, thistate users', this.props.users)
 
       return this.state.messages.map(message => {
         return (
@@ -41,6 +49,9 @@ class ChatBox extends Component{
           )
         })
 
+    }
+
+
 
 
   }
@@ -55,22 +66,24 @@ class ChatBox extends Component{
 
   handleMessageSubmit = () => {
     // debugger
-    fetch('https://ride-share-api.herokuapp.com/api/v1/messages',
-      {method:
-        "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify({
-          forum_id: this.state.currentChat.id,
-          user_id: this.props.currentUser.id,
-          content: this.state.formInput
-        })
-      }
-    )
-    .then(r => r.json())
-    .then(r => this.addNewMessage(r))
+    // console.log('submitting message')
+    // fetch('https://ride-share-api.herokuapp.com/api/v1/messages',
+    //   {
+    //     method:"POST",
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Accepts': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //       forum_id: this.state.currentChat.id,
+    //       user_id: this.props.currentUser.id,
+    //       content: this.state.formInput
+    //     })
+    //   }
+    // )
+    // .then(r => r.json())
+    this.props.postNewMessage(this.props.currentUser,this.state.formInput,this.state.currentChat)
+    .then(r => this.addNewMessage(r)).then(console.log)
   }
 
   addNewMessage = (r) => {
@@ -110,35 +123,20 @@ class ChatBox extends Component{
     )
   }
 }
+const mapDispatchToProps = dispatch => ({
+  fetchUsers:()=>dispatch(fetchUsers()),
+  postNewMessage:(user,forum,message)=>dispatch(postNewMessage(user,forum,message))
 
-export default ChatBox
 
-// <div class="container">
-// <h3 class=" text-center">Messaging</h3>
-// <div class="messaging">
-//       <div class="inbox_msg">
-//         <div class="inbox_people">
-//           <div class="headind_srch">
-//           </div>
-//         </div>
-//         <div class="mesgs">
-//           <div class="msg_history">
-//             <div class="incoming_msg">
-//               <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"/> </div>
-//               <div class="received_msg">
-//                 <div class="received_withd_msg">
-//                   <p>Test which is a new approach to have all
-//                     solutions</p>
-//                   <span class="time_date"> 11:01 AM    |    June 9</span></div>
-//               </div>
-//             </div>
-//           </div>
-//           <div class="type_msg">
-//             <div class="input_msg_write">
-//               <input type="text" class="write_msg" placeholder="Type a message" />
-//               <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div></div>
+})
+function mapStateToProps(state){
+  const {user}= state;
+  // debugger
+  console.log('chatbox mapstateprops user.users',user.users[2])
+
+  return {
+    users:user.users[2]
+  }
+}
+
+export default connect (mapStateToProps,mapDispatchToProps)(ChatBox)

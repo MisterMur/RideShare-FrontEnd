@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {AUTOLOGINURL,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+import {AUTOLOGINURL,MESSAGEURL,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -153,6 +153,26 @@ export function fetchForums(){
     fetch(FORUMSURL)
     .then(res=>res.json())
     .then(forums=>{dispatch(setAllForums(forums))})
+  }
+}
+export function postNewMessage(currentUser,content,forum){
+  return dispatch=>{
+    console.log('in postnew message reducer',currentUser)
+    console.log('inpost new message reducer forum:',forum)
+    console.log('inpost new message reducer content:',content)
+    return fetch ( MESSAGEURL,{
+      method:"POST",
+      headers:{
+        'Content-Type':'application/json',
+        'Accepts':'application/json'
+      },
+      body:JSON.stringify({
+        user_id: currentUser.id,
+        forum_id: forum.id,
+        content: content
+      })
+    }
+    ).then(handleErrors)
   }
 }
 

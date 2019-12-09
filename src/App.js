@@ -128,6 +128,13 @@ class App extends React.Component {
             <Route path="/forums" component={ForumsPage} />
             <Route path="/rides" component={Rides} />
             <Route path="/signup" component={SignupForm} />
+						{!this.props.currentUser ?
+							<Redirect from="*" to="/login" />
+							:
+							<Redirect from="*" to="/profile" />
+
+						 }
+
           </Switch>
         </Grid.Row>
       </Grid>
@@ -151,12 +158,12 @@ function mapStateToProps(state) {
 	const { user } = state;
   const { rides} = state.rides;
   const {forums}= state.forums;
-	// console.log('mapping state in rides',user)
+	// console.log('mapping state in app, state: ',state)
 
   return {
     allCompanies:user.allCompanies,
     rides: rides[0],
-    forums:user.forums,
+    forums:forums[0],
     allForums: forums[0],
     users:user.users[1],
     currentUser:user.currentUser

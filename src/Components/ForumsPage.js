@@ -22,6 +22,7 @@ class ForumsPage extends React.Component {
   }
 
   handleForumClick = (e) => {
+
     this.setState({clickedForum: e.target.id})
     this.setState({openChat: true})
   }
@@ -33,9 +34,15 @@ class ForumsPage extends React.Component {
     return (
       <>
       <div>
-      {!this.state.openChat ? <ForumsList handleForumClick={this.handleForumClick} forums={this.props.allForums}/> : <ChatBox
-      currentUser={this.props.currentUser} closeChat={this.closeChat} users={this.props.users} currentChat={this.props.allForums.find(forum => forum.topic === this.state.clickedForum)}/>}
-    </div></>
+      {!this.state.openChat ? <ForumsList handleForumClick={this.handleForumClick} forums={this.props.allForums}/> :
+       <ChatBox
+      currentUser={this.props.currentUser}
+      closeChat={this.closeChat}
+      currentChat={this.props.forums.find(forum => forum.topic === this.state.clickedForum)}
+      />
+  }
+    </div>
+    </>
 
     )
   }
@@ -61,13 +68,13 @@ function mapStateToProps(state) {
 	// debugger
 	const { user } = state;
   const {forums}=state.forums;
-  // debugger
 
-	console.log('mapping state in forums',user)
+
+	// console.log('mapping state in forums',state)
   return {
     allCompanies:user.allCompanies,
     rides:user.rides,
-    forums:user.forums,
+    forums:forums[0],
     allForums:forums[0],
     users:user.users[2],
     currentUser:user.currentUser

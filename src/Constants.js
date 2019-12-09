@@ -1,6 +1,6 @@
 //development vals
-export const prodURL = 'https://ride-share-api.herokuapp.com/api/v1/'
-// export const prodURL = 'http://localhost:3000/api/v1/'
+// export const prodURL = 'https://ride-share-api.herokuapp.com/api/v1/'
+export const prodURL = 'http://localhost:3000/api/v1/'
 
 
 export const USERURL=prodURL+'users/'
@@ -10,6 +10,7 @@ export const FRIENDSHIPURL=prodURL+'friendships/'
 export const FORUMSURL = prodURL+'forums/'
 export const LOGINURL = prodURL+'login/'
 export const AUTOLOGINURL = prodURL+'auto_login/'
+export const MESSAGEURL = prodURL+'messages/'
 
 // export  const COMPANYURL = 'http://ride-share-api.herokuapp.com/api/v1/companies/'
 // export  const RIDEURL = 'http://ride-share-api.herokuapp.com/api/v1/rides/'
