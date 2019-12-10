@@ -25,12 +25,12 @@ const ForumList = (props) => {
   }
 
   return (
-    <div className="profile-forums">
+    <div className="ride-list">
       <table className="table table-striped" >
         <thead className="thead-dark">
           <tr>
             <th scope="col">Num</th>
-            <th className="col" scope="col">Topic</th>
+            <th scope="col">Forum Topic</th>
           </tr>
         </thead>
         <tbody>

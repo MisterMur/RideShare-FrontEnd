@@ -27,25 +27,35 @@ class ChatBox extends Component{
   //   })
   //
   // }
-  // componentDidMount(){
-  //   this.props.fetchForumMessages(this.state.currentChat)
-  //
-  //
-  // }
+  componentDidMount(){
+    // this.props.fetchForumMessages(this.state.currentChat)
+    this.props.fetchForumMessages(this.state.currentChat)
 
-  componentWillReceiveProps(newProps){
-    this.props.fetchForumMessages(newProps.currentChat)
+
 
   }
 
-  renderMessages = () => {
-    if (this.state.messages){
+
+  componentWillReceiveProps(newProps){
+    // if(newProps.messages !== this.props.messages) {
+
+      // nextProps.myProp has a different value than our current prop
+      // so we can perform some calculations based on the new value
+      this.setState({messages:newProps.messages})
+      console.log(newProps.messages)
+    // }
+  }
+
+  renderMessages = (messages) => {
+    if (this.props.users){
+      // console.log('inrender messages', this.props.messages)
       // console.log('render messages, thistate users', this.props.users)
       // console.log('render messages',this.state.messages)
-      return this.state.messages.map(message => {
+      return messages.map(m=>{
         // debugger
-        let messageName =this.props.users.find(user => user.id === message.user_id).name
-        let messageDate = message.created_at
+        // console.log('message',m)
+        let messageName =this.props.users.find(user => user.id === m.user_id).name
+        let messageDate = m.created_at
         return (
           <div>
             <div className="incoming_msg">
@@ -53,9 +63,9 @@ class ChatBox extends Component{
               <div className="received_msg">
                 <div className="received_withd_msg">
                   <p>
-                    {message.content}
+                    {m.content}
                   </p>
-                  <span className="time_date">  {messageName ? messageName : 'NotFound'}   |  {message.created_at}  </span></div>
+                  <span className="time_date">  {messageName ? messageName : 'NotFound'}   |  {m.created_at}  </span></div>
                 </div>
               </div>
             </div>
@@ -96,12 +106,20 @@ class ChatBox extends Component{
     // )
     // .then(r => r.json())
     this.props.postNewMessage(this.props.currentUser,this.state.formInput,this.state.currentChat)
+    this.setState({formInput: ''})
+    // let copy = [...this.state.messages, this.state.formInput]
+    // this.setState({messages: copy})
+    console.log('after post new message,props.messages',this.props.messages)
+    console.log('after post new message,state.messages',this.state.messages)
+
+
     //.then(r => this.props.fetchForumMessages(this.state.currentChat)).then(console.log)
   }
 
   addNewMessage = (r) => {
     let copy = [...this.state.messages, r]
     this.setState({messages: copy})
+
     this.setState({formInput: ''})
   }
 
@@ -120,7 +138,7 @@ class ChatBox extends Component{
               </div>
               <div class="mesgs">
                 <div class="msg_history">
-                {this.renderMessages()}
+                {this.renderMessages(this.state.messages)}
                 </div>
                 <div class="type_msg">
                   <div class="input_msg_write">
@@ -147,11 +165,11 @@ function mapStateToProps(state){
   const {user}= state;
   // debugger
   const {forums} = state
-  console.log('chatbox mapstateprops forum',forums.messages[0])
+  // console.log('chatbox mapstateprops forum',forums.messages[0])
 
   return {
     users:user.users[2],
-    messages:forums.messages
+    messages:forums.messages[0]
   //  messages:forum.messages
 
   }

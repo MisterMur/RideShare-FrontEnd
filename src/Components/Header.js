@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from 'react-dom';
 import {Navbar, Nav, NavItem,NavDropdown,Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
@@ -7,6 +8,25 @@ import { setLogout} from '../Actions';
 
 
 class Header extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { navHeight: 50 };
+
+      this.handleResize = this.handleResize.bind(this);
+    }
+
+    handleResize(e = null) {
+      this.setState({ navHeight: ReactDOM.findDOMNode(this._navbar).offsetHeight });
+    }
+
+    componentDidMount() {
+      window.addEventListener('resize', this.handleResize);
+      this.handleResize();
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.handleResize);
+    }
 
     logout = () => {
      // event.preventDefault()
@@ -64,7 +84,10 @@ class Header extends React.Component {
   renderNav=()=>{
     return(
       <>
-          <Navbar bg="dark" expand="md">
+
+
+          <Navbar bg="dark" expand="md" fixedTop ref={(e) => this._navbar = e} inverse fluid>
+
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
 
@@ -101,8 +124,10 @@ class Header extends React.Component {
   render() {
     return (
       <>
-      {this.renderHeader()}
-      {this.renderNav()}
+      <body style={{paddingTop: this.state.navHeight}}>
+        {this.renderHeader()}
+        {this.renderNav()}
+      </body>
       </>
     )
   }

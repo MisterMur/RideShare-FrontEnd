@@ -9,7 +9,7 @@ class FriendsBox extends Component {
 
   handleUserClick=(e,user)=>{
     // debugger
-    // console.log('in handle user click ',user)
+    console.log('in handle user click ',user)
     return (
               <Profile
                 {...this.props}

@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {AUTOLOGINURL,MESSAGEURL,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+import {AUTOLOGINURL,MESSAGEURL,SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -31,6 +31,12 @@ export function setAllForums(src){
 export function setAllUsers(src){
   return {
     type: FETCH_ALL_USERS,
+    payload:src
+  }
+}
+export function setUser(src){
+  return {
+    type: SET_USER,
     payload:src
   }
 }
@@ -130,6 +136,13 @@ export function fetchUsers() {
     })
   }
 }
+export function fetchUser(user){
+  return function (dispatch){
+    fetch(USERURL+user.id)
+    .then(res=>res.json())
+    .then(f=>{dispatch(setUser(user))})
+  }
+}
 export function fetchCompanies() {
   // does that seem cool? ehhhh
   return function(dispatch) {
@@ -185,12 +198,15 @@ export function postNewMessage(currentUser,content,forum){
         content: content
       })
     }
-  ).then(handleErrors)
+  ).then(handleErrors).then(function(){dispatch(fetchForumMessages(forum))})
   }
 }
 
 export function postNewFriendship(currentUser,follower){
   return dispatch=>{
+    console.log('in postNewFriendship action, currentUser:',currentUser)
+    console.log('in postNewFriendship action, follower:',follower)
+
     return fetch( FRIENDSHIPURL ,{
       method:"POST",
       headers:{

@@ -25,6 +25,14 @@ class Profile extends React.Component {
   componentDidMount(){
     this.props.fetchCompanies();
     this.setState({isCurrentUserProfile:this.props.isCurrentUserProfile})
+    if(this.props.isCurrentUserProfile){
+
+      this.setState({user:this.props.currentUser})
+    }
+    else{
+      this.setState({user:this.props.user})
+    }
+
 
   }
 
@@ -37,8 +45,6 @@ componentWillReceiveProps(newProps){
   else{
     this.setState({user:newProps.user})
   }
-
-
 
 }
 
@@ -186,9 +192,9 @@ handleUnFollow = () => {
         </div>
       )
     }else{
-      // {this.renderFollowButton()}
       return (
         <>
+        {this.renderFollowButton()}
         </>
       )
     }
@@ -226,7 +232,20 @@ renderUserForums=()=>{
     {this.state.user.forums.length!=0 ?
       <ForumsList forums={this.state.user.forums} handleForumClick={this.handleForumClick}/>
       :
-      <h3>No forums</h3>
+      <div className="ride-list">
+        <table className="table table-striped" >
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">Num</th>
+              <th scope="col">Forum Topics</th>
+            </tr>
+          </thead>
+          <tbody>
+            <th className="text-center"scope="row">NOT A MEMBER OF ANY FORUMS</th>
+
+          </tbody>
+        </table>
+      </div>
     }
 
     </>
@@ -297,6 +316,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   fetchCompanies:()=>dispatch(fetchCompanies()),
   patchEditProfile:(d)=>dispatch(patchEditProfile(d)),
+  postNewFriendship:(user,follow)=>dispatch(postNewFriendship(user,follow)),
   fetchCurrentUser:(u)=>dispatch(fetchCurrentUser(u))//,
 })
 

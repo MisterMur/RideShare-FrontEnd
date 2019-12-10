@@ -116,6 +116,10 @@ top: 7px;
 right: 27px;
 outline: none;
 }
+.forums-list{
+
+
+}
 
 .ride-list {
   /* padding-left: 50px; */
@@ -318,4 +322,8 @@ pre {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.sticky-nav {
+  position: sticky;
+  top: 0;
 }

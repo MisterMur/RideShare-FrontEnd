@@ -18,6 +18,7 @@ export default function ridesReducer(state = initialForumsState, action) {
     case FETCH_ALL_FORUMS:
       return { ...state, forums: [...state.forums, action.payload] };
     case FETCH_ALL_FORUM_MESSAGES:
+      console.log('add forum messages',action.payload)
       return {...state,messages:[...state.messages,action.payload]};
 
 
