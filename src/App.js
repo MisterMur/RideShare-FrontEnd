@@ -124,6 +124,7 @@ class App extends React.Component {
 						<Route path="/profile" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies}	 isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
 						<Route path="/user/:id" render={(routerProps) => this.renderPage(routerProps)} />
 
+							<Route path="/users/" component={ForumsPage} />
 
             <Route path="/forums" component={ForumsPage} />
             <Route path="/rides" component={Rides} />

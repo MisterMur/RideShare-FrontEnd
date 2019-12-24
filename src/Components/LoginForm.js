@@ -58,6 +58,9 @@ class LoginForm extends React.Component {
                 <Button color="indigo" type="submit">Login</Button>
               </div>
             </Form>
+            <div className='text-center mt-4'>
+              <p className='h5 text-center mb-4'> guest / 1234 </p>
+            </div>
 
           </MDBCol>
         </MDBRow>

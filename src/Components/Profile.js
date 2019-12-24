@@ -227,6 +227,7 @@ renderFollowButton=()=>{
 }
 renderUserForums=()=>{
   console.log('in render user forums, ', this.state.user)
+  debugger
   return (
     <>
     {this.state.user.forums.length!=0 ?
