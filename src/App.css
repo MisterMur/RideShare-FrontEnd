@@ -327,3 +327,7 @@ pre {
   position: sticky;
   top: 0;
 }
+.card-img-top{
+  width:100%;
+  height:auto;
+}

@@ -206,7 +206,7 @@ export function postNewFriendship(currentUser,follower){
   return dispatch=>{
     console.log('in postNewFriendship action, currentUser:',currentUser)
     console.log('in postNewFriendship action, follower:',follower)
-
+    debugger
     return fetch( FRIENDSHIPURL ,{
       method:"POST",
       headers:{

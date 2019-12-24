@@ -43,11 +43,11 @@ class Header extends React.Component {
     // debugger
     if(this.props.currentUser){
       // return <Link to={`/profile/${this.props.currentUser.id}`}>Profile</Link>
-        return <Link to={`/profile`}>Profile</Link>
+        return <Link to={`/profile`}> Profile </Link>
 
     }
     else{
-      return <Link to={`/login`}>Profile</Link>
+      return <Link to={`/login`}> Profile </Link>
     }
   }
   renderLogout =() =>{
@@ -96,10 +96,13 @@ class Header extends React.Component {
                   {this.renderProfileLink()}
                 </NavItem>
                 <NavItem componentClass='span'>
-                  <Link to="/rides">Rides</Link>
+                  <Link to="/rides"> Rides </Link>
                 </NavItem>
                 <NavItem componentClass='span'>
-                  <Link to="/forums">Forums</Link>
+                  <Link to="/forums"> Forums </Link>
+                </NavItem>
+                <NavItem componentClass='span'>
+                  <Link to="/discover"> Discover </Link>
                 </NavItem>
                 {this.props.currentUser ? this.renderLogout() : this.renderLoginSignup() }
               </Nav>

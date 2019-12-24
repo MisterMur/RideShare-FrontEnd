@@ -12,6 +12,8 @@ import Rides from './Components/Rides.js'
 import LoginForm from './Components/LoginForm.js'
 import SignupForm from './Components/SignupForm.js'
 import ForumsPage from './Components/ForumsPage.js'
+import DiscoverPage from './Components/DiscoverPage.js'
+
 import Profile from './Components/Profile.js'
 import {getProfileFetch, setLogout,fetchUsers,fetchRides,fetchForums,fetchCompanies} from './Actions';
 
@@ -37,7 +39,7 @@ class App extends React.Component {
 				 let paramid = parseInt(props.match.params.id)
 				 if(this.props.currentUser){
 
-					  debugger
+					  // debugger
 						if(paramid !== this.props.currentUser.id){
 							let userFromParams = this.props.users.find(u => u.id === paramid )
 							return (
@@ -60,6 +62,7 @@ class App extends React.Component {
 				if(this.props.users){
 
 					let userFromParams = this.props.users.find(u => u.id === paramid )
+					// debugger
 					return (
 						<Profile
 							{...rout}
@@ -124,7 +127,7 @@ class App extends React.Component {
 						<Route path="/profile" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies}	 isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
 						<Route path="/user/:id" render={(routerProps) => this.renderPage(routerProps)} />
 
-							<Route path="/users/" component={ForumsPage} />
+						<Route path="/discover" component={DiscoverPage} />
 
             <Route path="/forums" component={ForumsPage} />
             <Route path="/rides" component={Rides} />
