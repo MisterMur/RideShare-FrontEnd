@@ -4,12 +4,17 @@ import FriendsBox from './friends-box.js'
 
 
 class DiscoverPage extends React.Component {
-
+  renderFriendsBox(){
+    return (<>
+      <FriendsBox followers={
+        this.props.users.filter(u=>u.id!==this.props.currentUser.id)
+      }/>
+      </>)
+  }
   render() {
     return (
       <div>
-        <FriendsBox followers={this.props.users}/>
-
+        {this.props.users?this.renderFriendsBox():<p>LOADING</p>}
 
       </div>
     )

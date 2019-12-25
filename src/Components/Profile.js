@@ -7,7 +7,7 @@ import Modal from './Modal.js'
 import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {postNewFriendship,fetchCompanies,fetchCurrentUser,fetchUsers,patchEditProfile} from '../Actions.js'
+import {postNewFriendship,unfollow,fetchCompanies,fetchCurrentUser,fetchUsers,patchEditProfile} from '../Actions.js'
 import {USERURL} from '../Constants'
 class Profile extends React.Component {
   constructor(props){
@@ -161,6 +161,7 @@ componentWillReceiveProps(newProps){
     // })
 }//hand follow
 handleUnFollow = () => {
+  this.props.unfollow(this.props.currentUser,this.props.user)
   console.log(this);
   let tempUser = Object.assign({},this.props.currentUser)
   // debugger
@@ -316,6 +317,7 @@ const mapDispatchToProps = dispatch => ({
   fetchCompanies:()=>dispatch(fetchCompanies()),
   patchEditProfile:(d)=>dispatch(patchEditProfile(d)),
   postNewFriendship:(user,follow)=>dispatch(postNewFriendship(user,follow)),
+  unfollow:(user,follow)=>dispatch(unfollow(user,follow)),
   fetchCurrentUser:(u)=>dispatch(fetchCurrentUser(u))//,
 })
 

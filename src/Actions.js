@@ -206,7 +206,7 @@ export function postNewFriendship(currentUser,follower){
   return dispatch=>{
     console.log('in postNewFriendship action, currentUser:',currentUser)
     console.log('in postNewFriendship action, follower:',follower)
-    debugger
+    // debugger
     return fetch( FRIENDSHIPURL ,{
       method:"POST",
       headers:{
@@ -224,7 +224,28 @@ export function postNewFriendship(currentUser,follower){
     })
   }
 }
-
+export function unfollow(currentUser,follower){
+  return dispatch=>{
+    // console.log('in postNewFriendship action, currentUser:',currentUser)
+    // console.log('in postNewFriendship action, follower:',follower)
+    // debugger
+    return fetch( FRIENDSHIPURL ,{
+      method:"delete",
+      headers:{
+        'Content-Type':'application/json',
+        'Accepts':'application/json'
+      },
+      body:JSON.stringify({
+        follower_id:currentUser.id,
+        followee_id:follower.id
+      })
+    })
+    .then(handleErrors)
+    .then(function(){
+      dispatch(fetchUsers())
+    })
+  }
+}
 
 export function createUser (login_data) {
   return dispatch =>{
