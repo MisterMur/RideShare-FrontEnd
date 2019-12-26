@@ -202,21 +202,23 @@ export function postNewMessage(currentUser,content,forum){
   }
 }
 
-export function postNewFriendship(currentUser,follower){
+export function postNewFriendship(follower,followed){
   return dispatch=>{
-    console.log('in postNewFriendship action, currentUser:',currentUser)
-    console.log('in postNewFriendship action, follower:',follower)
+    // console.log('in postNewFriendship action, currentUser:',follower)
+    // console.log('in postNewFriendship action, follower:',followed)
     // debugger
+    const friendship = {
+      follower_id:follower.id,
+      followed_id:followed.id
+    }
+    
     return fetch( FRIENDSHIPURL ,{
       method:"POST",
       headers:{
         'Content-Type':'application/json',
         'Accepts':'application/json'
       },
-      body:JSON.stringify({
-        follower_id:currentUser.id,
-        followee_id:follower.id
-      })
+      body:JSON.stringify(friendship)
     })
     .then(handleErrors)
     .then(function(){

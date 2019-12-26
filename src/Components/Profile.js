@@ -269,7 +269,7 @@ renderPage=()=>{
             <RideList rides={this.state.user.rides}/>
             {this.renderUserForums()}
 
-            <FriendsBox followers={this.state.user.followers}/>
+            <FriendsBox followers={this.state.user.following}/>
           </div>
         </div>
 
