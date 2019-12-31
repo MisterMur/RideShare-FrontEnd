@@ -7,7 +7,7 @@ import Modal from './Modal.js'
 import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {fetchFriendships,postNewFriendship,unfollow,fetchCompanies,fetchCurrentUser,fetchUsers,patchEditProfile} from '../Actions.js'
+import {fetchUser,fetchFriendships,postNewFriendship,unfollow,fetchCompanies,fetchCurrentUser,fetchUsers,patchEditProfile} from '../Actions.js'
 import {USERURL} from '../Constants'
 class Profile extends React.Component {
   constructor(props){
@@ -19,53 +19,74 @@ class Profile extends React.Component {
       clickedForum: null,
       openChat: false,
       isCurrentUserProfile:null,
-      isFollowing:true,
+      isFollowing:null,
 
     }
   }
   componentDidMount(){
     this.props.fetchCompanies();
     this.props.fetchFriendships();
-    this.setState({isCurrentUserProfile:this.props.isCurrentUserProfile})
-    if(this.props.isCurrentUserProfile){
+    // this.setState({isCurrentUserProfile:this.props.isCurrentUserProfile})
+    let followList=null;
+    if(this.props.currentUser.following){
+       followList = this.props.currentUser.following
+    }
 
-      this.setState({user:this.props.currentUser})
+    if(this.props.isCurrentUserProfile){
+      //its the current users profile
+      this.setState({
+        isCurrentUserProfile:this.props.isCurrentUserProfile,
+        user:this.props.currentUser
+      })
     }
     else{
-      this.setState({user:this.props.user})
+      //the page is not the current users profile
+      if(followList.find(u=>u.id ==this.props.user.id)){
+        //the profile page is followed by current userReducer
+        console.log('included in follow list',followList)
+        console.log('included in followlist',this.props.user)
 
-      // let followList=null;
-      // if(this.props.currentUser.following){
-      //
-      //    followList = this.props.currentUser.following
-      //
-      // }
-      // if(!  followList.find(x=>x.id ===this.props.user.id))
-      // {
-      //   this.setState({isFollowing:false})
-      // }else {
-      //   this.setState({isFollowing:true})
-      // }
+        this.setState({
+          isCurrentUserProfile:this.props.isCurrentUserProfile,
+          user:this.props.user,
+          isFollowing:true
+        })
+      }else{
+        console.log('notincluced in followlist',followList)
+        console.log('notincluded in followlist',this.props.user)
+        this.setState({
+          isCurrentUserProfile:this.props.isCurrentUserProfile,
+          user:this.props.user,
+          isFollowing:false,
+        })
+      }
+
     }
+    if(this.props.user){
 
+      this.props.fetchUser(this.props.user)
+    }
 
   }
 
 
 componentWillReceiveProps(newProps){
-  if(newProps.isCurrentUserProfile){
 
+  if(newProps.isCurrentUserProfile){
     this.setState({user:newProps.currentUser})
   }
   else{
-    this.setState({user:newProps.user})
-  }
+
+      this.setState({
+        user:newProps.user,
+      })
+
+    }
 
 }
 
 
   handleEdit = (e) => {
-    console.log(e)
     this.setState({modal:true})
   }
 
@@ -73,13 +94,11 @@ componentWillReceiveProps(newProps){
     console.log('opened')
   }
   handleAfterClose=()=>{
-    console.log('closed')
     this.setState({modal:false})
   }
 
   handleSubmit=(e, state)=>{
     e.preventDefault()
-    console.log('in save edit user',this.state)
     this.patchEditProfile(e, state)
     this.setState({
       modal: false
@@ -87,7 +106,6 @@ componentWillReceiveProps(newProps){
 
   }
   handleDelete=(e)=>{
-    console.log('in handle delete function',e.target)
   }
   handleForumClick = (e) => {
     this.setState({clickedForum: e.target.id})
@@ -96,7 +114,6 @@ componentWillReceiveProps(newProps){
 
 
   renderModal = () => {
-    console.log('rendar modal with ', this.props.allCompanies)
     if(this.props.user) {
       return(
         <Modal
@@ -146,38 +163,12 @@ componentWillReceiveProps(newProps){
 
   handleFollow = () => {
     console.log(this);
-    // let tempUser ={...this.props.user}
     this.props.postNewFriendship(this.props.currentUser,this.props.user)
     this.setState(prevState=>({
       isFollowing:!prevState.isFollowing
     }))
-    // this.setState(prevState=>{
-    //   currentUser:{
-    //     currentUser.followers:[...prevState.curentUser.followers, tempUser]
-    //   }
-    // })
-    // this.setState(({currentUser})=>({currentUser:{
-    //   ...currentUser,
-    //   currentUser.followers:[...followers,tempUser]
-    // }}))
-    // debugger
-    // fetch(`${USERURL}/${this.state.currentUser.id}`,{
-    //   headers:{
-    //     'accepts':'application/json',
-    //     'content-type':'application/json'
-    //   },
-    //   method:'PATCH',
-    //   body:JSON.stringify({
-    //     followers:[...this.state.currentUser.followers,tempUser]
-    //   })
-    // })
-    // .then(r => r.json())
-    // .then(currentUser => {
-    //   this.setState({
-    //     currentUser
-    //   })
-    // })
-}//hand follow
+
+}
 handleUnFollow = () => {
   console.log(this.props.friendships);
   this.props.unfollow(this.props.currentUser,this.props.user,this.props.friendships)
@@ -223,11 +214,11 @@ handleUnFollow = () => {
 renderFollowButton=()=>{
   //if current user isnt following yet, render follow button
   //if current user is following render unfollow button
-  let followList=null;
-  if(this.props.currentUser.following){
-
-     followList = this.props.currentUser.following
-  }
+  // let followList=null;
+  // if(this.props.currentUser.following){
+  //
+  //    followList = this.props.currentUser.following
+  // }
   if(!this.state.isFollowing)
   {
     return   (
@@ -270,7 +261,6 @@ renderUserForums=()=>{
   )
 }
 renderPage=()=>{
-  console.log('in profile renderPage(), this.state.user',this.state.user)
   return (
 
     <Fragment>
@@ -317,7 +307,7 @@ function mapStateToProps(state) {
 	const { user } = state
   const { forums } = state
   // debugger
-  // console.log('profile mapstatetoprops staete',forums.forums[0])
+  console.log('in mapStateToProps user following',user.following)
   //issuing rendering only the users Forums
   //setting allForums (meant to tbe user.allForums to forums.forums
 //to make sure rendering only one of each to users page for now)
@@ -329,11 +319,13 @@ function mapStateToProps(state) {
     allForums:user.forums,
     users:user.users[1],
     currentUser:user.currentUser,
+    following:user.following,
     friendships:user.friendships,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
+  fetchUser:(u)=>dispatch(fetchUser(u)),
   fetchCompanies:()=>dispatch(fetchCompanies()),
   patchEditProfile:(d)=>dispatch(patchEditProfile(d)),
   postNewFriendship:(user,follow)=>dispatch(postNewFriendship(user,follow)),

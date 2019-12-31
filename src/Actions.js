@@ -70,6 +70,7 @@ export function setLoggedInUser(src) {
   }
 }
 export function addFollowing(src){
+  console.log('in add following',src)
   return{
     type:ADD_FOLLOWING,
     payload:src
@@ -144,9 +145,14 @@ export function fetchUsers() {
 }
 export function fetchUser(user){
   return function (dispatch){
+    console.log('in fetch user',user)
     fetch(USERURL+user.id)
     .then(res=>res.json())
-    .then(f=>{dispatch(setUser(user))})
+    .then(f=>{
+      dispatch(setUser(user))
+      dispatch(addFollowing(user.following))
+
+    })
   }
 }
 export function fetchCompanies() {
@@ -235,7 +241,7 @@ export function postNewFriendship(follower,followed){
     })
     .then(handleErrors)
     .then(function(){
-      dispatch(AddFollowing(followed))
+      dispatch(addFollowing(followed))
     })
   }
 }
@@ -310,7 +316,7 @@ export function createUser (login_data) {
 }
 export function userLoginFetch  (user,callback) {
   return dispatch =>{
-    // console.log('in userlogin fetch')
+    console.log('in userlogin fetch')
     fetch(LOGINURL, {
       method: "POST",
       headers: {

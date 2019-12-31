@@ -154,7 +154,8 @@ const mapDispatchToProps = dispatch => ({
 	fetchRides:() => dispatch(fetchRides()),
 	fetchForums:() => dispatch(fetchForums()),
 	fetchUsers:()=>dispatch(fetchUsers()),
-	fetchCompanies:()=>dispatch(fetchCompanies())
+	fetchCompanies:()=>dispatch(fetchCompanies()),
+	
 })
 function mapStateToProps(state) {
   // maps the state from the store to the props
