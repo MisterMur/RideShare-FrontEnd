@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+import {ADD_FOLLOWING,REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -69,17 +69,17 @@ export function setLoggedInUser(src) {
     payload: src,
   }
 }
-export function AddFollower(follower){
+export function addFollowing(src){
   return{
-    type:ADD_FOLLOWER,
-    payload:{follower}
+    type:ADD_FOLLOWING,
+    payload:src
   }
 }
 
-export function RemoveFollower(follower){
+export function removeFollowing(src){
   return{
-    type:REMOVE_FOLLOWER,
-    payload:{follower}
+    type:REMOVE_FOLLOWING,
+    payload:src
   }
 }
 
@@ -235,7 +235,7 @@ export function postNewFriendship(follower,followed){
     })
     .then(handleErrors)
     .then(function(){
-      dispatch(fetchUsers())
+      dispatch(AddFollowing(followed))
     })
   }
 }
@@ -275,7 +275,7 @@ export function unfollow(currentUser,followed,friendships){
     })
     .then(handleErrors)
     .then(function(){
-      dispatch(fetchUsers())
+      dispatch(removeFollowing(followed))
     })
   }
 }

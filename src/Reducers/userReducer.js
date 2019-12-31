@@ -10,6 +10,8 @@ const initialUserState = {
   rides: [],
   allForums:[],
   friendships: [],
+  followers:[],
+  following:[],
   userProfile:null,
   currentUser: null
     // users: [],
@@ -35,6 +37,11 @@ export default function userReducer(state = initialUserState, action) {
       return {...state,currentUser:action.payload     };
     case REMOVE_FOLLOWER:
       return {...state,currentUser:action.payload  };
+    case ADD_FOLLOWING:
+      return {...state,following:[...state.following,action.payload]};
+    case REMOVE_FOLLOWING:
+      const newState = state.following.filter(val => val !== action.payload );
+      return {...state,following:newState}
     case LOGOUT_USER:
       return {...state, currentUser: null }
     case SET_USER:
