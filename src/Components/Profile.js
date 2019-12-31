@@ -7,7 +7,7 @@ import Modal from './Modal.js'
 import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {postNewFriendship,unfollow,fetchCompanies,fetchCurrentUser,fetchUsers,patchEditProfile} from '../Actions.js'
+import {fetchFriendships,postNewFriendship,unfollow,fetchCompanies,fetchCurrentUser,fetchUsers,patchEditProfile} from '../Actions.js'
 import {USERURL} from '../Constants'
 class Profile extends React.Component {
   constructor(props){
@@ -18,12 +18,14 @@ class Profile extends React.Component {
       editedUser: this.props.user,
       clickedForum: null,
       openChat: false,
-      isCurrentUserProfile:null
+      isCurrentUserProfile:null,
+      isFollowing:true,
 
     }
   }
   componentDidMount(){
     this.props.fetchCompanies();
+    this.props.fetchFriendships();
     this.setState({isCurrentUserProfile:this.props.isCurrentUserProfile})
     if(this.props.isCurrentUserProfile){
 
@@ -31,6 +33,19 @@ class Profile extends React.Component {
     }
     else{
       this.setState({user:this.props.user})
+
+      // let followList=null;
+      // if(this.props.currentUser.following){
+      //
+      //    followList = this.props.currentUser.following
+      //
+      // }
+      // if(!  followList.find(x=>x.id ===this.props.user.id))
+      // {
+      //   this.setState({isFollowing:false})
+      // }else {
+      //   this.setState({isFollowing:true})
+      // }
     }
 
 
@@ -133,6 +148,9 @@ componentWillReceiveProps(newProps){
     console.log(this);
     // let tempUser ={...this.props.user}
     this.props.postNewFriendship(this.props.currentUser,this.props.user)
+    this.setState(prevState=>({
+      isFollowing:!prevState.isFollowing
+    }))
     // this.setState(prevState=>{
     //   currentUser:{
     //     currentUser.followers:[...prevState.curentUser.followers, tempUser]
@@ -161,12 +179,13 @@ componentWillReceiveProps(newProps){
     // })
 }//hand follow
 handleUnFollow = () => {
-  this.props.unfollow(this.props.currentUser,this.props.user)
-  console.log(this);
+  console.log(this.props.friendships);
+  this.props.unfollow(this.props.currentUser,this.props.user,this.props.friendships)
   let tempUser = Object.assign({},this.props.currentUser)
   // debugger
   // tempUser.followers = tempUser.followers.filter(f=>f.id=this.props.user.id)
   this.setState(prevState=>({
+    isFollowing:!prevState.isFollowing,
     currentUser:{
       ...prevState.currentUser,
       followers:tempUser.followers.filter(f=>f.id===this.props.user.id)
@@ -205,12 +224,11 @@ renderFollowButton=()=>{
   //if current user isnt following yet, render follow button
   //if current user is following render unfollow button
   let followList=null;
-  if(this.props.currentUser.followers){
+  if(this.props.currentUser.following){
 
-     followList = this.props.currentUser.followers
+     followList = this.props.currentUser.following
   }
-  // debugger
-  if(!  followList.find(x=>x.id ===this.props.user.id))
+  if(!this.state.isFollowing)
   {
     return   (
       <>
@@ -218,7 +236,7 @@ renderFollowButton=()=>{
       </>
   )
   }
-  else{
+  else if (this.state.isFollowing){
     return (
       <>
         <Button className="btn btn-primary"  id="follow-user" onClick={() => this.handleUnFollow()}> Unfollow this user </Button>
@@ -298,7 +316,8 @@ function mapStateToProps(state) {
 
 	const { user } = state
   const { forums } = state
-  console.log('profile mapstatetoprops staete',forums.forums[0])
+  // debugger
+  // console.log('profile mapstatetoprops staete',forums.forums[0])
   //issuing rendering only the users Forums
   //setting allForums (meant to tbe user.allForums to forums.forums
 //to make sure rendering only one of each to users page for now)
@@ -309,7 +328,8 @@ function mapStateToProps(state) {
     forums:forums.forums[0],
     allForums:user.forums,
     users:user.users[1],
-    currentUser:user.currentUser
+    currentUser:user.currentUser,
+    friendships:user.friendships,
   }
 }
 
@@ -317,8 +337,9 @@ const mapDispatchToProps = dispatch => ({
   fetchCompanies:()=>dispatch(fetchCompanies()),
   patchEditProfile:(d)=>dispatch(patchEditProfile(d)),
   postNewFriendship:(user,follow)=>dispatch(postNewFriendship(user,follow)),
-  unfollow:(user,follow)=>dispatch(unfollow(user,follow)),
-  fetchCurrentUser:(u)=>dispatch(fetchCurrentUser(u))//,
+  unfollow:(user,follow,friendships)=>dispatch(unfollow(user,follow,friendships)),
+  fetchCurrentUser:(u)=>dispatch(fetchCurrentUser(u)),
+  fetchFriendships:()=>dispatch(fetchFriendships()),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps) (Profile)

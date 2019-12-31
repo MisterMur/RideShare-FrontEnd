@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {AUTOLOGINURL,MESSAGEURL,SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+import {FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -50,6 +50,12 @@ export function setAllCompanies(src){
 export function setAllForumMessages(src){
   return {
     type:FETCH_ALL_FORUM_MESSAGES,
+    payload:src
+  }
+}
+export function setAllFriendships(src){
+  return {
+    type:FETCH_ALL_FRIENDSHIPS,
     payload:src
   }
 }
@@ -181,6 +187,13 @@ export function fetchForums(){
     .then(forums=>{dispatch(setAllForums(forums))})
   }
 }
+export function fetchFriendships(){
+  return function (dispatch){
+    fetch(FRIENDSHIPURL)
+    .then(res=>res.json())
+    .then(friendships=>{dispatch(setAllFriendships(friendships))})
+  }
+}
 export function postNewMessage(currentUser,content,forum){
   return dispatch=>{
     // console.log('in postnew message reducer',currentUser)
@@ -211,7 +224,7 @@ export function postNewFriendship(follower,followed){
       follower_id:follower.id,
       followed_id:followed.id
     }
-    
+
     return fetch( FRIENDSHIPURL ,{
       method:"POST",
       headers:{
@@ -226,21 +239,39 @@ export function postNewFriendship(follower,followed){
     })
   }
 }
-export function unfollow(currentUser,follower){
+export function findFriendship(currentUser,followed){
+  return fetch(FRIENDSHIPURL)
+  .then(res=>res.json())
+  .then(friendships=>{
+    friendships.find(
+      f=>{
+        console.log('in find friendship',f);
+        return f.follower_id == currentUser.id && f.followed_id == followed.id
+      }
+    )
+  })
+  // console.log('in unfollow friendship : ',friendship)
+
+
+
+}
+
+export function unfollow(currentUser,followed,friendships){
   return dispatch=>{
     // console.log('in postNewFriendship action, currentUser:',currentUser)
     // console.log('in postNewFriendship action, follower:',follower)
     // debugger
-    return fetch( FRIENDSHIPURL ,{
-      method:"delete",
+    // let friendship = findFriendship(currentUser,followed)
+    console.log('in unfollow',friendships)
+    let friendship = friendships.find(f=>f.follower_id==currentUser.id && f.followed_id==followed.id)
+    console.log('in unfollow ',friendship)
+    return fetch( FRIENDSHIPURL+friendship.id,{
+      method:"DELETE",
       headers:{
         'Content-Type':'application/json',
         'Accepts':'application/json'
       },
-      body:JSON.stringify({
-        follower_id:currentUser.id,
-        followee_id:follower.id
-      })
+      body:JSON.stringify(friendship)
     })
     .then(handleErrors)
     .then(function(){

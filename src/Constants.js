@@ -12,6 +12,7 @@ export const LOGINURL = prodURL+'login/'
 export const AUTOLOGINURL = prodURL+'auto_login/'
 export const MESSAGEURL = prodURL+'messages/'
 
+
 // export  const COMPANYURL = 'http://ride-share-api.herokuapp.com/api/v1/companies/'
 // export  const RIDEURL = 'http://ride-share-api.herokuapp.com/api/v1/rides/'
 // export const FRIENDSHIPURL = 'http://ride-share-api.herokuapp.com/api/v1/friendships'
@@ -28,3 +29,4 @@ export const FETCH_ALL_COMPANIES='FETCH_ALL_COMAPNIES'
 export const FETCH_CURRENT_USER='FETCH_CURRENT_USER'
 export const FETCH_ALL_FORUM_MESSAGES='FETCH_ALL_FORUM_MESSAGES'
 export const SET_USER='SET_USER'
+export const FETCH_ALL_FRIENDSHIPS='FETCH_ALL_FRIENDSHIPS'

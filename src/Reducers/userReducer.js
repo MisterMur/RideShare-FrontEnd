@@ -1,6 +1,6 @@
 // import {push} from 'react-router-redux';
 
-import { ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,SET_USER,FETCH_ALL_USERS,FETCH_ALL_COMPANIES,LOGOUT_USER} from '../Constants';
+import { FETCH_ALL_FRIENDSHIPS,ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,SET_USER,FETCH_ALL_USERS,FETCH_ALL_COMPANIES,LOGOUT_USER} from '../Constants';
 
 
 const initialUserState = {
@@ -39,6 +39,8 @@ export default function userReducer(state = initialUserState, action) {
       return {...state, currentUser: null }
     case SET_USER:
       return {...state,userProfile:action.payload}
+    case FETCH_ALL_FRIENDSHIPS:
+      return {...state,friendships:action.payload}
 
 
     default:
