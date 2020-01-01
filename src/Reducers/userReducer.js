@@ -47,7 +47,7 @@ export default function userReducer(state = initialUserState, action) {
     case LOGOUT_USER:
       return {...state, currentUser: null }
     case SET_USER:
-      console.log('in user reducer',action.payload)
+      // console.log('in user reducer',action.payload)
       return {...state,userProfile:action.payload}
     case FETCH_ALL_FRIENDSHIPS:
       return {...state,friendships:action.payload}

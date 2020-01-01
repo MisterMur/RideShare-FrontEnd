@@ -126,11 +126,20 @@ class App extends React.Component {
           <Switch>
 						<Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.props.setCurrentUser} />} />
 						<Route path="/profile" render={routerProps =>{
-								this.props.fetchUser(this.props.currentUser)
-								return (
-									<Profile {...routerProps} allCompanies={this.props.allCompanies}	 isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />
-								)
-							}}
+								if(this.props.currentUser){
+									this.props.fetchUser(this.props.currentUser)
+									return (
+										<Profile {...routerProps} allCompanies={this.props.allCompanies}	 isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />
+									)
+								}else {
+									return (
+
+										<Route path="/" />
+									)
+								}
+
+								}
+						}
 							/>
 						<Route path="/user/:id" render={(routerProps) => this.renderPage(routerProps)} />
 

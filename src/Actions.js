@@ -156,7 +156,7 @@ export function fetchUser(user){
     fetch(USERURL+user.id)
     .then(res=>res.json())
     .then(resUser=>{
-      console.log('in fetch user',resUser)
+      // console.log('in fetch user',resUser)
       dispatch(setUser(resUser))
       // dispatch(addFollowing(user.following))
 

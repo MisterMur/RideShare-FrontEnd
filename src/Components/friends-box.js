@@ -9,7 +9,7 @@ class FriendsBox extends Component {
 
   handleUserClick=(e,user)=>{
     // debugger
-    console.log('in handle user click ',user)
+    // console.log('in handle user click ',user)
     return (
               <Profile
                 {...this.props}
@@ -28,13 +28,15 @@ class FriendsBox extends Component {
        return this.props.followers.map((follower,key) => {
          // debugger
         return (
+          <div class="card-rows">
+            <FollowerCard
+              handleUserClick={this.handleUserClick}
+              key={key}
+              idx={key+1}
+              follower={follower}
+              />
+          </div>
 
-          <FollowerCard
-            handleUserClick={this.handleUserClick}
-            key={key}
-            idx={key+1}
-            follower={follower}
-            />
         )
 
 

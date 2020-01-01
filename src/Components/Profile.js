@@ -26,8 +26,7 @@ class Profile extends React.Component {
   componentDidMount(){
     this.props.fetchCompanies();
     this.props.fetchFriendships();
-    // this.props.fetchFollowing(this.props.user);
-    // this.setState({isCurrentUserProfile:this.props.isCurrentUserProfile})
+
     let followList=null;
     if(this.props.currentUser.following){
        followList = this.props.currentUser.following
@@ -43,9 +42,6 @@ class Profile extends React.Component {
     else{
       //the page is not the current users profile
       if(followList.find(u=>u.id ==this.props.user.id)){
-        //the profile page is followed by current userReducer
-        // console.log('included in follow list',followList)
-        // console.log('included in followlist',this.props.user)
 
         this.setState({
           isCurrentUserProfile:this.props.isCurrentUserProfile,
@@ -53,8 +49,7 @@ class Profile extends React.Component {
           isFollowing:true
         })
       }else{
-        // console.log('notincluced in followlist',followList)
-        // console.log('notincluded in followlist',this.props.user)
+
         this.setState({
           isCurrentUserProfile:this.props.isCurrentUserProfile,
           user:this.props.user,
@@ -161,7 +156,6 @@ componentWillReceiveProps(newProps){
   }
 
   handleFollow = () => {
-    console.log(this);
     this.props.postNewFriendship(this.props.currentUser,this.props.user)
     this.setState(prevState=>({
       isFollowing:!prevState.isFollowing
@@ -169,7 +163,6 @@ componentWillReceiveProps(newProps){
 
 }
 handleUnFollow = () => {
-  console.log(this.props.friendships);
   this.props.unfollow(this.props.currentUser,this.props.user,this.props.friendships)
   let tempUser = Object.assign({},this.props.currentUser)
   // debugger
@@ -211,13 +204,7 @@ handleUnFollow = () => {
   }
 
 renderFollowButton=()=>{
-  //if current user isnt following yet, render follow button
-  //if current user is following render unfollow button
-  // let followList=null;
-  // if(this.props.currentUser.following){
-  //
-  //    followList = this.props.currentUser.following
-  // }
+
   if(!this.state.isFollowing)
   {
     return   (
@@ -282,15 +269,24 @@ renderPage=()=>{
 
             {this.renderUserForums()}
 
-            {this.props.userProfile?
-              <FriendsBox followers={this.props.userProfile.following}/>
-              :
-              null
-            }
-
-
-
+            <div className="row" id="profile-follwoing">
+              <h4>Following</h4>
+              {this.props.userProfile?
+                <FriendsBox followers={this.props.userProfile.following}/>
+                :
+                null
+              }
+              <h4>Followers</h4>
+              {this.props.userProfile?
+                <FriendsBox followers={this.props.userProfile.followers}/>
+                :
+                null
+              }
+            </div>
           </div>
+
+
+
         </div>
 
       </div>
