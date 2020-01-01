@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {ADD_FOLLOWING,REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+import {SET_ALL_FOLLOWING,ADD_FOLLOWING,REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -35,6 +35,7 @@ export function setAllUsers(src){
   }
 }
 export function setUser(src){
+  console.log('in set User', src)
   return {
     type: SET_USER,
     payload:src
@@ -67,6 +68,13 @@ export function setLoggedInUser(src) {
   return {
     type: LOGIN_USER,
     payload: src,
+  }
+}
+export function setAllFollowing(src){
+  console.log('in setall following',src)
+  return{
+    type:SET_ALL_FOLLOWING,
+    payload:src
   }
 }
 export function addFollowing(src){
@@ -145,12 +153,12 @@ export function fetchUsers() {
 }
 export function fetchUser(user){
   return function (dispatch){
-    console.log('in fetch user',user)
     fetch(USERURL+user.id)
     .then(res=>res.json())
-    .then(f=>{
-      dispatch(setUser(user))
-      dispatch(addFollowing(user.following))
+    .then(resUser=>{
+      console.log('in fetch user',resUser)
+      dispatch(setUser(resUser))
+      // dispatch(addFollowing(user.following))
 
     })
   }
@@ -191,6 +199,13 @@ export function fetchForums(){
     fetch(FORUMSURL)
     .then(res=>res.json())
     .then(forums=>{dispatch(setAllForums(forums))})
+  }
+}
+export function fetchFollowing(user){
+  return function (dispatch){
+    fetch(USERURL+user.id+'/following')
+    .then(res=>res.json())
+    .then(following=>{dispatch(setAllFollowing(following))})
   }
 }
 export function fetchFriendships(){

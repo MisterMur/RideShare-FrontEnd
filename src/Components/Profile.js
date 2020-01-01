@@ -7,7 +7,7 @@ import Modal from './Modal.js'
 import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {fetchUser,fetchFriendships,postNewFriendship,unfollow,fetchCompanies,fetchCurrentUser,fetchUsers,patchEditProfile} from '../Actions.js'
+import {fetchFollowing,fetchUser,fetchFriendships,postNewFriendship,unfollow,fetchCompanies,fetchCurrentUser,fetchUsers,patchEditProfile} from '../Actions.js'
 import {USERURL} from '../Constants'
 class Profile extends React.Component {
   constructor(props){
@@ -26,6 +26,7 @@ class Profile extends React.Component {
   componentDidMount(){
     this.props.fetchCompanies();
     this.props.fetchFriendships();
+    // this.props.fetchFollowing(this.props.user);
     // this.setState({isCurrentUserProfile:this.props.isCurrentUserProfile})
     let followList=null;
     if(this.props.currentUser.following){
@@ -43,8 +44,8 @@ class Profile extends React.Component {
       //the page is not the current users profile
       if(followList.find(u=>u.id ==this.props.user.id)){
         //the profile page is followed by current userReducer
-        console.log('included in follow list',followList)
-        console.log('included in followlist',this.props.user)
+        // console.log('included in follow list',followList)
+        // console.log('included in followlist',this.props.user)
 
         this.setState({
           isCurrentUserProfile:this.props.isCurrentUserProfile,
@@ -52,8 +53,8 @@ class Profile extends React.Component {
           isFollowing:true
         })
       }else{
-        console.log('notincluced in followlist',followList)
-        console.log('notincluded in followlist',this.props.user)
+        // console.log('notincluced in followlist',followList)
+        // console.log('notincluded in followlist',this.props.user)
         this.setState({
           isCurrentUserProfile:this.props.isCurrentUserProfile,
           user:this.props.user,
@@ -62,15 +63,13 @@ class Profile extends React.Component {
       }
 
     }
-    if(this.props.user){
 
-      this.props.fetchUser(this.props.user)
-    }
 
   }
 
 
 componentWillReceiveProps(newProps){
+
 
   if(newProps.isCurrentUserProfile){
     this.setState({user:newProps.currentUser})
@@ -261,6 +260,8 @@ renderUserForums=()=>{
   )
 }
 renderPage=()=>{
+  // <FriendsBox followers={this.state.user.following}/>
+//
   return (
 
     <Fragment>
@@ -273,11 +274,22 @@ renderPage=()=>{
 
           </div>
           <div className="col" id="profile-rides-list">
+            {this.props.userProfile?
+              <RideList rides={this.props.userProfile.rides}/>
+              :
+              null
+            }
 
-            <RideList rides={this.state.user.rides}/>
             {this.renderUserForums()}
 
-            <FriendsBox followers={this.state.user.following}/>
+            {this.props.userProfile?
+              <FriendsBox followers={this.props.userProfile.following}/>
+              :
+              null
+            }
+
+
+
           </div>
         </div>
 
@@ -289,7 +301,7 @@ renderPage=()=>{
 
 
   render() {
-
+    // debugger
 
     return (
       <>
@@ -307,7 +319,7 @@ function mapStateToProps(state) {
 	const { user } = state
   const { forums } = state
   // debugger
-  console.log('in mapStateToProps user following',user.following)
+  console.log('in mapStateToProps user following',user.userProfile)
   //issuing rendering only the users Forums
   //setting allForums (meant to tbe user.allForums to forums.forums
 //to make sure rendering only one of each to users page for now)
@@ -321,6 +333,8 @@ function mapStateToProps(state) {
     currentUser:user.currentUser,
     following:user.following,
     friendships:user.friendships,
+    userProfile:user.userProfile,
+    // user:user.user
   }
 }
 
@@ -332,6 +346,7 @@ const mapDispatchToProps = dispatch => ({
   unfollow:(user,follow,friendships)=>dispatch(unfollow(user,follow,friendships)),
   fetchCurrentUser:(u)=>dispatch(fetchCurrentUser(u)),
   fetchFriendships:()=>dispatch(fetchFriendships()),
+  fetchFollowing:(u)=>dispatch(fetchFollowing(u)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps) (Profile)

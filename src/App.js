@@ -15,7 +15,7 @@ import ForumsPage from './Components/ForumsPage.js'
 import DiscoverPage from './Components/DiscoverPage.js'
 
 import Profile from './Components/Profile.js'
-import {getProfileFetch, setLogout,fetchUsers,fetchRides,fetchForums,fetchCompanies} from './Actions';
+import {fetchUser,getProfileFetch, setLogout,fetchUsers,fetchRides,fetchForums,fetchCompanies} from './Actions';
 
 import './App.css';
 
@@ -63,6 +63,7 @@ class App extends React.Component {
 
 					let userFromParams = this.props.users.find(u => u.id === paramid )
 					// debugger
+					this.props.fetchUser(userFromParams)
 					return (
 						<Profile
 							{...rout}
@@ -124,7 +125,13 @@ class App extends React.Component {
         <Grid.Row centered>
           <Switch>
 						<Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.props.setCurrentUser} />} />
-						<Route path="/profile" render={routerProps => <Profile {...routerProps} allCompanies={this.props.allCompanies}	 isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />} />
+						<Route path="/profile" render={routerProps =>{
+								this.props.fetchUser(this.props.currentUser)
+								return (
+									<Profile {...routerProps} allCompanies={this.props.allCompanies}	 isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />
+								)
+							}}
+							/>
 						<Route path="/user/:id" render={(routerProps) => this.renderPage(routerProps)} />
 
 						<Route path="/discover" component={DiscoverPage} />
@@ -138,6 +145,7 @@ class App extends React.Component {
 							<Redirect from="*" to="/profile" />
 
 						 }
+
 
           </Switch>
         </Grid.Row>
@@ -155,7 +163,8 @@ const mapDispatchToProps = dispatch => ({
 	fetchForums:() => dispatch(fetchForums()),
 	fetchUsers:()=>dispatch(fetchUsers()),
 	fetchCompanies:()=>dispatch(fetchCompanies()),
-	
+	fetchUser:(u)=>dispatch(fetchUser(u)),
+
 })
 function mapStateToProps(state) {
   // maps the state from the store to the props

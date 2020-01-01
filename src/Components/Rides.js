@@ -129,8 +129,6 @@ class Rides extends React.Component {
   }
 
   render() {
-    console.log("hit rides route: props.users",this.props.users)
-    // debugger
 
     return (
       <>
