@@ -1,6 +1,6 @@
 // import {push} from 'react-router-redux';
 
-import { FETCH_ALL_FRIENDSHIPS,ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,SET_USER,FETCH_ALL_USERS,FETCH_ALL_COMPANIES,LOGOUT_USER} from '../Constants';
+import { SET_ALL_FOLLOWING,ADD_FOLLOWING,REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,SET_USER,FETCH_ALL_USERS,FETCH_ALL_COMPANIES,LOGOUT_USER} from '../Constants';
 
 
 const initialUserState = {
@@ -10,6 +10,8 @@ const initialUserState = {
   rides: [],
   allForums:[],
   friendships: [],
+  followers:[],
+  following:[],
   userProfile:null,
   currentUser: null
     // users: [],
@@ -35,9 +37,17 @@ export default function userReducer(state = initialUserState, action) {
       return {...state,currentUser:action.payload     };
     case REMOVE_FOLLOWER:
       return {...state,currentUser:action.payload  };
+    case SET_ALL_FOLLOWING:
+      return {...state,following:action.payload}
+    case ADD_FOLLOWING:
+      return {...state,following:[...state.following,action.payload]};
+    case REMOVE_FOLLOWING:
+      const newState = state.following.filter(val => val !== action.payload );
+      return {...state,following:newState}
     case LOGOUT_USER:
       return {...state, currentUser: null }
     case SET_USER:
+      // console.log('in user reducer',action.payload)
       return {...state,userProfile:action.payload}
     case FETCH_ALL_FRIENDSHIPS:
       return {...state,friendships:action.payload}

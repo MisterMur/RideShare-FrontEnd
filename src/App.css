@@ -130,9 +130,15 @@ outline: none;
 }
 
 .follower-card {
-  width: 40px;
-  length: 40px;
+  width: 40rem;
+  length: 40rem;
 }
+#following-card{
+  width:14rem;
+  height:21rem;
+  max-width: 15rem;
+}
+
 
 .follower-container {
   border: 2px solid ;
@@ -142,6 +148,19 @@ outline: none;
 
 .some-h2 {
   text-align: center;
+}
+.profile-following{
+  width: 18rem;
+
+}
+.card-rows {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 5;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+import {SET_ALL_FOLLOWING,ADD_FOLLOWING,REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -35,6 +35,7 @@ export function setAllUsers(src){
   }
 }
 export function setUser(src){
+  console.log('in set User', src)
   return {
     type: SET_USER,
     payload:src
@@ -69,17 +70,25 @@ export function setLoggedInUser(src) {
     payload: src,
   }
 }
-export function AddFollower(follower){
+export function setAllFollowing(src){
+  console.log('in setall following',src)
   return{
-    type:ADD_FOLLOWER,
-    payload:{follower}
+    type:SET_ALL_FOLLOWING,
+    payload:src
+  }
+}
+export function addFollowing(src){
+  console.log('in add following',src)
+  return{
+    type:ADD_FOLLOWING,
+    payload:src
   }
 }
 
-export function RemoveFollower(follower){
+export function removeFollowing(src){
   return{
-    type:REMOVE_FOLLOWER,
-    payload:{follower}
+    type:REMOVE_FOLLOWING,
+    payload:src
   }
 }
 
@@ -146,7 +155,12 @@ export function fetchUser(user){
   return function (dispatch){
     fetch(USERURL+user.id)
     .then(res=>res.json())
-    .then(f=>{dispatch(setUser(user))})
+    .then(resUser=>{
+      // console.log('in fetch user',resUser)
+      dispatch(setUser(resUser))
+      // dispatch(addFollowing(user.following))
+
+    })
   }
 }
 export function fetchCompanies() {
@@ -185,6 +199,13 @@ export function fetchForums(){
     fetch(FORUMSURL)
     .then(res=>res.json())
     .then(forums=>{dispatch(setAllForums(forums))})
+  }
+}
+export function fetchFollowing(user){
+  return function (dispatch){
+    fetch(USERURL+user.id+'/following')
+    .then(res=>res.json())
+    .then(following=>{dispatch(setAllFollowing(following))})
   }
 }
 export function fetchFriendships(){
@@ -235,7 +256,7 @@ export function postNewFriendship(follower,followed){
     })
     .then(handleErrors)
     .then(function(){
-      dispatch(fetchUsers())
+      dispatch(addFollowing(followed))
     })
   }
 }
@@ -275,7 +296,7 @@ export function unfollow(currentUser,followed,friendships){
     })
     .then(handleErrors)
     .then(function(){
-      dispatch(fetchUsers())
+      dispatch(removeFollowing(followed))
     })
   }
 }
@@ -310,7 +331,7 @@ export function createUser (login_data) {
 }
 export function userLoginFetch  (user,callback) {
   return dispatch =>{
-    // console.log('in userlogin fetch')
+    console.log('in userlogin fetch')
     fetch(LOGINURL, {
       method: "POST",
       headers: {
