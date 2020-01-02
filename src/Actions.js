@@ -4,7 +4,9 @@ import {ADD_FORUM_MESSAGE,SET_ALL_FOLLOWING,ADD_FOLLOWING,
   SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,
   FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,
   ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,
-  LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+  LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS,
+  RESET_MESSAGES,
+} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -40,7 +42,7 @@ export function setAllUsers(src){
   }
 }
 export function setUser(src){
-  console.log('in set User', src)
+  // console.log('in set User', src)
   return {
     type: SET_USER,
     payload:src
@@ -76,14 +78,14 @@ export function setLoggedInUser(src) {
   }
 }
 export function setAllFollowing(src){
-  console.log('in setall following',src)
+  // console.log('in setall following',src)
   return{
     type:SET_ALL_FOLLOWING,
     payload:src
   }
 }
 export function addForumMessage(src){
-  console.log('in add froum message',src)
+  // console.log('in add froum message',src)
   return{
     type:ADD_FORUM_MESSAGE,
     payload:src
@@ -91,9 +93,15 @@ export function addForumMessage(src){
 }
 
 export function addFollowing(src){
-  console.log('in add following',src)
+  // console.log('in add following',src)
   return{
     type:ADD_FOLLOWING,
+    payload:src
+  }
+}
+export function resetMessages(src){
+  return{
+    type:RESET_MESSAGES,
     payload:src
   }
 }
