@@ -137,7 +137,7 @@ function mapStateToProps(state){
   const {forums} = state
 
   return {
-    users:user.users[2],
+    users:user.users,
     messages:forums.messages
 
   }

@@ -168,7 +168,7 @@ function mapStateToProps(state) {
     rides: rides[0],
     forums:user.forums,
     allForums: forums[0],
-    users:user.users[2],
+    users:user.users,
     currentUser:user.currentUser
   }
 }

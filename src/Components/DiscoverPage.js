@@ -26,7 +26,7 @@ function mapStateToProps(state) {
 
 
   return {
-    users:user.users[1],
+    users:user.users,
     currentUser:user.currentUser
   }
 }

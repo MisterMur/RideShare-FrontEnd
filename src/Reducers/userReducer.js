@@ -31,7 +31,7 @@ export default function userReducer(state = initialUserState, action) {
 
       return {...state,currentUser:action.payload};
     case FETCH_ALL_USERS:
-      return{...state,users:[...state.users,action.payload]}
+      return{...state,users:action.payload}
 
     case ADD_FOLLOWER:
       return {...state,currentUser:action.payload     };
