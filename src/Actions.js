@@ -3,7 +3,7 @@ import {ADD_FORUM_MESSAGE,SET_ALL_FOLLOWING,ADD_FOLLOWING,
   REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,
   SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,
   FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,
-  ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,
+  ADD_USER,USERURL ,LOGIN_USER,LOGINURL,
   LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS,
   RESET_MESSAGES,
 } from './Constants';
@@ -289,7 +289,7 @@ export function findFriendship(currentUser,followed){
     friendships.find(
       f=>{
         console.log('in find friendship',f);
-        return f.follower_id == currentUser.id && f.followed_id == followed.id
+        return f.follower_id === currentUser.id && f.followed_id === followed.id
       }
     )
   })
@@ -306,7 +306,7 @@ export function unfollow(currentUser,followed,friendships){
     // debugger
     // let friendship = findFriendship(currentUser,followed)
     console.log('in unfollow',friendships)
-    let friendship = friendships.find(f=>f.follower_id==currentUser.id && f.followed_id==followed.id)
+    let friendship = friendships.find(f=>f.follower_id===currentUser.id && f.followed_id===followed.id)
     console.log('in unfollow ',friendship)
     return fetch( FRIENDSHIPURL+friendship.id,{
       method:"DELETE",

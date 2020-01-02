@@ -1,15 +1,33 @@
 import React from "react";
 import {connect} from 'react-redux'
 import FriendsBox from './friends-box.js'
+import {fetchUsers} from '../Actions.js'
 
 
 class DiscoverPage extends React.Component {
+  componentDidMount(){
+    this.props.fetchUsers()
+  }
   renderFriendsBox(){
-    return (<>
-      <FriendsBox followers={
-        this.props.users.filter(u=>u.id!==this.props.currentUser.id)
-      }/>
-      </>)
+    //if logged in dont render the logged in user to the DiscoverPage
+    // so you cant see yourself on page
+    //if not logged in render all the users
+    if(this.props.currentUser){
+      return (<>
+        <FriendsBox followers={
+            this.props.users.filter(u=>u.id!==this.props.currentUser.id)
+          }/>
+          </>)
+
+    }else{
+      return (<>
+        <FriendsBox followers={
+            this.props.users
+          }/>
+          </>)
+
+
+    }
   }
   render() {
     return (
@@ -30,4 +48,11 @@ function mapStateToProps(state) {
     currentUser:user.currentUser
   }
 }
-export default connect(mapStateToProps) (DiscoverPage)
+
+const mapDispatchToProps=dispatch=>({
+  fetchUsers:()=>dispatch(fetchUsers()),
+
+})
+
+
+export default connect(mapStateToProps,mapDispatchToProps) (DiscoverPage)

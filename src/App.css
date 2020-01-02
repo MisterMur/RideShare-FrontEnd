@@ -120,8 +120,10 @@ outline: none;
 
 
 }
-
-.ride-list {
+#forums-page{
+  width:60%;
+}
+#ride-list {
   /* padding-left: 50px; */
   /* padding-right: 50px; */
   /* border: 2px solid blue; */

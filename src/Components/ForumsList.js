@@ -25,7 +25,7 @@ const ForumList = (props) => {
   }
 
   return (
-    <div className="ride-list">
+    <div className="" id="ride-list">
       <table className="table table-striped" >
         <thead className="thead-dark">
           <tr>

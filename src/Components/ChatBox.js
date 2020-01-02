@@ -19,6 +19,7 @@ class ChatBox extends Component{
   }
 
   componentDidMount(){
+    this.props.fetchUsers();
 
     this.setState({messages:this.props.messages})
 

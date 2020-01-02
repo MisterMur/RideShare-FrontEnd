@@ -59,9 +59,10 @@ class ForumsPage extends React.Component {
 
   render(){
     return (
-      <>
-      {this.props.currentUser ? this.renderPage() : <p>Not Logged In </p>}
-      </>
+      <div className="col-6" id="forum-page">
+        {this.props.currentUser ? this.renderPage() : <p>Not Logged In </p>}
+      </div>
+
     )
   }
 
