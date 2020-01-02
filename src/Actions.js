@@ -1,5 +1,10 @@
 import UUID from 'uuid';
-import {SET_ALL_FOLLOWING,ADD_FOLLOWING,REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
+import {ADD_FORUM_MESSAGE,SET_ALL_FOLLOWING,ADD_FOLLOWING,
+  REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,
+  SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,
+  FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,
+  ADD_USER,USERURL ,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,LOGINURL,
+  LOGOUT_USER,FETCH_ALL_RIDES,FETCH_ALL_FORUMS,FETCH_ALL_USERS} from './Constants';
 // import AnimalAdapter from './apis/AnimalAdapter';
 
 export function addUser(name, email) {
@@ -77,6 +82,14 @@ export function setAllFollowing(src){
     payload:src
   }
 }
+export function addForumMessage(src){
+  console.log('in add froum message',src)
+  return{
+    type:ADD_FORUM_MESSAGE,
+    payload:src
+  }
+}
+
 export function addFollowing(src){
   console.log('in add following',src)
   return{
@@ -232,7 +245,8 @@ export function postNewMessage(currentUser,content,forum){
         content: content
       })
     }
-  ).then(handleErrors).then(function(){dispatch(fetchForumMessages(forum))})
+  ).then(handleErrors).then(res=>res.json())
+  .then(mes=>dispatch(addForumMessage(mes)))
   }
 }
 

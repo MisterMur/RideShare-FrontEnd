@@ -14,7 +14,7 @@ class ChatBox extends Component{
       formInput: '',
       currentUser: this.props.currentUser,
       currentChat: this.props.currentChat,
-      messages:this.props.currentChat.messages
+      messages:[],
     }
   }
   // componentWillReceiveProps(newProps){
@@ -29,7 +29,7 @@ class ChatBox extends Component{
   // }
   componentDidMount(){
     // this.props.fetchForumMessages(this.state.currentChat)
-    this.props.fetchForumMessages(this.state.currentChat)
+    // this.props.fetchForumMessages(this.state.currentChat)
 
 
 
@@ -42,7 +42,7 @@ class ChatBox extends Component{
       // nextProps.myProp has a different value than our current prop
       // so we can perform some calculations based on the new value
       this.setState({messages:newProps.messages})
-      console.log(newProps.messages)
+      console.log('recieving props messages',newProps.messages)
     // }
   }
 
@@ -109,8 +109,8 @@ class ChatBox extends Component{
     this.setState({formInput: ''})
     // let copy = [...this.state.messages, this.state.formInput]
     // this.setState({messages: copy})
-    console.log('after post new message,props.messages',this.props.messages)
-    console.log('after post new message,state.messages',this.state.messages)
+    // console.log('after post new message,props.messages',this.props.messages)
+    // console.log('after post new message,state.messages',this.state.messages)
 
 
     //.then(r => this.props.fetchForumMessages(this.state.currentChat)).then(console.log)
@@ -138,7 +138,7 @@ class ChatBox extends Component{
               </div>
               <div class="mesgs">
                 <div class="msg_history">
-                {this.renderMessages(this.state.messages)}
+                {this.renderMessages(this.props.messages)}
                 </div>
                 <div class="type_msg">
                   <div class="input_msg_write">
@@ -166,10 +166,10 @@ function mapStateToProps(state){
   // debugger
   const {forums} = state
   // console.log('chatbox mapstateprops forum',forums.messages[0])
-
+  // debugger
   return {
     users:user.users[2],
-    messages:forums.messages[0]
+    messages:forums.messages
   //  messages:forum.messages
 
   }
