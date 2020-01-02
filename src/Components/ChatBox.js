@@ -38,13 +38,13 @@ class ChatBox extends Component{
   }
 
   renderMessages = (messages) => {
+    console.log('rendering messages')
     if (this.props.users){
-      console.log('rendering messages')
       // console.log('inrender messages', this.props.messages)
       // console.log('render messages, thistate users', this.props.users)
       // console.log('render messages',this.state.messages)
       return messages.map(m=>{
-      
+
         let messageName =this.props.users.find(user => user.id === m.user_id).name
         let messageDate = m.created_at
         return (
