@@ -314,11 +314,7 @@ function mapStateToProps(state) {
 
 	const { user } = state
   const { forums } = state
-  // debugger
-  console.log('in mapStateToProps user following',user.userProfile)
-  //issuing rendering only the users Forums
-  //setting allForums (meant to tbe user.allForums to forums.forums
-//to make sure rendering only one of each to users page for now)
+
 
   return {
     allCompanies:user.allCompanies[1],
@@ -330,7 +326,7 @@ function mapStateToProps(state) {
     following:user.following,
     friendships:user.friendships,
     userProfile:user.userProfile,
-    // user:user.user
+
   }
 }
 

@@ -15,7 +15,7 @@ const ForumList = (props) => {
           <Forum
             handleForumClick={props.handleForumClick}
             key={key}
-            idx={key+1}
+            idx={key}
             forum={forum}
           />
         </Fragment>

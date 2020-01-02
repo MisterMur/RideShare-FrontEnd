@@ -245,7 +245,6 @@ function mapStateToProps(state) {
 
 	const { user } = state;
   const { rides} = state.rides;
-	console.log('mapping state in rides',user)
   return {
     allCompanies:user.allCompanies,
     rides: rides[0],

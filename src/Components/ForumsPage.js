@@ -2,7 +2,7 @@ import React from "react";
 import ForumsList from './ForumsList.js'
 import ChatBox from './ChatBox'
 import { connect } from 'react-redux';
-import {fetchForums,fetchUsers}from '../Actions.js'
+import {fetchForums,fetchUsers,fetchForumMessages}from '../Actions.js'
 
 
 class ForumsPage extends React.Component {
@@ -22,6 +22,15 @@ class ForumsPage extends React.Component {
   }
 
   handleForumClick = (e) => {
+
+    let forum = this.props.forums.find(f => f.topic === e.target.id)
+    if(forum){
+
+      this.props.fetchForumMessages(forum)
+    }else{
+      console.log('cant find forum',forum)
+    }
+
 
     this.setState({clickedForum: e.target.id})
     this.setState({openChat: true})
@@ -59,7 +68,8 @@ class ForumsPage extends React.Component {
 }
 const mapDispatchToProps = dispatch => ({
 	fetchUsers:()=>dispatch(fetchUsers()),
-  fetchForums:()=>dispatch(fetchForums())
+  fetchForums:()=>dispatch(fetchForums()),
+  fetchForumMessages:(f)=>dispatch(fetchForumMessages(f)),
 
 })
 
