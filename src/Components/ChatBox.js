@@ -17,19 +17,9 @@ class ChatBox extends Component{
       messages:[],
     }
   }
-  // componentWillReceiveProps(newProps){
-  //
-  //
-  //   this.setState({
-  //     currentUser:newProps.currentUser,
-  //     currentChat:newProps.currentChat,
-  //     messages:newProps.currentChat.messages
-  //   })
-  //
-  // }
+
   componentDidMount(){
-    // this.props.fetchForumMessages(this.state.currentChat)
-    // this.props.fetchForumMessages(this.state.currentChat)
+
     this.setState({messages:this.props.messages})
 
 
@@ -38,13 +28,13 @@ class ChatBox extends Component{
 
 
   componentWillReceiveProps(newProps){
-    // if(newProps.messages !== this.props.messages) {
+
 
       // nextProps.myProp has a different value than our current prop
       // so we can perform some calculations based on the new value
       this.setState({messages:newProps.messages})
       console.log('recieving props messages',newProps.messages)
-    // }
+
   }
 
   renderMessages = (messages) => {
@@ -54,8 +44,7 @@ class ChatBox extends Component{
       // console.log('render messages, thistate users', this.props.users)
       // console.log('render messages',this.state.messages)
       return messages.map(m=>{
-        // debugger
-        // console.log('message',m)
+      
         let messageName =this.props.users.find(user => user.id === m.user_id).name
         let messageDate = m.created_at
         return (
@@ -91,39 +80,16 @@ class ChatBox extends Component{
   }
 
   handleMessageSubmit = () => {
-    // debugger
-    // console.log('submitting message')
-    // fetch('https://ride-share-api.herokuapp.com/api/v1/messages',
-    //   {
-    //     method:"POST",
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Accepts': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //       forum_id: this.state.currentChat.id,
-    //       user_id: this.props.currentUser.id,
-    //       content: this.state.formInput
-    //     })
-    //   }
-    // )
-    // .then(r => r.json())
+
     this.props.postNewMessage(this.props.currentUser,this.state.formInput,this.state.currentChat)
     this.setState({formInput: ''})
-    // let copy = [...this.state.messages, this.state.formInput]
-    // this.setState({messages: copy})
-    // console.log('after post new message,props.messages',this.props.messages)
-    // console.log('after post new message,state.messages',this.state.messages)
 
-
-    //.then(r => this.props.fetchForumMessages(this.state.currentChat)).then(console.log)
   }
 
   addNewMessage = (r) => {
     let copy = [...this.state.messages, r]
-    this.setState({messages: copy})
+    this.setState({messages: copy,formInput:''})
 
-    this.setState({formInput: ''})
   }
 
   render(){
@@ -157,24 +123,22 @@ class ChatBox extends Component{
     )
   }
 }
+
 const mapDispatchToProps = dispatch => ({
   fetchUsers:()=>dispatch(fetchUsers()),
   fetchForumMessages:(forum)=>dispatch(fetchForumMessages(forum)),
   postNewMessage:(user,forum,message)=>dispatch(postNewMessage(user,forum,message)),
-  resetMessages:()=>dispatch(resetMessages())
-
+  resetMessages:()=>dispatch(resetMessages()),
 
 })
+
 function mapStateToProps(state){
   const {user}= state;
-  // debugger
   const {forums} = state
-  // console.log('chatbox mapstateprops forum',forums.messages[0])
-  // debugger
+
   return {
     users:user.users[2],
     messages:forums.messages
-  //  messages:forum.messages
 
   }
 }
