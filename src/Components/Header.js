@@ -55,14 +55,16 @@ class Header extends React.Component {
   renderLogout =() =>{
     return (
       <>
-      <Nav position="right">
-        <NavItem componentClass='span' onClick={()=>this.props.history.push(`/users/${this.props.currentUser.id}`)} >
+
+        <NavItem onClick={()=>this.props.history.push(`/users/${this.props.currentUser.id}`)} >
 
         </NavItem>
-        <Link className="item" to="/login" onClick={this.logout} >
-          Logout
-        </Link>
-      </Nav>
+        <NavItem>
+          <Link  to="/login" onClick={this.logout} >
+            Logout
+          </Link>
+        </NavItem>
+
       </>
     )
   }
@@ -94,19 +96,21 @@ class Header extends React.Component {
             <Navbar.Collapse id="basic-navbar-nav">
 
               <Nav pullRight>
-                <NavItem componentClass='span'>
+                <NavItem className='menu-item'>
                   {this.renderProfileLink()}
                 </NavItem>
-                <NavItem componentClass='span'>
+                <NavItem className='menu-item'>
                   <Link to="/rides"> Rides </Link>
                 </NavItem>
-                <NavItem componentClass='span'>
+                <NavItem className='menu-item'>
                   <Link to="/forums"> Forums </Link>
                 </NavItem>
-                <NavItem componentClass='span'>
+                <NavItem className='menu-item'>
                   <Link to="/discover"> Discover </Link>
                 </NavItem>
-                {this.props.currentUser ? this.renderLogout() : this.renderLoginSignup() }
+                <NavItem className='menu-item'>
+                  {this.props.currentUser ? this.renderLogout() : this.renderLoginSignup() }
+                </NavItem>
               </Nav>
 
             </Navbar.Collapse>

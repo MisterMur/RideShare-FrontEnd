@@ -165,16 +165,15 @@ class Leaderboard extends React.Component {
     }
   }
   renderLeaderBoard=()=>{
-    console.log("in render leaderboard")
-    // console.log('mile leader',this.getMileLeader(this.props.leaders))
-    console.log('Miles:',this.getTotalMiles(this.props.leaders))
+    // console.log("in render leaderboard")
+    // // console.log('mile leader',this.getMileLeader(this.props.leaders))
+    // console.log('Miles:',this.getTotalMiles(this.props.leaders))
     if(this.props.leaders){
 
       return (
         <Fragment>
         <div class="container">
-        <div class="row">
-        <div class="col-md-9">
+
         <div class="list-group" >
         <Leader
         title={'Highest Rating: '}
@@ -184,14 +183,6 @@ class Leaderboard extends React.Component {
         handleClick={this.handleUserClick}
         superlative={'rating'}
         />
-
-      {/*  <Leader
-        title={'Longest Duration: '}
-        design={'list-group-item facebook-like'}
-        icon={'icon glyphicon glyphicon-hourglass'}
-        getUser={this.getRatingLeader(this.props.leaders)}
-        handleClick={this.handleUserClick}
-        />*/}
         <Leader
         title={'Most Miles: '}
         design={'list-group-item twitter'}
@@ -219,8 +210,6 @@ class Leaderboard extends React.Component {
         />
         </div>
         </div>
-        </div>
-        </div>
         </Fragment>
       )
     }
@@ -231,7 +220,6 @@ class Leaderboard extends React.Component {
     return (
       <div>
         {this.renderLeaderBoard()}
-        {/*this.renderUserTotals()*/}
       </div>
     )
   }

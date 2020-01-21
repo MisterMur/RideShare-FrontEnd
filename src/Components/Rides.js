@@ -146,7 +146,7 @@ class Rides extends React.Component {
           />
         :     null}
 
-        <div className="col-12" id="profile-rides-list">
+        <div className="col-12" id="rides-list">
         <RideList rides={this.state.filteredRides} displayDropdown={this.returnDropdown}/>
         </div>
       </div>
