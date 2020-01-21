@@ -38,23 +38,39 @@
 }
 
 .container .col-12{
+  padding-top:20px;
   margin: 20px;
 }
 
 #profile-card-container{
   /* padding-left: 15px; */
-  padding-right: 10px;
+  margin-top:120px;
+  /* padding-right: 10px; */
   padding-left: 10px;
+  /* width:100%; */
+  max-width: 110px;
+  min-width: 60vh;
 
 }
-
+#profile-rides-list{
+  margin-top:120px;
+}
 body{
   background-color: white;
 }
+.header{
+  margin-top:-10px;
+  position:fixed;
+  width:100%;
+  z-index:999;
 
-.header {
+
+}
+
+.title {
   background-color: black;
   color: white;
+  margin-top:0px;
   /* height: 0px; */
   font-size: 2.5rem;
   padding: 0px 0;
@@ -129,6 +145,7 @@ outline: none;
   /* border: 2px solid blue; */
   /* padding: 10px; */
   /* border-radius: 25px; */
+  /* margin-top:300px; */
 }
 
 .follower-card {
@@ -166,7 +183,13 @@ outline: none;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-.container{max-width:1170px; margin:auto;}
+.container{
+  display: flex;
+  flex-direction: column;
+  /* max-width:100%;
+   margin:auto; */
+   /* margin-top:20px; */
+ }
 img{ max-width:100%;}
 .inbox_people {
   background: #f8f8f8 none repeat scroll 0 0;
@@ -330,9 +353,14 @@ pre {
           .side-collapse.in {
               width:0;
           }
+          #profile-card-container{
+            width:80%;
+
+          }
       }
 /******
 ****end of bootsnip
+
 ***/
 .col-centered{
     float: none;
@@ -351,4 +379,7 @@ pre {
 .card-img-top{
   width:100%;
   height:auto;
+}
+.card-group{
+  margin-top:120px;
 }

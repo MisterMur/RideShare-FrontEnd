@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setLogout} from '../Actions';
 
+// import * from '../App.css'
+
 
 
 class Header extends React.Component {
@@ -115,7 +117,7 @@ class Header extends React.Component {
   renderHeader=()=>{
     return (
       <>
-      <header className="header">
+      <header className="title">
         <div className="container col-11" >
           <b>RideShare</b>
         </div>
@@ -127,7 +129,7 @@ class Header extends React.Component {
   render() {
     return (
       <>
-      <body style={{paddingTop: this.state.navHeight}}>
+      <body className="header">
         {this.renderHeader()}
         {this.renderNav()}
       </body>

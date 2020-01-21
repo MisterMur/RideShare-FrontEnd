@@ -254,7 +254,7 @@ renderPage=()=>{
     <Fragment>
       <div className = "container col-11">
         <div className="row justify-content-center">
-          <div className="col-3 justify-content-center" id="profile-card-container">
+          <div className="col-4 justify-content-center" id="profile-card-container">
             {this.renderProfileCard()}
             {this.renderEditButton()}
             {this.renderModal()}
