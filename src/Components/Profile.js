@@ -20,6 +20,7 @@ class Profile extends React.Component {
       openChat: false,
       isCurrentUserProfile:null,
       isFollowing:null,
+      currentUser:this.props.currentUser,
 
     }
   }
@@ -27,37 +28,39 @@ class Profile extends React.Component {
     this.props.fetchCompanies();
     this.props.fetchFriendships();
 
-    let followList=null;
-    if(this.props.currentUser.following){
-       followList = this.props.currentUser.following
-    }
-
-    if(this.props.isCurrentUserProfile){
-      //its the current users profile
-      this.setState({
-        isCurrentUserProfile:this.props.isCurrentUserProfile,
-        user:this.props.currentUser
-      })
-    }
-    else{
-      //the page is not the current users profile
-      if(followList.find(u=>u.id ==this.props.user.id)){
-
-        this.setState({
-          isCurrentUserProfile:this.props.isCurrentUserProfile,
-          user:this.props.user,
-          isFollowing:true
-        })
-      }else{
-
-        this.setState({
-          isCurrentUserProfile:this.props.isCurrentUserProfile,
-          user:this.props.user,
-          isFollowing:false,
-        })
-      }
-
-    }
+    // let followList=null;
+    // if(this.props.currentUser.following){
+    //    followList = this.props.currentUser.following
+    // }
+    //
+    // if(this.props.user == this.props.currentUser){
+    //   //its the current users profile
+    //   this.setState({
+    //     isCurrentUserProfile:true,
+    //     user:this.props.currentUser
+    //   })
+    // }
+    // else{
+    //   //the page is not the current users profile
+    //   debugger
+    //   if(followList.find(u=>u.id ==this.props.user.id)){
+    //     debugger
+    //     this.setState({
+    //       isCurrentUserProfile:this.props.isCurrentUserProfile,
+    //       user:this.props.user,
+    //       isFollowing:true
+    //     })
+    //   }else{
+    //     debugger
+    //
+    //     this.setState({
+    //       isCurrentUserProfile:this.props.isCurrentUserProfile,
+    //       user:this.props.user,
+    //       isFollowing:false,
+    //     })
+    //   }
+    //
+    // }
 
 
   }
@@ -66,16 +69,45 @@ class Profile extends React.Component {
 componentWillReceiveProps(newProps){
 
 
-  if(newProps.isCurrentUserProfile){
-    this.setState({user:newProps.currentUser})
+
+  if(newProps.user == newProps.currentUser){
+    //its the current users profile
+    this.setState({
+      isCurrentUserProfile:true,
+      user:newProps.currentUser,
+    })
   }
   else{
 
-      this.setState({
-        user:newProps.user,
-      })
-
+      // this.setState({
+      //   user:newProps.user,
+      // })
+    let followList=null;
+    if(this.state.currentUser.following){
+       followList = this.state.currentUser.following
     }
+    //the page is not the current users profile
+    if(followList.find(u=>u.id ==newProps.user.id)){
+      debugger
+      this.setState({
+        isCurrentUserProfile:newProps.isCurrentUserProfile,
+        user:newProps.user,
+        isFollowing:true
+      })
+    }else{
+      debugger
+
+      this.setState({
+        isCurrentUserProfile:newProps.isCurrentUserProfile,
+        user:newProps.user,
+        isFollowing:false,
+      })
+    }
+
+
+
+  }
+
 
 }
 
@@ -157,21 +189,30 @@ componentWillReceiveProps(newProps){
 
   handleFollow = () => {
     this.props.postNewFriendship(this.props.currentUser,this.props.user)
-    this.setState(prevState=>({
-      isFollowing:!prevState.isFollowing
-    }))
+    let tempUser = Object.assign({},this.props.currentUser)
+    if(!tempUser.following.includes(this.props.user)){
+
+      tempUser.following.push(this.props.user)
+      this.setState(prevState=>({
+        isFollowing:true,//!prevState.isFollowing
+        currentUser:{
+          ...prevState.currentUser,
+          following:tempUser.following,
+        }
+      }))
+    }
 
 }
 handleUnFollow = () => {
+  debugger
   this.props.unfollow(this.props.currentUser,this.props.user,this.props.friendships)
-  let tempUser = Object.assign({},this.props.currentUser)
-  // debugger
+  let tempUser = Object.assign({},this.state.currentUser)
   // tempUser.followers = tempUser.followers.filter(f=>f.id=this.props.user.id)
   this.setState(prevState=>({
-    isFollowing:!prevState.isFollowing,
+    isFollowing:false,//!prevState.isFollowing,
     currentUser:{
       ...prevState.currentUser,
-      followers:tempUser.followers.filter(f=>f.id===this.props.user.id)
+      following:tempUser.following.filter(f=>f===this.props.user)
     }
   })
 )
@@ -205,8 +246,9 @@ handleUnFollow = () => {
 
 renderFollowButton=()=>{
 
-  if(!this.state.isFollowing)
+  if(this.state.isFollowing===false)
   {
+    // debugger
     return   (
       <>
         <Button className="btn btn-primary"  id="follow-user" onClick={() => this.handleFollow()}> Follow this user </Button>

@@ -59,7 +59,7 @@ class Header extends React.Component {
         <NavItem onClick={()=>this.props.history.push(`/users/${this.props.currentUser.id}`)} >
 
         </NavItem>
-        <NavItem>
+        <NavItem className='menu-item'>
           <Link  to="/login" onClick={this.logout} >
             Logout
           </Link>
@@ -71,14 +71,17 @@ class Header extends React.Component {
   renderLoginSignup = () =>{
     return (
       <>
-      <Nav position="right">
-        <Link className="span" to="/login">
-          Login
-        </Link>
-        <Link className="span" to="/signup">
-          Sign Up
-        </Link>
-      </Nav>
+        <NavItem className='menu-item'>
+          <Link  to="/login">
+            Login
+          </Link>
+        </NavItem>
+
+        <NavItem className='menu-item'>
+          <Link  to="/signup">
+            Sign Up
+          </Link>
+        </NavItem>
       </>
     )
 
@@ -108,9 +111,7 @@ class Header extends React.Component {
                 <NavItem className='menu-item'>
                   <Link to="/discover"> Discover </Link>
                 </NavItem>
-                <NavItem className='menu-item'>
                   {this.props.currentUser ? this.renderLogout() : this.renderLoginSignup() }
-                </NavItem>
               </Nav>
 
             </Navbar.Collapse>

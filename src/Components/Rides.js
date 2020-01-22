@@ -69,19 +69,22 @@ class Rides extends React.Component {
   }
 //this function is super javascripty//
   handleFriendFilter = (e) => {
-    e.preventDefault()
-    let myFriends = this.props.user.followers.map(follower => follower.id)
-    let filtered =[]
-    this.state.allRides.map((ride) =>
+    if(this.props.currentUser){
+
+      e.preventDefault()
+      let myFriends = this.props.currentUser.followers.map(follower => follower.id)
+      let filtered =[]
+      this.state.allRides.map((ride) =>
       {
         for (let i = 0; i < myFriends.length; i ++){
           if (ride.user_id === myFriends[i] ){
-          filtered.push(ride)
+            filtered.push(ride)
           }
         }
-     }
-   )
-   this.setState({filteredRides: filtered})
+      }
+    )
+    this.setState({filteredRides: filtered})
+    }
   }
 
   handleSearch = (e) => {
@@ -146,7 +149,7 @@ class Rides extends React.Component {
           />
         :     null}
 
-        <div className="col-12" id="rides-list">
+        <div className="col-12">
         <RideList rides={this.state.filteredRides} displayDropdown={this.returnDropdown}/>
         </div>
       </div>
