@@ -43,11 +43,14 @@ export default function userReducer(state = initialUserState, action) {
       // let addFollowing = state.currentUser.following.push(action.payload)
       // debugger
       return {...state,
-        currentUser:{...state.curentUser,
+        currentUser:{
+          ...state.currentUser,
           following:[...state.currentUser.following,
             action.payload]
           }
         }
+
+
 
     case REMOVE_FOLLOWING:
       let removeFollowing = state.currentUser.following.filter(val => val.id !== action.payload.id);
