@@ -83,19 +83,19 @@ componentWillReceiveProps(newProps){
       //   user:newProps.user,
       // })
     let followList=null;
-    if(this.state.currentUser.following){
-       followList = this.state.currentUser.following
+    if(newProps.currentUser.following){
+       followList = newProps.currentUser.following
     }
     //the page is not the current users profile
     if(followList.find(u=>u.id ==newProps.user.id)){
-      debugger
+      // debugger
       this.setState({
         isCurrentUserProfile:newProps.isCurrentUserProfile,
         user:newProps.user,
         isFollowing:true
       })
     }else{
-      debugger
+      // debugger
 
       this.setState({
         isCurrentUserProfile:newProps.isCurrentUserProfile,
@@ -192,28 +192,31 @@ componentWillReceiveProps(newProps){
     let tempUser = Object.assign({},this.props.currentUser)
     if(!tempUser.following.includes(this.props.user)){
 
-      tempUser.following.push(this.props.user)
+      // tempUser.following.push(this.props.user)
       this.setState(prevState=>({
-        isFollowing:true,//!prevState.isFollowing
-        currentUser:{
-          ...prevState.currentUser,
-          following:tempUser.following,
-        }
+        isFollowing:!prevState.isFollowing,//!prevState.isFollowing
+        // currentUser:{
+        //   ...prevState.currentUser,
+        //   following:tempUser.following,
+        // }
       }))
     }
 
 }
 handleUnFollow = () => {
-  debugger
+  // debugger
+  this.props.fetchFriendships();
+  console.log('un handle unfollow fetched friendships',this.props.friendships)
+  console.log('in handle unfollow current user',this.props.currentUser)
   this.props.unfollow(this.props.currentUser,this.props.user,this.props.friendships)
-  let tempUser = Object.assign({},this.state.currentUser)
+  // let tempUser = Object.assign({},this.state.currentUser)
   // tempUser.followers = tempUser.followers.filter(f=>f.id=this.props.user.id)
   this.setState(prevState=>({
-    isFollowing:false,//!prevState.isFollowing,
-    currentUser:{
-      ...prevState.currentUser,
-      following:tempUser.following.filter(f=>f===this.props.user)
-    }
+    isFollowing:!prevState.isFollowing,//!prevState.isFollowing,
+    // currentUser:{
+    //   ...prevState.currentUser,
+    //   following:tempUser.following.filter(f=>f===this.props.user)
+    // }
   })
 )
 
@@ -266,7 +269,7 @@ renderFollowButton=()=>{
 renderUserForums=()=>{
   return (
     <>
-    {this.state.user.forums.length!=0 ?
+    {this.state.user.forums ?
       <ForumsList forums={this.state.user.forums} handleForumClick={this.handleForumClick}/>
       :
       <div className="ride-list">
