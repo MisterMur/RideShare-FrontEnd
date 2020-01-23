@@ -42,7 +42,7 @@ class ForumsPage extends React.Component {
   renderPage = ()=>{
     return (
       <>
-      <div>
+      <div id="forum-list">
       {!this.state.openChat ? <ForumsList handleForumClick={this.handleForumClick} forums={this.props.allForums}/> :
        <ChatBox
       currentUser={this.props.currentUser}
@@ -59,7 +59,7 @@ class ForumsPage extends React.Component {
 
   render(){
     return (
-      <div className="col-6" id="forum-page">
+      <div className="container">
         {this.props.currentUser ? this.renderPage() : <p>Not Logged In </p>}
       </div>
 

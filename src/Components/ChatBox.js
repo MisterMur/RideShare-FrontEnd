@@ -97,7 +97,7 @@ class ChatBox extends Component{
     // debugger
     return (
       <Fragment>
-      <div className="container">
+      <div id="chatbox">
       <h3 className=" text-center">{this.props.currentChat? this.props.currentChat.topic:null} Messaging</h3>
       <div className="messaging">
             <div className="inbox_msg">

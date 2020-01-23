@@ -64,6 +64,9 @@
 #rides-list{
   margin-top:120px;
 }
+#forum-list{
+  /* margin-top:100px; */
+}
 body{
   background-color: white;
 }
@@ -95,12 +98,14 @@ body{
   }
 
 }
-
+.leaderboard{
+  margin-top:120px;
+}
 
 body { margin-top:10px; }
-.list-group{
+/* .list-group{
   margin-top:100px;
-}
+} */
 .fa { font-size: 50px;text-align: right;position: absolute;top: 200px;right: 27px;outline: none; }
 a { transition: all .3s ease;-webkit-transition: all .3s ease;-moz-transition: all .3s ease;-o-transition: all .3s ease; }
 /* Visitor */
@@ -147,6 +152,14 @@ outline: none;
 .forums-list{
 
 
+}
+#chatbox{
+  /* margin-top:100px; */
+  padding-top:150px;
+  width:80%;
+  margin-left:auto;
+  margin-right:auto;
+  dsiplay:block;
 }
 #forums-page{
   width:60%;
@@ -292,7 +305,7 @@ img{ max-width:100%;}
 .mesgs {
   float: left;
   padding: 30px 15px 0 25px;
-  width: 60%;
+  width: 100%;
 }
 
  .sent_msg p {
@@ -317,7 +330,10 @@ img{ max-width:100%;}
   width: 100%;
 }
 
-.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+.type_msg {
+  border-top: 1px solid #c4c4c4;position: relative;
+  /* width:100%; */
+}
 .msg_send_btn {
   background: #05728f none repeat scroll 0 0;
   border: medium none;
@@ -333,7 +349,7 @@ img{ max-width:100%;}
 }
 .messaging { padding: 0 0 50px 0;}
 .msg_history {
-  height: 516px;
+  height: 20rem;
   overflow-y: auto;
 }
 /*///////

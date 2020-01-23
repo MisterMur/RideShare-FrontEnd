@@ -1,6 +1,6 @@
 // import {push} from 'react-router-redux';
 
-import { SET_ALL_FOLLOWING,ADD_FOLLOWING,REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,SET_USER,FETCH_ALL_USERS,FETCH_ALL_COMPANIES,LOGOUT_USER} from '../Constants';
+import { SET_ALL_FOLLOWING,ADD_FOLLOWING,REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,SET_USER,FETCH_ALL_USERS,FETCH_ALL_COMPANIES,LOGOUT_USER,ADD_FRIENDSHIP,REMOVE_FRIENDSHIP} from '../Constants';
 
 
 const initialUserState = {
@@ -40,10 +40,22 @@ export default function userReducer(state = initialUserState, action) {
     case SET_ALL_FOLLOWING:
       return {...state,following:action.payload}
     case ADD_FOLLOWING:
-      return {...state,following:[...state.following,action.payload]};
+      // let addFollowing = state.currentUser.following.push(action.payload)
+      // debugger
+      return {...state,
+        currentUser:{
+          ...state.currentUser,
+          following:[...state.currentUser.following,
+            action.payload]
+          }
+        }
+
+
+
     case REMOVE_FOLLOWING:
-      const newState = state.following.filter(val => val !== action.payload );
-      return {...state,following:newState}
+      let removeFollowing = state.currentUser.following.filter(val => val.id !== action.payload.id);
+      console.log('in remove following reducer ', removeFollowing)
+      return {...state,currentUser:{...state.currentUser,following:removeFollowing}}
     case LOGOUT_USER:
       return {...state, currentUser: null }
     case SET_USER:
@@ -51,7 +63,11 @@ export default function userReducer(state = initialUserState, action) {
       return {...state,userProfile:action.payload}
     case FETCH_ALL_FRIENDSHIPS:
       return {...state,friendships:action.payload}
-
+    case ADD_FRIENDSHIP:
+      return {...state,friendships:[...state.friendships,action.payload]}
+    case REMOVE_FRIENDSHIP:
+      let removeFriendship = state.friendships.filter(val=>val.id!==action.payload.id)
+      return {...state,friendships:removeFriendship}
 
     default:
       // console.log('in default reducer case',state);
