@@ -13,7 +13,7 @@ class LoginForm extends React.Component {
     password: "",
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if(newProps.currentUser){
       this.props.history.push(`/profile`)
     }
@@ -55,7 +55,7 @@ class LoginForm extends React.Component {
       		    </Form.Field>
 
               <div className="text-center mt-4">
-                <Button color="indigo" type="submit">Login</Button>
+                <Button color="teal" type="submit">Login</Button>
               </div>
             </Form>
             <div className='text-center mt-4'>

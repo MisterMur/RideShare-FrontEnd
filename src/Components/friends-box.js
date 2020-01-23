@@ -1,15 +1,11 @@
 import React, {Component} from 'react'
 import Profile from './Profile.js'
-import {Link,Route,Router} from 'react-router-dom'
 
-import Fragment from 'react'
 import FollowerCard from './FollowerCard.js'
 
 class FriendsBox extends Component {
 
   handleUserClick=(e,user)=>{
-    // debugger
-    // console.log('in handle user click ',user)
     return (
               <Profile
                 {...this.props}
@@ -23,16 +19,14 @@ class FriendsBox extends Component {
 
   followerCards = () => {
 
-    // href={`https://rideshare-frontend.netlify.com/profile/${follower.id}`}
     if (this.props.followers){
-       return this.props.followers.map((follower,key) => {
+       return this.props.followers.map((follower,idx) => {
          // debugger
         return (
-          <div class="card-rows">
+          <div key={idx} className="card-rows">
             <FollowerCard
               handleUserClick={this.handleUserClick}
-              key={key}
-              idx={key+1}
+              key={idx}
               follower={follower}
               />
           </div>

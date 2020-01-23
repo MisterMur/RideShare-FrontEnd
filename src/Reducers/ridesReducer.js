@@ -1,5 +1,4 @@
 
-import {push} from 'react-router-redux';
 
 import {FETCH_ALL_RIDES} from '../Constants';
 

@@ -3,12 +3,8 @@ import React,{Fragment} from "react";
 
 class Ride extends React.Component {
 
-  constructor(props){
-    super(props)
-  }
-
   render() {
-    // console.log('Ride render:' ,this.props)
+
     return (
       <Fragment>
         <tr>

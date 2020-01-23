@@ -1,6 +1,11 @@
 // import {push} from 'react-router-redux';
 
-import { SET_ALL_FOLLOWING,ADD_FOLLOWING,REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,ADD_USER,LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,SET_USER,FETCH_ALL_USERS,FETCH_ALL_COMPANIES,LOGOUT_USER,ADD_FRIENDSHIP,REMOVE_FRIENDSHIP} from '../Constants';
+import {
+   SET_ALL_FOLLOWING,ADD_FOLLOWING,
+  REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,ADD_USER,
+  LOGIN_USER,ADD_FOLLOWER,REMOVE_FOLLOWER,SET_USER,
+  FETCH_ALL_USERS,FETCH_ALL_COMPANIES,LOGOUT_USER,
+  ADD_FRIENDSHIP,REMOVE_FRIENDSHIP} from '../Constants';
 
 
 const initialUserState = {
@@ -14,7 +19,6 @@ const initialUserState = {
   following:[],
   userProfile:null,
   currentUser: null
-    // users: [],
 
 };
 
@@ -34,14 +38,22 @@ export default function userReducer(state = initialUserState, action) {
       return{...state,users:action.payload}
 
     case ADD_FOLLOWER:
-      return {...state,currentUser:action.payload     };
+      return {...state,
+        currentUser:{
+          ...state.currentUser,
+          followers:[...state.currentUser.followers,
+            action.payload]
+          }
+        }
+
     case REMOVE_FOLLOWER:
-      return {...state,currentUser:action.payload  };
+    let removeFollowers = state.currentUser.followers.filter(val => val.id !== action.payload.id);
+    return {...state,currentUser:{...state.currentUser,followers:removeFollowers}}
+
     case SET_ALL_FOLLOWING:
       return {...state,following:action.payload}
     case ADD_FOLLOWING:
-      // let addFollowing = state.currentUser.following.push(action.payload)
-      // debugger
+
       return {...state,
         currentUser:{
           ...state.currentUser,
@@ -50,16 +62,13 @@ export default function userReducer(state = initialUserState, action) {
           }
         }
 
-
-
     case REMOVE_FOLLOWING:
       let removeFollowing = state.currentUser.following.filter(val => val.id !== action.payload.id);
-      console.log('in remove following reducer ', removeFollowing)
       return {...state,currentUser:{...state.currentUser,following:removeFollowing}}
     case LOGOUT_USER:
       return {...state, currentUser: null }
     case SET_USER:
-      // console.log('in user reducer',action.payload)
+
       return {...state,userProfile:action.payload}
     case FETCH_ALL_FRIENDSHIPS:
       return {...state,friendships:action.payload}

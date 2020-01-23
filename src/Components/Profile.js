@@ -7,7 +7,10 @@ import Modal from './Modal.js'
 import FriendsBox from './friends-box'
 import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {fetchFollowing,fetchUser,fetchFriendships,postNewFriendship,unfollow,fetchCompanies,fetchCurrentUser,patchEditProfile} from '../Actions.js'
+import {
+  fetchFollowing,fetchUser,fetchFriendships,
+  postNewFriendship,unfollow,fetchCompanies,
+  fetchCurrentUser,patchEditProfile} from '../Actions.js'
 import {USERURL} from '../Constants'
 class Profile extends React.Component {
   constructor(props){
@@ -28,49 +31,16 @@ class Profile extends React.Component {
     this.props.fetchCompanies();
     this.props.fetchFriendships();
 
-    // let followList=null;
-    // if(this.props.currentUser.following){
-    //    followList = this.props.currentUser.following
-    // }
-    //
-    // if(this.props.user == this.props.currentUser){
-    //   //its the current users profile
-    //   this.setState({
-    //     isCurrentUserProfile:true,
-    //     user:this.props.currentUser
-    //   })
-    // }
-    // else{
-    //   //the page is not the current users profile
-    //   debugger
-    //   if(followList.find(u=>u.id ==this.props.user.id)){
-    //     debugger
-    //     this.setState({
-    //       isCurrentUserProfile:this.props.isCurrentUserProfile,
-    //       user:this.props.user,
-    //       isFollowing:true
-    //     })
-    //   }else{
-    //     debugger
-    //
-    //     this.setState({
-    //       isCurrentUserProfile:this.props.isCurrentUserProfile,
-    //       user:this.props.user,
-    //       isFollowing:false,
-    //     })
-    //   }
-    //
-    // }
 
 
   }
 
 
-componentWillReceiveProps(newProps){
+UNSAFE_componentWillReceiveProps(newProps){
 
 
 
-  if(newProps.user == newProps.currentUser){
+  if(newProps.user === newProps.currentUser){
     //its the current users profile
     this.setState({
       isCurrentUserProfile:true,
@@ -79,15 +49,12 @@ componentWillReceiveProps(newProps){
   }
   else{
 
-      // this.setState({
-      //   user:newProps.user,
-      // })
     let followList=null;
     if(newProps.currentUser.following){
        followList = newProps.currentUser.following
     }
     //the page is not the current users profile
-    if(followList.find(u=>u.id ==newProps.user.id)){
+    if(followList.find(u=>u.id ===newProps.user.id)){
       // debugger
       this.setState({
         isCurrentUserProfile:newProps.isCurrentUserProfile,
@@ -192,13 +159,10 @@ componentWillReceiveProps(newProps){
     let tempUser = Object.assign({},this.props.currentUser)
     if(!tempUser.following.includes(this.props.user)){
 
-      // tempUser.following.push(this.props.user)
+
       this.setState(prevState=>({
-        isFollowing:!prevState.isFollowing,//!prevState.isFollowing
-        // currentUser:{
-        //   ...prevState.currentUser,
-        //   following:tempUser.following,
-        // }
+        isFollowing:!prevState.isFollowing,
+
       }))
     }
 
@@ -206,17 +170,12 @@ componentWillReceiveProps(newProps){
 handleUnFollow = () => {
   // debugger
   this.props.fetchFriendships();
-  console.log('un handle unfollow fetched friendships',this.props.friendships)
-  console.log('in handle unfollow current user',this.props.currentUser)
+
   this.props.unfollow(this.props.currentUser,this.props.user,this.props.friendships)
-  // let tempUser = Object.assign({},this.state.currentUser)
-  // tempUser.followers = tempUser.followers.filter(f=>f.id=this.props.user.id)
+
   this.setState(prevState=>({
-    isFollowing:!prevState.isFollowing,//!prevState.isFollowing,
-    // currentUser:{
-    //   ...prevState.currentUser,
-    //   following:tempUser.following.filter(f=>f===this.props.user)
-    // }
+    isFollowing:!prevState.isFollowing,
+
   })
 )
 
@@ -230,7 +189,7 @@ handleUnFollow = () => {
     }
   }
   renderEditButton=()=>{
-    if(this.props.user==this.props.currentUser){
+    if(this.props.user===this.props.currentUser){
       return(
         <div>
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>

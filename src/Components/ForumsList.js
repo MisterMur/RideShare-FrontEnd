@@ -1,4 +1,4 @@
-import React, {Fragment} from "react"
+import React from "react"
 import Forum from "./Forum.js"
 
 const ForumList = (props) => {
@@ -10,15 +10,17 @@ const ForumList = (props) => {
        return array.filter((e, i) => array.findIndex(a => a.topic === e.topic) === i);
       }
 
-      return uniqueForums(props.forums).map((forum,key)=>{
-        return <Fragment>
+      return uniqueForums(props.forums).map((forum,idx)=>{
+        return (
+
           <Forum
             handleForumClick={props.handleForumClick}
-            key={key}
-            idx={key}
+            key={forum.id}
+            idx={idx}
             forum={forum}
-          />
-        </Fragment>
+            />
+        )
+
         }
       )
     }

@@ -1,5 +1,4 @@
 import React,{Fragment} from "react"
-import  Route from 'react-router-dom'
 import Profile from './Profile.js'
 import Leader from './Leader.js'
 
@@ -20,7 +19,7 @@ class Leaderboard extends React.Component {
       mostExperience:''
     }
   }
-  componentWillReceiveProps(props){
+  UNSAFE_componentWillReceiveProps(props){
     let rating = this.getRatingLeader(props.leaders)
     let miles = this.getMileLeader(props.leaders)
     let earner = this.getEarnerLeader(props.leaders)
@@ -56,7 +55,7 @@ class Leaderboard extends React.Component {
     if(user.rides){
       user.rides.map(r=>{
         let rideTime = r.end_at-r.started_at
-        totalTime+=rideTime
+        return totalTime+=rideTime
       })
       return totalTime
     }
@@ -172,9 +171,9 @@ class Leaderboard extends React.Component {
 
       return (
         <Fragment>
-        <div class="container">
+        <div className="container">
           <div className='leaderboard'>
-            <div class="list-group" >
+            <div className="list-group" >
               <Leader
                 title={'Highest Rating: '}
                 design={'list-group-item google-plus'}

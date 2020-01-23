@@ -8,21 +8,20 @@ import {fetchUsers,fetchRides} from '../Actions';
 
 class Rides extends React.Component {
 
-  constructor(props){
-    super(props)
-    this.state = {
+
+  state = {
       allRides: this.props.rides,
       filteredRides: this.props.rides,
       users:[],
       textInput: ''
     }
-  }
+
   componentDidMount(){
     this.props.fetchRides();
     this.props.fetchUsers();
   }
 
-  componentWillReceiveProps(){
+  UNSAFE_componentWillReceiveProps(){
     this.setState({
       users: this.props.users,
       allRides: this.props.rides,
@@ -47,7 +46,7 @@ class Rides extends React.Component {
         <option value="all">All</option>
         <option value="uber">Uber</option>
         <option value="lyft">Lyft</option>
-        ////////////////ADD ANOTHER COMPANY IF WE WANT
+
       </select>
         <input
          type="text"
@@ -76,9 +75,9 @@ class Rides extends React.Component {
       let filtered =[]
       this.state.allRides.map((ride) =>
       {
-        for (let i = 0; i < myFriends.length; i ++){
+       for (let i = 0; i < myFriends.length; i ++){
           if (ride.user_id === myFriends[i] ){
-            filtered.push(ride)
+            return filtered.push(ride)
           }
         }
       }

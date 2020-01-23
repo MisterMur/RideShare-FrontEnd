@@ -28,9 +28,9 @@ class Modal extends React.Component{
   }
 handleCheckBox =(company)=>{
   if(this.state.userCompanies && this.state.allCompanies){
-    this.state.allCompanies.map(c=>{
-      this.state.userCompanies.find(c);
-    })
+    this.state.allCompanies.map(c=>
+      this.state.userCompanies.find(c)
+    )
 
   }
 }
@@ -38,7 +38,6 @@ handleCheckBox =(company)=>{
 onChange=(e,c)=> {
    // current array of options
    const options = this.state.options
-   let index
    if (e.target.checked) {
      console.log('pushing into options',c)
      //add checked item to array of selecteed company options

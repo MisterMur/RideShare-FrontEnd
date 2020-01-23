@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import {Navbar, Nav, NavItem,NavDropdown,Button} from 'react-bootstrap';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setLogout} from '../Actions';
@@ -93,12 +93,12 @@ class Header extends React.Component {
       <>
 
 
-          <Navbar bg="dark" expand="md" fixedTop ref={(e) => this._navbar = e} inverse fluid>
+          <Navbar bg="dark" expand="md" fixedtop="true" ref={(e) => this._navbar = e} inverse="true" fluid="true">
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
 
-              <Nav pullRight>
+              <Nav >
                 <NavItem className='menu-item'>
                   {this.renderProfileLink()}
                 </NavItem>
@@ -134,10 +134,10 @@ class Header extends React.Component {
   render() {
     return (
       <>
-      <body className="header">
+      <div className="header">
         {this.renderHeader()}
         {this.renderNav()}
-      </body>
+      </div>
       </>
     )
   }

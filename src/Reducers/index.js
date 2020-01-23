@@ -5,7 +5,7 @@ import forumsReducer from './forumsReducer';
 import ridesReducer from './ridesReducer';
 
 export default combineReducers({
-  currentUser:userReducer.currentUser,
+  // currentUser:userReducer.currentUser,
   user: userReducer,
   rides: ridesReducer,
   forums: forumsReducer,

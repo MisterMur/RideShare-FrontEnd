@@ -14,16 +14,16 @@ class Leader extends React.Component {
           <Link to={`/user/${this.props.getUser.id}`}>
 
           <div className={this.props.design}>
-            <h3 class="pull-right">
+            <h3 className="pull-right">
             <i className={this.props.icon}> </i>
             </h3>
-            <h4 class="list-group-item-heading count">{this.props.title}
+            <h4 className="list-group-item-heading count">{this.props.title}
 
               {(this.props.getUser.name)}
 
               </h4>
 
-              <p class="list-group-item-text">
+              <p className="list-group-item-text">
                 {this.props.getStat?this.props.getStat(this.props.getUser):null}
                 {this.props.superlative==='rating'?this.props.getUser.rating:null}
                 {this.props.superlative==='experience'?this.props.getUser.experience:null}</p>

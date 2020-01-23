@@ -28,7 +28,7 @@ class ChatBox extends Component{
   }
 
 
-  componentWillReceiveProps(newProps){
+  UNSAFE_componentWillReceiveProps(newProps){
 
 
       // nextProps.myProp has a different value than our current prop
@@ -44,13 +44,12 @@ class ChatBox extends Component{
       // console.log('inrender messages', this.props.messages)
       // console.log('render messages, thistate users', this.props.users)
       // console.log('render messages',this.state.messages)
-      return messages.map(m=>{
+      return messages.map((m,idx)=>{
 
-        let messageName =this.props.users.find(user => user.id === m.user_id).name
-        let messageDate = m.created_at
+        let messageName =this.props.users.find(user=> user.id === m.user_id).name
+        // let messageDate = m.created_at
         return (
-          <div>
-            <div className="incoming_msg">
+            <div key={idx} className="incoming_msg">
               <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"/> </div>
               <div className="received_msg">
                 <div className="received_withd_msg">
@@ -60,7 +59,6 @@ class ChatBox extends Component{
                   <span className="time_date">  {messageName ? messageName : 'NotFound'}   |  {m.created_at}  </span></div>
                 </div>
               </div>
-            </div>
           )
         })
 
@@ -103,7 +101,7 @@ class ChatBox extends Component{
             <div className="inbox_msg">
               <div >
               <button onClick={() => this.handleClose()}>Close Chat</button>
-                <div class="headind_srch">
+                <div className="headind_srch">
                 </div>
               </div>
               <div className="mesgs">
@@ -112,13 +110,13 @@ class ChatBox extends Component{
                 </div>
                 <div className="type_msg">
                   <div className="input_msg_write">
-                    <input type="text" class="write_msg" placeholder="Type a message" value={this.state.formInput} onChange={(e) => this.handleInput(e)}/>
-                    <button className="msg_send_btn" type="button" onClick={() => this.handleMessageSubmit()}><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    <input type="text" className="write_msg" placeholder="Type a message" value={this.state.formInput} onChange={(e) => this.handleInput(e)}/>
+                    <button className="msg_send_btn" type="button" onClick={() => this.handleMessageSubmit()}><i className="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                   </div>
                 </div>
               </div>
             </div>
-            <p className="text-center top_spac"> Design by <a target="_blank" href="#">Brian Murillo</a></p>
+            <p className="text-center top_spac"> Design by <a target="_blank" rel="noopener noreferrer" href="http://brianjmurillo.com">Brian Murillo</a></p>
           </div></div>
       </Fragment>
     )

@@ -17,7 +17,7 @@ const ProfileCard = (props) => {
   return(
 
       <div className="profile-card"  >
-        <img src={props.user.image_url} alt="No Profile Image" className="card-img-top"/>
+        <img src={props.user.image_url} alt="No Profile" className="card-img-top"/>
 
         <div className="card-header">
           <b>{props.user.name} </b>

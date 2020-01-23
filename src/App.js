@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import { Link, Route,Switch, Redirect} from 'react-router-dom'
-// import { Router, Route, browserHistory,Switch,Redirect } from 'react-router'
-// import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import {  Route,Switch, Redirect} from 'react-router-dom'
+
 import { connect } from 'react-redux';
 
 import {Grid} from 'semantic-ui-react'
