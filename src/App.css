@@ -340,12 +340,13 @@ img{ max-width:100%;}
   border-radius: 50%;
   color: #fff;
   cursor: pointer;
-  font-size: 17px;
-  height: 33px;
+  font-size: 10px;
+  text-align: center;
+  height: 36px;
   position: absolute;
   right: 0;
   top: 11px;
-  width: 33px;
+  width: 36px;
 }
 .messaging { padding: 0 0 50px 0;}
 .msg_history {
@@ -407,6 +408,14 @@ pre {
 .card-img-top{
   width:100%;
   height:auto;
+}
+.followercardimg{
+  width:10rem;
+  height:10rem;
+  margin-left:auto;
+  margin-right:auto;
+  /* align-items:center; */
+  /* margin-right:50%; */
 }
 .card-group{
   margin-top:120px;

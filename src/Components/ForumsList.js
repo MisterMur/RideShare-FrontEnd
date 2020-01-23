@@ -12,13 +12,14 @@ const ForumList = (props) => {
 
       return uniqueForums(props.forums).map((forum,idx)=>{
         return (
+            <Forum
+              handleForumClick={props.handleForumClick}
+              key={forum.id}
+              idx={idx}
+              forum={forum}
+              />
+        
 
-          <Forum
-            handleForumClick={props.handleForumClick}
-            key={forum.id}
-            idx={idx}
-            forum={forum}
-            />
         )
 
         }

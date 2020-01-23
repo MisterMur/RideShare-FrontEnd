@@ -32,6 +32,8 @@ class Leader extends React.Component {
 
             </div>
             )
+    }else{
+      return (<h4>YOU ARE NOT LOGGED IN</h4>)
     }
   }
 }

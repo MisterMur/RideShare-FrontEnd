@@ -136,7 +136,6 @@ class Leaderboard extends React.Component {
   }
   handleUserClick=(e,user)=>{
     // debugger
-    console.log('in handle user click ',user)
     if (!user===this.props.currentUser){
       return (
         <Profile

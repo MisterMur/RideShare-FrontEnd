@@ -146,7 +146,7 @@ class Rides extends React.Component {
           rides={this.props.rides}
           allCompanies={this.props.allCompanies}
           />
-        :     null}
+        :     <h4>LOADING</h4>}
 
         <div className="col-12">
         <RideList rides={this.state.filteredRides} displayDropdown={this.returnDropdown}/>

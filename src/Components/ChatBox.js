@@ -34,12 +34,10 @@ class ChatBox extends Component{
       // nextProps.myProp has a different value than our current prop
       // so we can perform some calculations based on the new value
       this.setState({messages:newProps.messages})
-      console.log('recieving props messages',newProps.messages)
 
   }
 
   renderMessages = (messages) => {
-    console.log('rendering messages')
     if (this.props.users){
       // console.log('inrender messages', this.props.messages)
       // console.log('render messages, thistate users', this.props.users)
@@ -111,7 +109,7 @@ class ChatBox extends Component{
                 <div className="type_msg">
                   <div className="input_msg_write">
                     <input type="text" className="write_msg" placeholder="Type a message" value={this.state.formInput} onChange={(e) => this.handleInput(e)}/>
-                    <button className="msg_send_btn" type="button" onClick={() => this.handleMessageSubmit()}><i className="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    <button className="msg_send_btn" type="button" onClick={() => this.handleMessageSubmit()}><i className="fa fa-paper-plane-o" aria-hidden="true"></i>Send!</button>
                   </div>
                 </div>
               </div>

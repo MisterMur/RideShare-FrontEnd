@@ -21,6 +21,7 @@ export default function forumsReducer(state = initialForumsState, action) {
       return {...state,messages:[...state.messages,action.payload]};
     case FETCH_ALL_FORUM_MESSAGES:
       // console.log('fetch all forum messages',action.payload);
+      // debugger
       return {...state,messages:action.payload}
     case RESET_MESSAGES:
       return {...state,messages:[]}

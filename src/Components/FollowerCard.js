@@ -16,7 +16,7 @@ class FollowerCard extends React.Component {
     return (
       <>
       <Card className="card mb-4 border-0" id="following-card">
-        <Card.Img variant="top" className='card-img-top' src={this.props.follower.image_url} />
+        <Card.Img variant="top" className='followercardimg' src={this.props.follower.image_url} />
         <Card.Body>
           <Card.Title>Name: {this.props.follower.name}</Card.Title>
           <Card.Text>

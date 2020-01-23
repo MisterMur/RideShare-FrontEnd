@@ -21,19 +21,17 @@ class ForumsPage extends React.Component {
     this.props.fetchUsers();
   }
 
-  handleForumClick = (e) => {
+  handleForumClick = (e,topic) => {
 
-    let forum = this.props.forums.find(f => f.topic === e.target.id)
+
+    let forum = this.props.forums.find(f => f.topic === topic)
+    // debugger
     if(forum){
 
       this.props.fetchForumMessages(forum)
-    }else{
-      console.log('cant find forum',forum)
     }
 
-
-    this.setState({clickedForum: e.target.id})
-    this.setState({openChat: true})
+    this.setState({clickedForum: topic,openChat:true})
   }
 
   closeChat = () => {
@@ -43,6 +41,7 @@ class ForumsPage extends React.Component {
     return (
       <>
       <div id="forum-list">
+        <h3>Click on a Forum To Chat</h3>
       {!this.state.openChat ? <ForumsList handleForumClick={this.handleForumClick} forums={this.props.allForums}/> :
        <ChatBox
       currentUser={this.props.currentUser}

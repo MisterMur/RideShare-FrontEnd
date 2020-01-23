@@ -47,6 +47,8 @@ class App extends React.Component {
 								 currentUser={this.props.currentUser}
 								 user={userFromParams}
 							 />)
+					 }else{
+
 					 }
 				 }	}} />
 			 </>
@@ -55,6 +57,7 @@ class App extends React.Component {
  renderPage=(rout)=>{
 	 let paramid = parseInt(rout.match.params.id)
 	 if(this.props.currentUser){
+		 // debugger
 
 			if(paramid !== this.props.currentUser.id){
 				if(this.props.users){
@@ -81,7 +84,7 @@ class App extends React.Component {
 	    <Route path="/users/:id" exact render={(props) => {
 	        let id = parseInt(props.match.params.id)
 	      if(this.props.currentUser){
-	        debugger
+	        // debugger
 	        if(id !== this.props.currentUser.id){
 	          let ourUser = this.props.users.find(u => u.id === id )
 	          return (
@@ -139,7 +142,8 @@ class App extends React.Component {
 								}
 						}
 							/>
-						<Route path="/user/:id" render={(routerProps) => this.renderPage(routerProps)} />
+						<Route path="/user/:id" render={(routerProps) =>
+									this.renderPage(routerProps)						} />
 
 						<Route path="/discover" component={DiscoverPage} />
 
@@ -148,10 +152,12 @@ class App extends React.Component {
             <Route path="/signup" component={SignupForm} />
 						{!this.props.currentUser ?
 							<Redirect from="*" to="/login" />
-							:
-							<Redirect from="*" to="/profile" />
+							:<>
+							<Redirect from={'/user/'+this.props.currentUser.id} to="/profile"/>
+							<Redirect from="*" to="/profile" /></>
 
 						 }
+
 
 
           </Switch>
