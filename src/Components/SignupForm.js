@@ -11,6 +11,12 @@ class SignupForm extends React.Component {
 		passwordConfirmation: "",
 	}
 
+	UNSAFE_componentWillReceiveProps(newProps) {
+		if(newProps.currentUser){
+			this.props.history.push(`/profile`)
+		}
+	}
+
 	handleChange = (event) => {
 		this.setState({
 			[event.target.name]: event.target.value

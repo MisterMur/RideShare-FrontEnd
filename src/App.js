@@ -149,7 +149,8 @@ class App extends React.Component {
 
             <Route path="/forums" component={ForumsPage} />
             <Route path="/rides" component={Rides} />
-            <Route path="/signup" component={SignupForm} />
+						<Route path="/signup" render={routerProps => <SignupForm {...routerProps} setCurrentUser={this.props.setCurrentUser} />} />
+
 						{!this.props.currentUser ?
 							<Redirect from="*" to="/login" />
 							:<>

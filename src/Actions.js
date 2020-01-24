@@ -364,7 +364,7 @@ export function createUser (login_data) {
     })
     .then(res => res.json())
     .then((response) => {
-      debugger
+      // debugger
 
       if (response.error){
         alert(response.error)
