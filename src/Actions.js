@@ -177,7 +177,7 @@ export function fetchUsers() {
   // does that seem cool? ehhhh
   return function(dispatch) {
     dispatch({ type: FETCH_ALL_USERS });
-    fetch(USERURL)
+    fetch(USERURL).then(handleErrors)
     .then(res=>res.json())
     .then(users=>{
         // console.log('fetched users',users)
@@ -364,6 +364,7 @@ export function createUser (login_data) {
     })
     .then(res => res.json())
     .then((response) => {
+      debugger
 
       if (response.error){
         alert(response.error)
@@ -463,6 +464,7 @@ export function setLogout ()  {
 
 function handleErrors(response) {
   if (!response.ok) {
+    // debugger
     throw Error(response.statusText);
   }
   return response;

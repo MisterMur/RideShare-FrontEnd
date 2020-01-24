@@ -77,9 +77,16 @@ class SignupForm extends React.Component {
 		)
 	}
 }
+function mapStateToProps(state) {
+  // maps the state from the store to the props
+  const {user} = state
+  return {
+    currentUser: user.currentUser
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   createUser: userInfo => dispatch(createUser(userInfo))
 })
 
-export default connect(null, mapDispatchToProps)(SignupForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);
