@@ -26,14 +26,14 @@ class Profile extends React.Component {
       isFollowing:null,
       currentUser:this.props.currentUser,
       ride:{
-        start_at:'start AT',
-        end_at:'End At',
-        price:'$$$',
-        distance:'distance in miles',
+        started_at:'',
+        end_at:'',
+        price:'',
+        distance:'',
         start_location:'start loc',
         end_location:'end loc',
         user_id:this.props.currentUser.id,
-        company_id:null,
+        company_id: '',
       },
 
     }
@@ -223,7 +223,7 @@ renderFollowButton=()=>{
 
   if(this.state.isFollowing===false)
   {
-    // debugger
+
     return   (
       <>
         <Button className="btn btn-primary"  id="follow-user" onClick={() => this.handleFollow()}> Follow this user </Button>
@@ -266,12 +266,39 @@ renderUserForums=()=>{
 handleAddRideChange=(e)=>{
   this.setState({
     ride:{
+      ...this.state.ride,
       [e.target.name]:e.target.value,
     }
   })
 }
 handleAddRide=(e)=>{
-  this.props.postNewRide(this.state.ride)
+  // debugger
+
+  if(
+    this.state.ride.company_id &&
+    this.state.ride.user_id &&
+    this.state.ride.distance &&
+    this.state.ride.price &&
+    this.state.ride.start_location &&
+    this.state.ride.end_location &&
+    this.state.ride.started_at &&
+    this.state.ride.end_at
+  ){
+
+    this.props.postNewRide(this.state.ride)
+  }else{
+    alert("Please enter all fields before adding a new ride!")
+  }
+}
+renderAllCompanySelect=()=>{
+  if(this.props.allCompanies){
+    return (
+      this.props.allCompanies.map(c=>{
+        return (<option value={c.id}> {c.name} </option>)
+      })
+    )
+
+  }
 }
 displayAddRide=()=>{
   if(this.props.user===this.props.currentUser){
@@ -280,20 +307,20 @@ displayAddRide=()=>{
         <button onClick={this.handleAddRide}>Add Ride</button>
         <tr>
           <th scope="row">
-            <select name="cars"
+            <select value={this.state.ride.company_id} name="company_id"
             onChange={this.handleAddRideChange}
             >
-              <option value="uber">Uber</option>
-              <option value="lyft">Lyft</option>
+              {this.renderAllCompanySelect()}
+
 
             </select>
           </th>
-          <td><input type="text" id="distance" value={this.state.ride.distance} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="text" id="start_at" value={this.state.ride.start_at} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="text" id="end_at" value={this.state.ride.end_at} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="text" id="price" value={this.state.ride.price} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="text" id="start_location" value={this.state.ride.start_location} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="text" id="end_location" value={this.state.ride.end_location} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="number" name="distance" placeholder='Distance' value={this.state.ride.distance} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="datetime-local" name="started_at" value={this.state.ride.started_at} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="datetime-local" name="end_at" value={this.state.ride.end_at} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="number" placeholder='Price' name="price" value={this.state.ride.price} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="text" name="start_location" value={this.state.ride.start_location} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="text" name="end_location" value={this.state.ride.end_location} onChange={this.handleAddRideChange}></input></td>
 
         </tr>
       </Fragment>

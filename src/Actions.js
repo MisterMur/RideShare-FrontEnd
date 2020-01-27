@@ -258,7 +258,7 @@ export function fetchFriendships(){
   }
 }
 export function postNewRide(ride){
-  debugger
+  // debugger
   return dispatch=>{
     return fetch(RIDEURL,{
       method:'POST',
