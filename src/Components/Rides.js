@@ -167,7 +167,7 @@ function mapStateToProps(state) {
   const {forums}= state.forums;
   return {
     allCompanies:user.allCompanies,
-    rides: rides[0],
+    rides: rides,
     forums:user.forums,
     allForums: forums[0],
     users:user.users,
