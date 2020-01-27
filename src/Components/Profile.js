@@ -167,6 +167,8 @@ UNSAFE_componentWillReceiveProps(newProps){
     }
 
 }
+
+
 handleUnFollow = () => {
   // debugger
   this.props.fetchFriendships();
@@ -194,7 +196,7 @@ handleUnFollow = () => {
         <div>
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
         <button type="button" className="btn btn-primary"  id="edit-profile" onClick={this.handleDelete}> Delete Profile </button>
-
+        
         </div>
       )
     }else{

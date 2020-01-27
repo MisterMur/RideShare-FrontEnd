@@ -1,5 +1,16 @@
 import React,{Fragment} from "react";
 import ReactModal from 'react-modal'
+import {connect} from 'react-redux'
+
+//lib imports
+import axios from 'axios'
+
+//constants imports
+import {USERURL} from '../Constants'
+
+//action imports
+import {fetchCurrentUser} from '../Actions';
+
 
 class Modal extends React.Component{
 
@@ -11,7 +22,8 @@ class Modal extends React.Component{
     carValue: this.props.props.user.car,
     userCompanies:this.props.currentUser.companies,
     companiesValue: [],
-    options:[]
+    options:[],
+    selectedFile:[],
   })
 
   componentDidMount(){
@@ -34,6 +46,29 @@ handleCheckBox =(company)=>{
 
   }
 }
+fileUploadHandler=(event)=>{
+  event.preventDefault()
+  if(this.state.selectedFile){
+
+    let fd = new FormData();
+    fd.append('image',this.state.selectedFile,this.state.selectedFile.name)
+
+    axios.post(USERURL+this.props.currentUser.id+'/imageupload',fd)
+    .then(res=>res.json())
+    .then(resUser=>
+      this.props.fetchCurrentUser(resUser.user)
+    );
+  }
+
+
+
+}
+
+fileSelectedHandler=(event)=>{
+  this.setState({selectedFile:event.target.files[0]})
+
+}
+
 
 onChange=(e,c)=> {
    // current array of options
@@ -126,6 +161,15 @@ renderCheckBoxes = () => {
               {this.renderCheckBoxes()}
             </label><br/>
 
+            <div className="control">
+            <label className="label">Upload image</label>
+              <input type="file" name="file" onChange={this.fileSelectedHandler}/>
+              <button onClick={this.fileUploadHandler}>Upload</button>
+            </div>
+
+
+
+
             <button type="submit" onClick={(e, state)=>this.props.handleSubmit(e, this.state)}>Save Edit</button>
           </form>
           <button onClick={this.props.handleAfterClose}>Close Modal</button>
@@ -147,5 +191,8 @@ renderCheckBoxes = () => {
   }
 
 }
+const mapDispatchToProps=dispatch=>({
+  fetchCurrentUser: u=>dispatch(fetchCurrentUser(u))
+})
 
-export default Modal
+export default connect(null,mapDispatchToProps)(Modal)
