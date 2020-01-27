@@ -323,7 +323,7 @@ displayAddRide=()=>{
           <td><input type="text" name="end_location" value={this.state.ride.end_location} onChange={this.handleAddRideChange}></input></td>
 
         </tr>
-      </Fragment>
+      </  Fragment>
     )
 
   }
