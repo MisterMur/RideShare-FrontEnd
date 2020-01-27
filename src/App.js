@@ -190,7 +190,7 @@ function mapStateToProps(state) {
 
   return {
     allCompanies:user.allCompanies,
-    rides: rides[0],
+    rides: rides,
     forums:forums[0],
     allForums: forums[0],
     users:user.users,

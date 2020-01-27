@@ -29,6 +29,7 @@ const RideList = (props) => {
         </tr>
       </thead>
       <tbody>
+        {props.displayAddRide ? props.displayAddRide():null}
         {renderRide()}
       </tbody>
     </table>

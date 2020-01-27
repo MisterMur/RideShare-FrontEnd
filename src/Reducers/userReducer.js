@@ -30,7 +30,7 @@ export default function userReducer(state = initialUserState, action) {
     case "RESET":
       return initialUserState;
     case FETCH_ALL_COMPANIES:
-      return {...state,allCompanies:[...state.allCompanies,action.payload]}
+      return {...state,allCompanies:action.payload}
     case LOGIN_USER:
 
       return {...state,currentUser:action.payload};

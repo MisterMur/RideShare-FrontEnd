@@ -1,5 +1,5 @@
 import UUID from 'uuid';
-import {ADD_FORUM_MESSAGE,SET_ALL_FOLLOWING,ADD_FOLLOWING,
+import {ADD_FORUM_MESSAGE,SET_ALL_FOLLOWING,ADD_FOLLOWING,ADD_RIDE,
   REMOVE_FOLLOWING,FETCH_ALL_FRIENDSHIPS,AUTOLOGINURL,MESSAGEURL,
   SET_USER,FORUMSURL,COMPANYURL, RIDEURL,FRIENDSHIPURL ,
   FETCH_ALL_FORUM_MESSAGES,FETCH_CURRENT_USER,FETCH_ALL_COMPANIES,
@@ -16,10 +16,17 @@ export function addUser(name, email) {
   }
 }
 
+
 export function logoutUser()  {
   return {
 
     type: LOGOUT_USER
+  }
+}
+export function addRide(src){
+  return {
+    type:ADD_RIDE,
+    payload:src
   }
 }
 export function setAllRides(src) {
@@ -250,6 +257,23 @@ export function fetchFriendships(){
     .then(friendships=>{dispatch(setAllFriendships(friendships))})
   }
 }
+export function postNewRide(ride){
+  debugger
+  return dispatch=>{
+    return fetch(RIDEURL,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        "Accepts":'application/json'
+      },
+      body:JSON.stringify({
+        ride
+      })
+    })
+    .then(handleErrors).then(res=>res.json())
+    .then(r=>dispatch(addRide(r)))
+  }
+}
 export function postNewMessage(currentUser,content,forum){
   return dispatch=>{
     // console.log('in postnew message reducer',currentUser)
@@ -369,13 +393,8 @@ export function createUser (login_data) {
       if (response.error){
         alert(response.error)
       } else {
-        // debugger
-        // localStorage.setItem("token", response.jwt)
-        // console.log('creat user',response)
-        // this.props.setCurrentUser(response.user)
         localStorage.setItem('jwt', response.jwt)
         dispatch (setLoggedInUser(response.user))
-        // this.props.history.push(`/users/${response.user.id}`)
       }
     })
   }
@@ -399,18 +418,9 @@ export function userLoginFetch  (user,callback) {
       } else {
         // we need to login at the top level where we are holding our current user!
         // setState in App to currentuse
-        // debugger
-        // debugger
-        // this.props.setCurrentUser(response.user)
-        // debugger
-        // console.log('set jwt toeken')
-        // debugger
+
         localStorage.setItem('jwt', response.jwt)
         dispatch(setLoggedInUser(response.user))
-        // this.props.history.push(`/profile/${response.user.id}`)
-
-        // return <><Link to={`/profile/${this.props.currentUser.id}`}>Profile</Link></>
-
 
       }
     })

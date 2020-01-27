@@ -10,7 +10,8 @@ import {connect} from 'react-redux'
 import {
   fetchFollowing,fetchUser,fetchFriendships,
   postNewFriendship,unfollow,fetchCompanies,
-  fetchCurrentUser,patchEditProfile} from '../Actions.js'
+  fetchCurrentUser,patchEditProfile,postNewRide,
+} from '../Actions.js'
 import {USERURL} from '../Constants'
 class Profile extends React.Component {
   constructor(props){
@@ -24,6 +25,16 @@ class Profile extends React.Component {
       isCurrentUserProfile:null,
       isFollowing:null,
       currentUser:this.props.currentUser,
+      ride:{
+        start_at:'start AT',
+        end_at:'End At',
+        price:'$$$',
+        distance:'distance in miles',
+        start_location:'start loc',
+        end_location:'end loc',
+        user_id:this.props.currentUser.id,
+        company_id:null,
+      },
 
     }
   }
@@ -196,7 +207,7 @@ handleUnFollow = () => {
         <div>
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
         <button type="button" className="btn btn-primary"  id="edit-profile" onClick={this.handleDelete}> Delete Profile </button>
-        
+
         </div>
       )
     }else{
@@ -252,6 +263,45 @@ renderUserForums=()=>{
     </>
   )
 }
+handleAddRideChange=(e)=>{
+  this.setState({
+    ride:{
+      [e.target.name]:e.target.value,
+    }
+  })
+}
+handleAddRide=(e)=>{
+  this.props.postNewRide(this.state.ride)
+}
+displayAddRide=()=>{
+  if(this.props.user===this.props.currentUser){
+    return (
+      <Fragment>
+        <button onClick={this.handleAddRide}>Add Ride</button>
+        <tr>
+          <th scope="row">
+            <select name="cars"
+            onChange={this.handleAddRideChange}
+            >
+              <option value="uber">Uber</option>
+              <option value="lyft">Lyft</option>
+
+            </select>
+          </th>
+          <td><input type="text" id="distance" value={this.state.ride.distance} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="text" id="start_at" value={this.state.ride.start_at} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="text" id="end_at" value={this.state.ride.end_at} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="text" id="price" value={this.state.ride.price} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="text" id="start_location" value={this.state.ride.start_location} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="text" id="end_location" value={this.state.ride.end_location} onChange={this.handleAddRideChange}></input></td>
+
+        </tr>
+      </Fragment>
+    )
+
+  }
+
+}
 renderPage=()=>{
   // <FriendsBox followers={this.state.user.following}/>
 //
@@ -268,7 +318,7 @@ renderPage=()=>{
           </div>
           <div className="col" id="profile-rides-list">
             {this.props.userProfile?
-              <RideList rides={this.props.userProfile.rides}/>
+              <RideList displayAddRide={this.displayAddRide} rides={this.props.userProfile.rides}/>
               :
               null
             }
@@ -323,7 +373,7 @@ function mapStateToProps(state) {
 
 
   return {
-    allCompanies:user.allCompanies[1],
+    allCompanies:user.allCompanies,
     rides:user.rides,
     forums:forums.forums[0],
     allForums:user.forums,
@@ -345,6 +395,7 @@ const mapDispatchToProps = dispatch => ({
   fetchCurrentUser:(u)=>dispatch(fetchCurrentUser(u)),
   fetchFriendships:()=>dispatch(fetchFriendships()),
   fetchFollowing:(u)=>dispatch(fetchFollowing(u)),
+  postNewRide:(r)=>dispatch(postNewRide(r)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps) (Profile)
