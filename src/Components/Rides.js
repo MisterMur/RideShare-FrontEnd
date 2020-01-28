@@ -135,7 +135,7 @@ class Rides extends React.Component {
     return (
       <>
 
-      <div className = "container col-11">
+      <div className = "container col-11" id="rides-page">
         {this.props.users?
 
         <Leaderboard
@@ -148,9 +148,8 @@ class Rides extends React.Component {
           />
         :     <h4>LOADING</h4>}
 
-        <div className="col-12">
         <RideList rides={this.state.filteredRides} displayDropdown={this.returnDropdown}/>
-        </div>
+        
       </div>
       </>
     )

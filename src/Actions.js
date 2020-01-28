@@ -401,7 +401,7 @@ export function createUser (login_data) {
 }
 export function userLoginFetch  (user,callback) {
   return dispatch =>{
-    console.log('in userlogin fetch')
+    // console.log('in userlogin fetch')
     fetch(LOGINURL, {
       method: "POST",
       headers: {

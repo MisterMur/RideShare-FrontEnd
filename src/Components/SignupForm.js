@@ -3,7 +3,6 @@ import { Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import {createUser} from '../Actions';
 
-import ImageUploader from 'react-images-upload';
 
 
 class SignupForm extends React.Component {

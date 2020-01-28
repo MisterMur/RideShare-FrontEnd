@@ -27,7 +27,7 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit = () => {
-    console.log('in handle submit login')
+    // console.log('in handle submit login')
     this.props.userLoginFetch(this.state)
 
 

@@ -37,10 +37,10 @@
   margin-top: 10px;
 }
 
-.container .col-12{
-  padding-top:20px;
-  margin: 20px;
-}
+/* .container .col-12{
+   padding-top:20px;
+   margin-top: 20px;
+} */
 
 #profile-card-container{
   /* padding-left: 15px; */
@@ -48,8 +48,9 @@
   /* padding-right: 10px; */
   padding-left: 10px;
   /* width:100%; */
-  max-width: 110px;
-  min-width: 60vh;
+  /* width:30%; */
+  max-width: 32vh;
+  min-width: 30vh;
 
 }
 .menu-item{
@@ -60,7 +61,7 @@
 }
 #profile-rides-list{
   margin-top:120px;
-  width:60%;
+  width:50%;
 }
 #rides-list{
   margin-top:120px;
@@ -99,8 +100,9 @@ body{
   }
 
 }
-.leaderboard{
-  margin-top:120px;
+#leaderboard{
+  /* margin-top:120px; */
+  width:100%;
 }
 
 body { margin-top:10px; }
@@ -173,6 +175,9 @@ outline: none;
   /* border-radius: 25px; */
   /* margin-top:300px; */
 }
+#rides-page{
+  margin-top:10rem;
+}
 
 .follower-card {
   width: 40rem;
@@ -212,6 +217,8 @@ outline: none;
 .container{
   display: flex;
   flex-direction: column;
+  /* margin-top:20px; */
+  width:100%;
   /* max-width:100%;
    margin:auto; */
    /* margin-top:20px; */

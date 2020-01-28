@@ -13,8 +13,9 @@ const RideList = (props) => {
         />)
     }
   }
+  //class ride-list
   return (
-    <div className="ride-list">
+    <div >
     {props.displayDropdown? props.displayDropdown(): ''}
     <table className="table table-striped">
       <thead className="thead-dark">

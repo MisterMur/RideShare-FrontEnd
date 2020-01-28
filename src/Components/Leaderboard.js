@@ -170,8 +170,7 @@ class Leaderboard extends React.Component {
 
       return (
         <Fragment>
-        <div className="container">
-          <div className='leaderboard'>
+          <div id='leaderboard col-12'>
             <div className="list-group" >
               <Leader
                 title={'Highest Rating: '}
@@ -208,8 +207,6 @@ class Leaderboard extends React.Component {
                 />
             </div>
           </div>
-
-        </div>
         </Fragment>
       )
     }

@@ -33,7 +33,7 @@ class Profile extends React.Component {
         start_location:'start loc',
         end_location:'end loc',
         user_id:this.props.currentUser.id,
-        company_id: '',
+        company_id: 7,
       },
 
     }
@@ -95,7 +95,7 @@ UNSAFE_componentWillReceiveProps(newProps){
   }
 
   handleAfterOpen=()=>{
-    console.log('opened')
+    // console.log('opened')
   }
   handleAfterClose=()=>{
     this.setState({modal:false})
@@ -244,7 +244,7 @@ renderUserForums=()=>{
     {this.state.user.forums ?
       <ForumsList forums={this.state.user.forums} handleForumClick={this.handleForumClick}/>
       :
-      <div className="ride-list">
+      <div>
         <table className="table table-striped" >
           <thead className="thead-dark">
             <tr>
@@ -284,17 +284,37 @@ handleAddRide=(e)=>{
     this.state.ride.started_at &&
     this.state.ride.end_at
   ){
+    // post new ride then reset text inputs
+    // console.log('adding ride: ', this.state.ride)
+
+    this.state.ride.company_id = parseInt(this.state.ride.company_id)
 
     this.props.postNewRide(this.state.ride)
+    this.setState({
+      ride:{
+        ...this.state.ride,
+
+        distance:'',
+        price:'',
+        start_location:'',
+        end_location:'',
+        started_at:'',
+        end_at:'',
+      }
+
+    })
+
   }else{
+    // console.log('cant add ride:',this.state.ride)
     alert("Please enter all fields before adding a new ride!")
   }
 }
 renderAllCompanySelect=()=>{
   if(this.props.allCompanies){
     return (
-      this.props.allCompanies.map(c=>{
-        return (<option value={c.id}> {c.name} </option>)
+      this.props.allCompanies.map((c,idx)=>{
+        // console.log('company id' ,c.id)
+        return (<option key={idx} value={c.id}> {c.name} </option>)
       })
     )
 
@@ -351,8 +371,8 @@ renderPage=()=>{
               :
               null
             }
-
             {this.renderUserForums()}
+
 
             <div className="row" id="profile-follwoing">
               <h4>Following</h4>
@@ -369,6 +389,7 @@ renderPage=()=>{
               }
             </div>
           </div>
+
 
 
 
