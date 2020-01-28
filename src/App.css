@@ -399,6 +399,10 @@ pre {
 ****end of bootsnip
 
 ***/
+#discoverpage{
+  margin-right: auto;
+  margin-top:15px;
+}
 .col-centered{
     float: none;
     margin: 0 auto;

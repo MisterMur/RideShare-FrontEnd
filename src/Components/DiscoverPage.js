@@ -31,7 +31,7 @@ class DiscoverPage extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div id="discoverpage">
         {this.props.users?this.renderFriendsBox():<p>LOADING</p>}
 
       </div>

@@ -374,23 +374,24 @@ renderPage=()=>{
 
           </div>
 
-          <div className="row" id="profile-follwoing">
-            <h4>Following</h4>
-            {this.props.userProfile?
-              <FriendsBox followers={this.props.userProfile.following}/>
-              :
-              null
-            }
-            <h4>Followers</h4>
-            {this.props.userProfile?
-              <FriendsBox followers={this.props.userProfile.followers}/>
-              :
-              null
-            }
-          </div>
 
 
 
+        </div>
+        
+        <div className="row" id="profile-follwoing">
+          <h4>Following</h4>
+          {this.props.userProfile?
+            <FriendsBox followers={this.props.userProfile.following}/>
+            :
+            null
+          }
+          <h4>Followers</h4>
+          {this.props.userProfile?
+            <FriendsBox followers={this.props.userProfile.followers}/>
+            :
+            null
+          }
         </div>
 
       </div>
