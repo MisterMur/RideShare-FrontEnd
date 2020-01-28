@@ -33,7 +33,7 @@ class Profile extends React.Component {
         start_location:'start loc',
         end_location:'end loc',
         user_id:this.props.currentUser.id,
-        company_id: 7,
+        company_id: 21,
       },
 
     }
@@ -339,8 +339,8 @@ displayAddRide=()=>{
           <td><input type="datetime-local" name="started_at" value={this.state.ride.started_at} onChange={this.handleAddRideChange}></input></td>
           <td><input type="datetime-local" name="end_at" value={this.state.ride.end_at} onChange={this.handleAddRideChange}></input></td>
           <td><input type="number" placeholder='Price' name="price" value={this.state.ride.price} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="text" name="start_location" value={this.state.ride.start_location} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="text" name="end_location" value={this.state.ride.end_location} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="text" name="start_location" placeholder='Starting Location' value={this.state.ride.start_location} onChange={this.handleAddRideChange}></input></td>
+          <td><input type="text" name="end_location" placeholder='Ending Location' value={this.state.ride.end_location} onChange={this.handleAddRideChange}></input></td>
 
         </tr>
 
@@ -352,8 +352,6 @@ displayAddRide=()=>{
 
 }
 renderPage=()=>{
-  // <FriendsBox followers={this.state.user.following}/>
-//
   return (
 
     <Fragment>
@@ -374,22 +372,22 @@ renderPage=()=>{
             {this.renderUserForums()}
 
 
-            <div className="row" id="profile-follwoing">
-              <h4>Following</h4>
-              {this.props.userProfile?
-                <FriendsBox followers={this.props.userProfile.following}/>
-                :
-                null
-              }
-              <h4>Followers</h4>
-              {this.props.userProfile?
-                <FriendsBox followers={this.props.userProfile.followers}/>
-                :
-                null
-              }
-            </div>
           </div>
 
+          <div className="row" id="profile-follwoing">
+            <h4>Following</h4>
+            {this.props.userProfile?
+              <FriendsBox followers={this.props.userProfile.following}/>
+              :
+              null
+            }
+            <h4>Followers</h4>
+            {this.props.userProfile?
+              <FriendsBox followers={this.props.userProfile.followers}/>
+              :
+              null
+            }
+          </div>
 
 
 
