@@ -54,9 +54,11 @@ fileUploadHandler=(event)=>{
     fd.append('image',this.state.selectedFile,this.state.selectedFile.name)
 
     axios.post(USERURL+this.props.currentUser.id+'/imageupload',fd)
-    .then(res=>res.json())
-    .then(resUser=>
-      this.props.fetchCurrentUser(resUser.user)
+    // .then(res=>res.json())
+    .then(res=>{
+
+      this.props.fetchCurrentUser(res.data)
+    }
     );
   }
 
