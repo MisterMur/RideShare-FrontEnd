@@ -62,6 +62,7 @@
 }
 #profile-rides-list{
   margin-top:120px;
+  /* overflow-x: auto; */
   width:50%;
 }
 #rides-list{
