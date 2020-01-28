@@ -54,8 +54,9 @@ class LoginForm extends React.Component {
       		      <input onChange={this.handleChange} type="password" name="password" value={this.state.password} placeholder='Password' />
       		    </Form.Field>
 
-              <div className="text-center mt-4">
+              <div className="col text-center mt-4">
                 <Button color="teal" type="submit">Login</Button>
+                <Button color="teal" onclick="window.location.href = '/signup';">Sign-Up</button>
               </div>
             </Form>
             <div className='text-center mt-4'>

@@ -324,7 +324,7 @@ displayAddRide=()=>{
   if(this.props.user===this.props.currentUser){
     return (
       <Fragment>
-        <button onClick={this.handleAddRide}>Add Ride</button>
+        <button  className="btn btn-primary" id="addridebutton" onClick={this.handleAddRide}>Add Ride</button>
         <tr>
           <th scope="row">
             <select value={this.state.ride.company_id} name="company_id"
@@ -378,7 +378,7 @@ renderPage=()=>{
 
 
         </div>
-        
+
         <div className="row" id="profile-follwoing">
           <h4>Following</h4>
           {this.props.userProfile?
