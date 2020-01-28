@@ -15,7 +15,7 @@ const RideList = (props) => {
   }
   //class ride-list
   return (
-    <div style='overflow-x:auto;'>
+    <div className='responsivetable'>
     {props.displayDropdown? props.displayDropdown(): ''}
     <table className="table table-striped">
       <thead className="thead-dark">

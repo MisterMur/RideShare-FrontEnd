@@ -244,7 +244,7 @@ renderUserForums=()=>{
     {this.state.user.forums ?
       <ForumsList forums={this.state.user.forums} handleForumClick={this.handleForumClick}/>
       :
-      <div style='overflow-x:auto;'>
+      <div >
         <table className="table table-striped" >
           <thead className="thead-dark">
             <tr>

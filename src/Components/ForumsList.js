@@ -28,7 +28,7 @@ const ForumList = (props) => {
   }
 
   return (
-    <div style='overflow-x:auto;' >
+    <div className='responsivetable' >
       <table className="table table-striped" >
         <thead className="thead-dark">
           <tr>
