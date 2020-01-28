@@ -54,11 +54,12 @@ class LoginForm extends React.Component {
       		      <input onChange={this.handleChange} type="password" name="password" value={this.state.password} placeholder='Password' />
       		    </Form.Field>
 
-              <div className="col text-center mt-4">
-                <Button color="teal" type="submit">Login</Button>
-                <Button color="teal" onclick="window.location.href = '/signup';">Sign-Up</button>
+              <div className="col text-center mt-4" id="authbotton">
+                <Button color="teal" className='btn btn-primary' type="submit">Login</Button>
+                <a href="/signup" className="btn btn-primary">Sign-up</a>
               </div>
             </Form>
+
             <div className='text-center mt-4'>
               <p className='h5 text-center mb-4'> guest / 1234 </p>
             </div>
