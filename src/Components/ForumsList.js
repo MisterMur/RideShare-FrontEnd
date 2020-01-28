@@ -15,10 +15,10 @@ const ForumList = (props) => {
             <Forum
               handleForumClick={props.handleForumClick}
               key={forum.id}
-              idx={idx}
+              idx={idx+1}
               forum={forum}
               />
-        
+
 
         )
 

@@ -253,7 +253,7 @@ renderUserForums=()=>{
             </tr>
           </thead>
           <tbody>
-            <th className="text-center"scope="row">NOT A MEMBER OF ANY FORUMS</th>
+            <td className="text-center" scope="row"> NOT A MEMBER OF ANY FORUMS </td>
 
           </tbody>
         </table>
