@@ -15,10 +15,15 @@ class Ride extends React.Component {
     if(hour >= 12){
       hour = hour-12;
     }
+    if(hour<10){
+      hour = parseInt(hour);
+    }
+
     if(hour==0){
       hour = 12
     }
-    let retDate = `${month}/${day}/${year} @ ${hour}:${min}${ampm}`
+
+    let retDate = `${month}/${day}/${year}@${hour}:${min}${ampm}`
     return retDate;
     // var ampm = hours >= 12 ? 'pm' : 'am';
     // hours = hours % 12;

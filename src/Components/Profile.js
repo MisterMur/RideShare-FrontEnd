@@ -433,7 +433,7 @@ renderPage=()=>{
             <div className="slide-toggle">
               <div className="slide-toggle__header">
                 <button id="followingbutton" className="slide-toggle__toggle" onClick={toggle}>
-                  Following
+                  {this.props.userProfile.following.length} Following
                 </button>
                 <ProgressBar progress={progress} />
               </div>
@@ -470,7 +470,7 @@ renderPage=()=>{
             <div className="slide-toggle">
               <div className="slide-toggle__header">
                 <button id='followingbutton' className="slide-toggle__toggle" onClick={toggle}>
-                  Following
+                  {this.props.userProfile.followers.length} Followers
                 </button>
                 <ProgressBar progress={progress} />
               </div>
