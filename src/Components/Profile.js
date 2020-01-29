@@ -322,7 +322,7 @@ renderAllCompanySelect=()=>{
 }
 displayAddRide=()=>{
   if(this.props.user===this.props.currentUser){
-    return (
+    return (<>
       <Fragment>
         <button  className="btn btn-primary" id="addridebutton" onClick={this.handleAddRide}>Add Ride</button>
         <tr>
@@ -345,6 +345,7 @@ displayAddRide=()=>{
         </tr>
 
       </Fragment>
+      </>
 
     )
 

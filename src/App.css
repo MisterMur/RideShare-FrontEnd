@@ -193,6 +193,9 @@ outline: none;
   height:21rem;
   max-width: 15rem;
 }
+#addridebutton{
+  width:100%;
+}
 
 
 .follower-container {
@@ -401,7 +404,7 @@ pre {
               width:0;
           }
           #profile-card-container{
-            width:75rem;
+            width:95%;
 
           }
       }
