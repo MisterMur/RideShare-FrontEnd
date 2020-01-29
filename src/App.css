@@ -63,6 +63,13 @@
 .responsivetable{
   overflow-x: auto;
 }
+.forumstable{
+  overflow-x:auto;
+
+}
+.ridestable{
+  overflow-x:auto;
+}
 #profile-rides-list{
   margin-top:120px;
   /* overflow-x: auto; */
@@ -446,3 +453,109 @@ pre {
 .card-group{
   margin-top:50px;
 }
+/*////////////////////////////////////////*/
+/*table stuff*/
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+  background: #eee;
+}
+th {
+  background: #333;
+  color: white;
+  font-weight: bold;
+  width:10%;
+}
+td, th {
+  padding: 6px;
+  border: 1px solid #ccc;
+  text-align: left;
+  width:1px;
+}
+
+/**************************
+************ Rresponsive table
+**********************/
+@media
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)   {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	.ridestable thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+  /* .ridestable thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  } */
+  th{
+    width:100%;
+  }
+
+	tr { border: 1px solid #ccc; }
+
+	td {
+		/* Behave  like a "row" */
+    width:100%;
+    height:100%;
+
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+    border: 1px;
+    border-style: dashed;
+
+	}
+  td:text{
+    top:-10px;
+  }
+
+
+	td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: -5px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+  .ridetable td.input{
+    width:100%;
+    top:-5px;
+  }
+
+
+/*
+  Label the data
+  */
+  /* td:nth-of-type(1):before { content: "ID"; } */
+  .ridestable td:nth-of-type(1):before {  content: "Distance"; }
+  .ridestable td:nth-of-type(2):before { content: "Started At"; }
+  .ridestable td:nth-of-type(3):before { content: "Ended At"; }
+  .ridestable td:nth-of-type(4):before { content: "Price"; }
+  .ridestable td:nth-of-type(5):before { content: "Starting Location"; }
+  .ridestable td:nth-of-type(6):before { content: "Ending Location"; }
+
+  .forumstable td:nth-of-type(1):before{content:'Forum Topic';font-style: oblique;}
+  .forumstable thead{width:100%;
+
+  }
+
+}
+/**************************
+************ END OF Rresponsive table
+**********************/

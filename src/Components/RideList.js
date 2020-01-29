@@ -15,7 +15,7 @@ const RideList = (props) => {
   }
   //class ride-list
   return (
-    <div className='responsivetable'>
+    <div className='ridestable'>
     {props.displayDropdown? props.displayDropdown(): ''}
     <table className="table table-striped">
       <thead className="thead-dark">

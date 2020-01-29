@@ -27,12 +27,12 @@ const ForumList = (props) => {
     }
   }
 
+  // <th scope="col">Num</th>
   return (
-    <div className='responsivetable' >
+    <div className='forumstable' >
       <table className="table table-striped" >
         <thead className="thead-dark">
           <tr>
-            <th scope="col">Num</th>
             <th scope="col">Forum Topic</th>
           </tr>
         </thead>
