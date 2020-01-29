@@ -1,18 +1,45 @@
 import React,{Fragment} from "react";
+import {connect} from 'react-redux'
+
+import {Button} from 'react-bootstrap'
+
+//import components
 import ProfileCard from './ProfileCard'
 import RideList from './RideList.js'
 import ForumsList from './ForumsList.js'
 import Modal from './Modal.js'
-
 import FriendsBox from './friends-box'
-import {Button} from 'react-bootstrap'
-import {connect} from 'react-redux'
+
+
+//import actions
 import {
   fetchFollowing,fetchUser,fetchFriendships,
   postNewFriendship,unfollow,fetchCompanies,
   fetchCurrentUser,patchEditProfile,postNewRide,
 } from '../Actions.js'
+
+//library imports
+import SlideToggle from "react-slide-toggle";
+
+//import constants
 import {USERURL} from '../Constants'
+// const eases = window.eases;
+
+
+
+const ProgressBar = ({ progress }) => {
+  return (
+    <span className="progress-bar">
+      <span
+        className="progress-bar__inner"
+        style={{
+          transform: `scaleX(${progress})`
+        }}
+      />
+    </span>
+  );
+};
+
 class Profile extends React.Component {
   constructor(props){
     super(props)
@@ -324,10 +351,16 @@ displayAddRide=()=>{
   if(this.props.user===this.props.currentUser){
     return (<>
       <Fragment>
-        <button  className="btn btn-primary" id="addridebutton" onClick={this.handleAddRide}>Add Ride</button>
+
+        <tr>
+          <td colspan="7">
+            <button className="btn btn-primary" id="addridebutton" onClick={this.handleAddRide}>Add Ride</button>
+          </td>
+        </tr>
+
         <tr>
           <th scope="row">
-            <select value={this.state.ride.company_id} name="company_id"
+            <select className='addrideinput' value={this.state.ride.company_id} name="company_id"
             onChange={this.handleAddRideChange}
             >
               {this.renderAllCompanySelect()}
@@ -335,14 +368,16 @@ displayAddRide=()=>{
 
             </select>
           </th>
-          <td><input type="number" name="distance" placeholder='Distance' value={this.state.ride.distance} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="datetime-local" name="started_at" value={this.state.ride.started_at} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="datetime-local" name="end_at" value={this.state.ride.end_at} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="number" placeholder='Price' name="price" value={this.state.ride.price} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="text" name="start_location" placeholder='Starting Location' value={this.state.ride.start_location} onChange={this.handleAddRideChange}></input></td>
-          <td><input type="text" name="end_location" placeholder='Ending Location' value={this.state.ride.end_location} onChange={this.handleAddRideChange}></input></td>
+          <td><input className="addrideinput" type="number" name="distance" placeholder='Distance' value={this.state.ride.distance} onChange={this.handleAddRideChange}></input></td>
+          <td><input className="addrideinput" type="datetime-local" name="started_at" value={this.state.ride.started_at} onChange={this.handleAddRideChange}></input></td>
+          <td><input className="addrideinput" type="datetime-local" name="end_at" value={this.state.ride.end_at} onChange={this.handleAddRideChange}></input></td>
+          <td><input className="addrideinput" type="number" placeholder='Price' name="price" value={this.state.ride.price} onChange={this.handleAddRideChange}></input></td>
+          <td><input className="addrideinput" type="text" name="start_location" placeholder='Starting Location' value={this.state.ride.start_location} onChange={this.handleAddRideChange}></input></td>
+          <td><input className="addrideinput" type="text" name="end_location" placeholder='Ending Location' value={this.state.ride.end_location} onChange={this.handleAddRideChange}></input></td>
 
         </tr>
+
+
 
       </Fragment>
       </>
@@ -380,16 +415,78 @@ renderPage=()=>{
 
         </div>
 
-        <div className="row" id="profile-follwoing">
-          <h4>Following</h4>
-          {this.props.userProfile?
-            <FriendsBox followers={this.props.userProfile.following}/>
+        <div className="row" id="profile-following">
+          {this.props.userProfile?(
+            <>
+            <SlideToggle
+          duration={800}
+          collapsed
+          whenReversedUseBackwardEase
+
+          render={({
+            toggle,
+            progress,
+            setCollapsibleElement,
+            range,
+            toggleState
+          }) => (
+            <div className="slide-toggle">
+              <div className="slide-toggle__header">
+                <button id="followingbutton" className="slide-toggle__toggle" onClick={toggle}>
+                  Following
+                </button>
+                <ProgressBar progress={progress} />
+              </div>
+              <div className="slide-toggle__box" ref={setCollapsibleElement}>
+                <div className="slide-toggle__box-inner">
+                  <FriendsBox followers={this.props.userProfile.following}/>
+                  <button id='followingbutton' Click={toggle}>
+                    Hide Following
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        />
+        </>
+          )
             :
             null
           }
-          <h4>Followers</h4>
-          {this.props.userProfile?
-            <FriendsBox followers={this.props.userProfile.followers}/>
+          {this.props.userProfile?(
+            <>
+            <SlideToggle
+          duration={800}
+          collapsed
+          whenReversedUseBackwardEase
+
+          render={({
+            toggle,
+            progress,
+            setCollapsibleElement,
+            range,
+            toggleState
+          }) => (
+            <div className="slide-toggle">
+              <div className="slide-toggle__header">
+                <button id='followingbutton' className="slide-toggle__toggle" onClick={toggle}>
+                  Following
+                </button>
+                <ProgressBar progress={progress} />
+              </div>
+              <div className="slide-toggle__box" ref={setCollapsibleElement}>
+                <div className="slide-toggle__box-inner">
+                  <FriendsBox followers={this.props.userProfile.followers}/>
+                  <button id='followingbutton' onClick={toggle}>
+                    Hide Followers
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        />
+      </>
+          )
             :
             null
           }
