@@ -440,7 +440,7 @@ renderPage=()=>{
               <div className="slide-toggle__box" ref={setCollapsibleElement}>
                 <div className="slide-toggle__box-inner">
                   <FriendsBox followers={this.props.userProfile.following}/>
-                  <button id='followingbutton' Click={toggle}>
+                  <button id='followingbutton' onClick={toggle}>
                     Hide Following
                   </button>
                 </div>

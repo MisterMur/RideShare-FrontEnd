@@ -36,7 +36,7 @@ class FollowerCard extends React.Component {
               }}>
               <UserCard
                 float
-                header='https://i.imgur.com/w5tX1Pn.jpg'
+                header='https://loremflickr.com/320/240/car'
                 avatar='https://ptetutorials.com/images/user-profile.png'
                 name={this.props.follower.name}
                 positionName={this.props.follower.car}
