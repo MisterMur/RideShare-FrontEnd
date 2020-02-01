@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 import {Button,Card} from 'react-bootstrap'
 
 import '../App.css'
@@ -18,12 +19,19 @@ import {
 // var randImg = 'https://sadanduseless.b-cdn.net/wp-content/uploads/2018/11/taxi-driver-calendar2.jpg'
 
 class FollowerCard extends React.Component {
+  getProfileLink=()=>{
+    if(this.props.follower.id === this.props.currentUser.id){
+      return '/profile'
+    }else{
+      return `/user/${this.props.follower.id}`
+    }
+  }
   renderFollowCard=()=>{
     // debugger
     return(
       <>
       <div id="follower-card" onClick={(e,user)=>this.props.handleUserClick(e,this.props.follower)} >
-        <Link to={`/user/${this.props.follower.id}`}>
+          <Link to={this.getProfileLink()}>
 
           <FlippingCard style={{height:'100%',width:'100%'}} >
             <FlippingCardFront>
@@ -121,4 +129,10 @@ class FollowerCard extends React.Component {
 
   }
 }
-export default FollowerCard
+function mapStateToProps(state){
+  const {user} = state
+  return {
+    currentUser:user.currentUser,
+  }
+}
+export default connect (mapStateToProps)(FollowerCard)

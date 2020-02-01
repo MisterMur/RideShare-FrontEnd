@@ -1,19 +1,23 @@
 import React, {Component} from 'react'
-import Profile from './Profile.js'
+import {connect} from 'react-redux'
 
+import Profile from './Profile.js'
 import FollowerCard from './FollowerCard.js'
 
 class FriendsBox extends Component {
 
   handleUserClick=(e,user)=>{
-    return (
-              <Profile
-                {...this.props}
-                user={this.props.user}
-              />
+    // if(user.id !== this.props.currentUser.id){
+      // debugger
+      return (
+        <Profile
+          {...this.props}
+          user={this.props.user}
+          />
 
+      )
 
-    )
+    
   }//end of handle user click
 
 
@@ -47,4 +51,10 @@ class FriendsBox extends Component {
   }
 
 }
-export default FriendsBox
+function mapStateToProps(state){
+  const {user} = state
+  return {
+    currentUser:user.currentUser,
+  }
+}
+export default connect(mapStateToProps)(FriendsBox)
