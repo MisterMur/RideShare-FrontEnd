@@ -595,84 +595,98 @@ only screen and (max-width: 760px),
 /*********************
 ******** toggle slider
 ************************/
+
 .slide-toggle {
   outline: 1px solid black;
-  max-width: $max-width;
+  max-width: 100%;
   margin: 0 auto;
   margin-bottom: 1rem;
   box-sizing: border-box;
-  &--special {
-    .slide-toggle__header {
-    }
-    .progress-bar__inner {
-      transition: background 300ms;
-    }
-    &.expanded {
-      .slide-toggle__header {
-      }
-      .progress-bar__inner {
-        background: rgba(white, 0.8);
-      }
-    }
-  }
-  &__header {
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-    padding: 1rem;
-    outline: 1px solid black;
-    position: relative;
-    background: linear-gradient(90deg, rgba($color-2, 1), rgba($color-2, 1));
-  }
-  &__toggle {
-    font-size: 1rem;
-    border: 1px solid gray;
-    padding: 0.5rem;
-    box-shadow: none;
-    margin-right: 1rem;
-  }
-  &__box {
-
-  }
-  &__box-inner {
-    padding: 1rem;
-    justify-content: center;
-    align-items: center;
-    line-height: 1.5;
-
-    p {
-      margin: 0;
-      padding: 0;
-      margin-bottom: 1rem;
-    }
-
-    button {
-      margin: 1rem auto 0;
-      display: block;
-    }
-  }
+}
+.slide-toggle--special .progress-bar__inner {
+  -webkit-transition: background 300ms;
+  transition: background 300ms;
+}
+.slide-toggle--special.expanded .progress-bar__inner {
+  background: rgba(255, 255, 255, 0.8);
+}
+.slide-toggle__header {
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: flex;
+  padding: 1rem;
+  outline: 1px solid black;
+  position: relative;
+  background:black;
+  /* background: -webkit-gradient(linear, left top, right top, from(#08bdbd), to(#08bdbd));
+  background: linear-gradient(90deg, #08bdbd, #08bdbd); */
+}
+.slide-toggle__toggle {
+  font-size: 1rem;
+  border: 1px solid gray;
+  padding: 0.5rem;
+  box-shadow: none;
+  margin-right: 1rem;
+}
+.slide-toggle__box-inner {
+  padding: 1rem;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  line-height: 1.5;
+}
+.slide-toggle__box-inner p {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+.slide-toggle__box-inner button {
+  margin: 1rem auto 0;
+  display: block;
 }
 
 
 
+.content {
+  max-width: 700px;
+  border: 1px solid black;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.content h1 {
+  font-size: 2rem;
+  margin: 0;
+  paddng: 0;
+  font-weight: 300;
+}
+.content a {
+  color: black;
+}
 
 .progress-bar {
   height: 2px;
   display: inline-block;
-  flex: 1 1 0%;
+  -webkit-box-flex: 1;
+          flex: 1 1 0%;
   position: relative;
-
-  &__inner {
-    position: absolute;
-    width: 100%;
-    height: inherit;
-    top: 0;
-    left: 0;
-    will-change: transform;
-    background: rgba(white, 0.5);
-    transform-origin: 0 0;
-  }
 }
+.progress-bar__inner {
+  position: absolute;
+  width: 100%;
+  height: inherit;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+}
+
 
 #followingbutton {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -681,11 +695,8 @@ only screen and (max-width: 760px),
   padding: 0.5rem 0.75rem;
   box-shadow: none;
   border-radius: 0.5rem;
-  background: linear-gradient(
-    0deg,
-    rgba(mix($color-2, white, 20%), 1),
-    rgba(white, 1)
-  );
+  background: -webkit-gradient(linear, left bottom, left top, from(#cef2f2), to(white));
+  background: linear-gradient(0deg, #cef2f2, white);
 }
 
 

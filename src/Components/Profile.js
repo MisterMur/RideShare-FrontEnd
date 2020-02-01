@@ -387,38 +387,13 @@ displayAddRide=()=>{
   }
 
 }
-renderPage=()=>{
+renderFollowerFollowingBox=()=>{
   return (
-
-    <Fragment>
-      <div className = "container col-11">
-        <div className="row justify-content-center">
-          <div className="col-6 justify-content-center" id="profile-card-container">
-            {this.renderProfileCard()}
-            {this.renderEditButton()}
-            {this.renderModal()}
-
-          </div>
-          <div className="col" id="profile-rides-list">
-            {this.props.userProfile?
-              <RideList displayAddRide={this.displayAddRide} rides={this.props.userProfile.rides}/>
-              :
-              null
-            }
-            {this.renderUserForums()}
-
-
-          </div>
-
-
-
-
-        </div>
-
-        <div className="row" id="profile-following">
-          {this.props.userProfile?(
-            <>
-            <SlideToggle
+    <>
+    <div className="col" id="profile-following">
+      {this.props.userProfile?(
+        <>
+        <SlideToggle
           duration={800}
           collapsed
           whenReversedUseBackwardEase
@@ -447,52 +422,86 @@ renderPage=()=>{
               </div>
             </div>
           )}
-        />
+          />
         </>
-          )
-            :
-            null
-          }
-          {this.props.userProfile?(
-            <>
-            <SlideToggle
-          duration={800}
-          collapsed
-          whenReversedUseBackwardEase
+    )
+    :
+    null
+  }
+  {this.props.userProfile?(
+    <>
+    <SlideToggle
+      duration={800}
+      collapsed
+      whenReversedUseBackwardEase
 
-          render={({
-            toggle,
-            progress,
-            setCollapsibleElement,
-            range,
-            toggleState
-          }) => (
-            <div className="slide-toggle">
-              <div className="slide-toggle__header">
-                <button id='followingbutton' className="slide-toggle__toggle" onClick={toggle}>
-                  {this.props.userProfile.followers.length} Followers
-                </button>
-                <ProgressBar progress={progress} />
-              </div>
-              <div className="slide-toggle__box" ref={setCollapsibleElement}>
-                <div className="slide-toggle__box-inner">
-                  <FriendsBox followers={this.props.userProfile.followers}/>
-                  <button id='followingbutton' onClick={toggle}>
-                    Hide Followers
-                  </button>
-                </div>
-              </div>
+      render={({
+        toggle,
+        progress,
+        setCollapsibleElement,
+        range,
+        toggleState
+      }) => (
+        <div className="slide-toggle">
+          <div className="slide-toggle__header">
+            <button id='followingbutton' className="slide-toggle__toggle" onClick={toggle}>
+              {this.props.userProfile.followers.length} Followers
+            </button>
+            <ProgressBar progress={progress} />
+          </div>
+          <div className="slide-toggle__box" ref={setCollapsibleElement}>
+            <div className="slide-toggle__box-inner">
+              <FriendsBox followers={this.props.userProfile.followers}/>
+              <button id='followingbutton' onClick={toggle}>
+                Hide Followers
+              </button>
             </div>
-          )}
-        />
-      </>
-          )
-            :
-            null
-          }
+          </div>
         </div>
+      )}
+      />
+    </>
+)
+:
+null
+}
+</div>
+
+    </>
+  )
+
+}
+
+
+renderPage=()=>{
+  return (
+
+    <Fragment>
+      <div className = "container col-12">
+        <div className="row justify-content-center">
+          <div className="col-6 justify-content-center" id="profile-card-container">
+            {this.renderProfileCard()}
+            {this.renderEditButton()}
+            {this.renderModal()}
+
+          </div>
+          <div className="col-10" id="profile-rides-list">
+            {this.props.userProfile?
+              <RideList displayAddRide={this.displayAddRide} rides={this.props.userProfile.rides}/>
+              :
+              null
+            }
+            {this.renderUserForums()}
+          </div>
+
+        </div>
+        {this.renderFollowerFollowingBox()}
+
 
       </div>
+
+
+
     </Fragment>
   )
 
@@ -503,10 +512,10 @@ renderPage=()=>{
     // debugger
 
     return (
-      <>
-      {this.props.currentUser ? this.renderPage() : <p>not logged in </p>}
+      <div className='profilepage'>
+        {this.props.currentUser ? this.renderPage() : <p>not logged in </p>}
 
-      </>
+      </div>
 
 
     )
