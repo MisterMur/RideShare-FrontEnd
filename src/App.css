@@ -47,11 +47,14 @@
   /* padding-left: 15px; */
   margin-top:120px;
   /* padding-right: 10px; */
-  padding-left: 10px;
+  /* padding-left: 10px; */
+  margin-left:20px;
+  max-width: 80%;
   /* width:100%; */
   /* width:30%; */
-  max-width: 32vh;
-  min-width: 30vh;
+  /* width:40vh; */
+  /* max-width: 35vh;
+  min-width: 33vh; */
 
 }
 .menu-item{
@@ -72,7 +75,7 @@
 }
 #profile-rides-list{
   margin-top:120px;
-  /* overflow-x: auto; */
+  overflow-x: auto;
   width:50%;
 }
 #rides-list{
