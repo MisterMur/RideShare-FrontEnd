@@ -486,12 +486,12 @@ renderPage=()=>{
 
           </div>
           <div className="col-10" id="profile-rides-list">
+            {this.renderUserForums()}
             {this.props.userProfile?
               <RideList displayAddRide={this.displayAddRide} rides={this.props.userProfile.rides}/>
               :
               null
             }
-            {this.renderUserForums()}
           </div>
 
         </div>
