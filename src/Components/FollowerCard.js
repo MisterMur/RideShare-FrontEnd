@@ -20,9 +20,16 @@ import {
 
 class FollowerCard extends React.Component {
   getProfileLink=()=>{
-    if(this.props.follower.id === this.props.currentUser.id){
-      return '/profile'
-    }else{
+    if(this.props.currentUser){
+      if(this.props.follower.id === this.props.currentUser.id){
+        return '/profile'
+      }
+      else{
+        return `/user/${this.props.follower.id}`
+      }
+
+    }
+    else{
       return `/user/${this.props.follower.id}`
     }
   }

@@ -1,5 +1,10 @@
 import React from "react";
+
+import { Link} from 'react-router-dom'
+
+
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
+import TextField from "@material-ui/core/TextField";
 import { connect } from 'react-redux';
 import {userLoginFetch} from '../Actions';
 import { Form, Button } from 'semantic-ui-react'
@@ -35,38 +40,56 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div className="centered">
-      <MDBContainer  >
-        <MDBRow >
-          <MDBCol >
-            <Form onSubmit={this.handleSubmit}>
-              <p className="h4 text-center mb-4">Sign in</p>
+      <div className="container">
+        <div className="authBox">
 
-              <Form.Field>
-               <label>Username</label>
-               <input onChange={this.handleChange} name="username" value={this.state.username} placeholder='Username' />
-              </Form.Field>
+          <MDBContainer  >
+            <MDBRow >
+              <MDBCol >
+                <Form onSubmit={this.handleSubmit}>
+                  <h1>Sign in</h1>
 
-              <br />
+                  <Form.Field>
+      							<TextField
+      								name="username"
+      								label="Username"
+      								value={this.state.username}
+      								onChange={this.handleChange}
+                      style={{width:'50%'}}
 
-              <Form.Field>
-      		      <label>Password</label>
-      		      <input onChange={this.handleChange} type="password" name="password" value={this.state.password} placeholder='Password' />
-      		    </Form.Field>
+      								/>
+      						</Form.Field>
 
-              <div className="col text-center mt-4" id="authbotton">
-                <Button color="teal" className='btn btn-primary' type="submit">Login</Button>
-                <a href="/signup" className="btn btn-primary">Sign-up</a>
-              </div>
-            </Form>
+                  <br />
+                    <Form.Field>
+        							<TextField
+        			          type='password'
+        			          name="password"
+        			          label="Password"
+        			          value={this.state.password}
+        			          onChange={this.handleChange}
+                        style={{width:'50%'}}
 
-            <div className='text-center mt-4'>
-              <p className='h5 text-center mb-4'> guest / 1234 </p>
-            </div>
+        			        />
+        						</Form.Field>
 
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+                  <div className="col text-center mt-4" id="authbutton">
+                      <Button styel={{width:'60%'}} color="teal" className='btn btn-primary' type="submit">
+                        Login
+                      </Button>
+                      <Link to='/signup' className='btn btn-primary' color='teal'>
+                        Sign Up
+                      </Link>
+                  </div>
+                </Form>
+                <div className='text-center mt-4'>
+                  <p className='h5 text-center mb-4'> guest / 1234 </p>
+                </div>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
+
+        </div>
 
       </div>
     )

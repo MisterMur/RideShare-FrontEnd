@@ -709,3 +709,62 @@ only screen and (max-width: 760px),
 /*********************
 ******** end of toggle slider
 ************************/
+
+
+
+/*********************
+******** signup form
+************************/
+.authBox {
+  width: 50%;
+  text-align: center;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 20%);
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.4);
+}
+
+.pwStrRow {
+  width: 63%;
+  text-align: left;
+  margin: auto;
+  padding: 0;
+  font-size: 12px;
+}
+
+.pwStrWeak {
+  display: inline-block;
+  position: relative;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  color: gray;
+}
+
+.pwStrStrong {
+  display: inline-block;
+  position: relative;
+  left: 77%;
+  padding: 0;
+  margin: 0;
+  color: gray;
+}
+#pwShowHideBtn{
+  width:60%;
+  max-height: 80px;
+
+}
+
+
+
+@media screen and (max-width: 550px) {
+  .authBox {
+    width: 85%;
+  }
+}
+
+/*********************
+******** end of signup form
+************************/
