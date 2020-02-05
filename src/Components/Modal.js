@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 //lib imports
 import axios from 'axios'
-import { Form, Button } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 import TextField from "@material-ui/core/TextField";
 import Checkbox from '@material-ui/core/Checkbox';
 

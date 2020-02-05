@@ -229,7 +229,7 @@ handleUnFollow = () => {
     }
   }
   renderEditButton=()=>{
-    //implement delete user functiion 
+    //implement delete user functiion
     // <button type="button" className="btn btn-primary"  id="edit-profile" onClick={this.handleDelete}> Delete Profile </button>
     if(this.props.user===this.props.currentUser){
       return(
@@ -292,7 +292,6 @@ renderUserForums=()=>{
             </tr>
           </thead>
           <tbody>
-            <td className="text-center" scope="row"> NOT A MEMBER OF ANY FORUMS </td>
 
           </tbody>
         </table>

@@ -15,7 +15,7 @@ import {createUser} from '../Actions';
 
 //import Components
 import PasswordStr from "./PasswordStr";
-const FormValidators = require("./validate");
+// const FormValidators = require("./validate");
 const zxcvbn = require("zxcvbn");
 
 

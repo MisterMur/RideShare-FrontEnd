@@ -19,7 +19,7 @@ class Ride extends React.Component {
       hour = parseInt(hour);
     }
 
-    if(hour==0){
+    if(hour===0){
       hour = 12
     }
 
