@@ -1,13 +1,16 @@
 import React from 'react'
-import { Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux';
-
-import TextField from "@material-ui/core/TextField";
-// import FlatButton from '@material-ui/core/FlatButton'
-
 import {Link} from 'react-router-dom'
 
 
+//library imports
+import TextField from "@material-ui/core/TextField";
+import { Form, Button } from 'semantic-ui-react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
+
+
+//action imports
 import {createUser} from '../Actions';
 
 //import Components
@@ -24,12 +27,10 @@ class SignupForm extends React.Component {
 		username: "",
 		password: "",
 		passwordConfirmation: "",
-
 		btnTxt: "show",
     type: "password",
     score: "0",
 		errors:{},
-		// profilePic:null,
 	}
 
 	UNSAFE_componentWillReceiveProps(newProps) {
@@ -150,25 +151,15 @@ class SignupForm extends React.Component {
 
 			        />
 						</Form.Field>
+						<FontAwesomeIcon id="pwShowHideBtn" onClick={this.pwMask} icon={faEye} />
 
 
 						<div className="pwStrRow">
 		          {this.state.score >= 1 ? (
 		            <div>
 		              <PasswordStr score={this.state.score} />
-		              <Button
-										color="teal"
-										className='btn btn-secondary'
-		                id="pwShowHideBtn"
-		                label={this.state.btnTxt}
-										onClick={this.pwMask}
-										style={{
-											position: 'relative',
-										  left: '50%',
-										  transform: 'translateX(-50%)',
-											align: 'center'
-										}}
-		              />
+
+
 		            </div>
 							):null}
 		        </div>

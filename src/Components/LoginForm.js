@@ -73,17 +73,17 @@ class LoginForm extends React.Component {
         			        />
         						</Form.Field>
 
-                  <div className="col text-center mt-4" id="authbutton">
-                      <Button styel={{width:'60%'}} color="teal" className='btn btn-primary' type="submit">
+                  <div className="col text-center mt-4" >
+                      <Button styel={{width:'60%'}} id="authbutton" color="teal" className='btn btn-primary' type="submit">
                         Login
                       </Button>
-                      <Link to='/signup' className='btn btn-primary' color='teal'>
+                      <Link to='/signup' id="authbutton" className='btn btn-primary' color='teal'>
                         Sign Up
                       </Link>
                   </div>
                 </Form>
                 <div className='text-center mt-4'>
-                  <p className='h5 text-center mb-4'> guest / 1234 </p>
+                  <p className='h5 text-center mb-4'>  </p>
                 </div>
               </MDBCol>
             </MDBRow>
