@@ -4,13 +4,18 @@ import {connect} from 'react-redux'
 
 //lib imports
 import axios from 'axios'
+import { Form, Button } from 'semantic-ui-react'
+import TextField from "@material-ui/core/TextField";
+import Checkbox from '@material-ui/core/Checkbox';
 
-//constants imports
-import {USERURL} from '../Constants'
+
+
 
 //action imports
 import {fetchCurrentUser} from '../Actions';
 
+//constants imports
+import {USERURL} from '../Constants'
 
 class Modal extends React.Component{
 
@@ -61,14 +66,21 @@ fileUploadHandler=(event)=>{
     }
     );
   }
-
-
-
 }
 
 fileSelectedHandler=(event)=>{
   this.setState({selectedFile:event.target.files[0]})
+  if(event.target.files[0]){
+    let fd = new FormData();
+    fd.append('image',event.target.files[0],event.target.files[0].name)
 
+    axios.post(USERURL+this.props.currentUser.id+'/imageupload',fd)
+    .then(res=>{
+
+      this.props.fetchCurrentUser(res.data)
+    }
+    );
+  }
 }
 
 
@@ -96,11 +108,12 @@ renderCheckBoxes = () => {
     let companyIds = this.state.options.map(company => company.id)
     console.log('options company ids',companyIds)
     //map over list of all comapnies and create a checkbox for each
+
     return this.props.companiesValue.map((company,key)=> {
       return(
         <>
         <label>{company.name}
-          <input type="checkbox" checked={companyIds.includes(company.id)} onChange={(e) => this.onChange(e,company)} ></input>
+          <Checkbox label={company.name} checked={companyIds.includes(company.id)}  onChange={(e) => this.onChange(e,company)}  />
         </label>
         </>
       )
@@ -124,60 +137,117 @@ renderCheckBoxes = () => {
     //make modal smaller
     if(this.props.state.modal){
       // debugger
+      // <button id='exitmodal' onClick={this.props.handleAfterClose}>Close Modal</button>
       return (
-        <ReactModal
-          isOpen={this.props.state.modal}
-          onAfterOpen={this.props.handleAfterOpen}
-          onRequestClose={this.props.handleAfterClose}
-          shouldCloseOnEsc={true}
-          shouldCloseOnOverlayClick={true}
-          ariaHideApp={false}
-          data={{
-            background: "green"
-          }}
-          contentLabel="example modal"
-          >
+        <div >
+          <ReactModal
+            id='editmodal'
+            isOpen={this.props.state.modal}
+            onAfterOpen={this.props.handleAfterOpen}
+            onRequestClose={this.props.handleAfterClose}
+            shouldCloseOnEsc={true}
+            shouldCloseOnOverlayClick={true}
+            ariaHideApp={false}
+            data={{
+              background: "green"
+            }}
+            contentLabel="example modal"
+            >
 
-          <form>
-            <label>Name:
-              <input name="nameValue" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.nameValue}></input>
-            </label><br/>
+            <br/>
+            <Form>
+              <div className='row'>
+                <div className='col-4'>
+                  <div className="control">
+                    <input type="file" name="file" id='file' className='inputfile' onChange={this.fileSelectedHandler}/>
+                    <label for="file" className='btn-2'>Upload Profile Picture</label>
+                  </div>
 
-            <label>Experience:
-              <input name="experienceValue" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.experienceValue}></input>
-            </label><br/>
+                  <br/>
 
-            <label>Rating:
-              <input name="ratingValue" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.ratingValue}></input>
-            </label><br/>
-
-            <label>Car:
-              <input name="carValue" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.carValue}></input>
-            </label><br/>
-
-            <label>Location:
-              <input name="locationValue" type="text" onChange={(e)=>this.handleEditFormChange(e)} value={this.state.locationValue}></input>
-            </label><br/>
-
-            <label>Companies:
-              {this.renderCheckBoxes()}
-            </label><br/>
-
-            <div className="control">
-            <label className="label">Upload image</label>
-              <input type="file" name="file" onChange={this.fileSelectedHandler}/>
-              <button onClick={this.fileUploadHandler}>Upload</button>
-            </div>
+                  <Form.Field>
+                    <label><h4>Companies:</h4></label>
+                    <br/>
+                    {this.renderCheckBoxes()}
+                </Form.Field>
 
 
 
+              </div>
 
-            <button type="submit" onClick={(e, state)=>this.props.handleSubmit(e, this.state)}>Save Edit</button>
-          </form>
-          <button onClick={this.props.handleAfterClose}>Close Modal</button>
+                <div className='col-8'>
+                  <Form.Field>
+                    <TextField
+                      name="nameValue"
+                      label="Name"
+                      value={this.state.nameValue}
+                      onChange={(e)=>this.handleEditFormChange(e)}
+                      style={{width:'50%'}}
+                      />
+                  </Form.Field>
+                  <br/>
+
+                  <Form.Field>
+                    <TextField
+                      name="experienceValue"
+                      type="number"
+                      label="Experience"
+                      value={this.state.experienceValue}
+                      onChange={(e)=>this.handleEditFormChange(e)}
+                      style={{width:'50%'}}
+                      />
+                  </Form.Field>
+                  <br/>
+
+                  <Form.Field>
+                    <TextField
+                      name="ratingValue"
+                      type="number"
+                      label="Rating"
+                      value={this.state.ratingValue}
+                      onChange={(e)=>this.handleEditFormChange(e)}
+                      style={{width:'50%'}}
+                      />
+                  </Form.Field>
+                  <br/>
+
+                  <Form.Field>
+                    <TextField
+                      name="carValue"
+                      type="text"
+                      label="Car"
+                      value={this.state.carValue}
+                      onChange={(e)=>this.handleEditFormChange(e)}
+                      style={{width:'50%'}}
+                      />
+                  </Form.Field>
+                  <br/>
+
+                  <Form.Field>
+                    <TextField
+                      name="locationValue"
+                      type="text"
+                      label="Base Location"
+                      value={this.state.locationValue}
+                      onChange={(e)=>this.handleEditFormChange(e)}
+                      style={{width:'50%'}}
+
+                      />
+                  </Form.Field>
+                  <br/>
+                </div>
 
 
-      </ReactModal>
+              </div>
+
+
+
+              <button className='btn-primary savebutton' type="submit" onClick={(e, state)=>this.props.handleSubmit(e, this.state)}>Save</button>
+            </Form>
+
+
+          </ReactModal>
+        </div>
     )}
   }
 

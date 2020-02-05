@@ -4,13 +4,22 @@ import Ride from "./Ride.js"
 const RideList = (props) => {
 
   const renderRide=()=>{
-    if(props.rides){
+    if(props.rides.length>0){
+      debugger
       return props.rides.map((ride,key)=>
         <Ride
           key={key}
           idx={key+1}
           ride={ride}
         />)
+    }
+    else{
+      return(
+        <>
+        <tr>
+          <td colspan='7'>No completed rides yet</td>
+        </tr></>
+      )
     }
   }
   //class ride-list
@@ -30,7 +39,9 @@ const RideList = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props.displayAddRide ? props.displayAddRide():null}
+        {props.displayAddRide ? props.displayAddRide():
+          null
+        }
         {renderRide()}
       </tbody>
     </table>

@@ -229,11 +229,12 @@ handleUnFollow = () => {
     }
   }
   renderEditButton=()=>{
+    //implement delete user functiion 
+    // <button type="button" className="btn btn-primary"  id="edit-profile" onClick={this.handleDelete}> Delete Profile </button>
     if(this.props.user===this.props.currentUser){
       return(
         <div>
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
-        <button type="button" className="btn btn-primary"  id="edit-profile" onClick={this.handleDelete}> Delete Profile </button>
 
         </div>
       )
@@ -264,6 +265,17 @@ renderFollowButton=()=>{
       </>
     )
   }
+}
+renderUserRides=()=>{
+  // debugger
+  return (
+    <>
+      {this.props.userProfile?
+        <RideList displayAddRide={this.displayAddRide} rides={this.props.userProfile.rides}/>
+        : null
+      }
+    </>
+  )
 }
 renderUserForums=()=>{
   return (
@@ -487,11 +499,7 @@ renderPage=()=>{
           </div>
           <div className="col-10" id="profile-rides-list">
             {this.renderUserForums()}
-            {this.props.userProfile?
-              <RideList displayAddRide={this.displayAddRide} rides={this.props.userProfile.rides}/>
-              :
-              null
-            }
+            {this.renderUserRides()}
           </div>
 
         </div>

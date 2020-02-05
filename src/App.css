@@ -780,3 +780,134 @@ only screen and (max-width: 760px),
 /*********************
 ******** end of signup form
 ************************/
+
+/*********************
+******** modal
+************************/
+#editmodal{
+  width: 60%;
+  min-width: 400px;
+  height: 80%;
+  margin-left:50%;
+  margin-top:-30px;
+
+  text-align: center;
+  position: relative;
+  /* left: 50%; */
+  transform: translate(-50%, 20%);
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.4);
+
+}
+#editmodal TextField{
+  width:100%;
+
+}
+
+[type="file"] {
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+
+[type="file"] + label {
+  background: #f15d22;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+	font-family: 'Poppins', sans-serif;
+	font-size: inherit;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  outline: none;
+  padding: 1rem 50px;
+  position: relative;
+  transition: all 0.3s;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: darken(#f15d22, 10%);
+  }
+
+  &.btn-2 {
+    background-color: #99c793;
+    border-radius: 50px;
+    overflow: hidden;
+
+    &::before {
+      color: #fff;
+      content: "\f382";
+      font-family: "Font Awesome 5 Pro";
+      font-size: 100%;
+      height: 100%;
+      right: 130%;
+      line-height: 3.3;
+      position: absolute;
+      top: 0px;
+      transition: all 0.3s;
+    }
+
+    &:hover {
+      background-color: darken(#99c793, 30%);
+
+      &::before {
+        right: 75%;
+      }
+    }
+  }
+
+  &.btn-3 {
+    background-color: #ee6d9e;
+    border-radius: 0;
+    overflow: hidden;
+
+    span {
+      display: inline-block;
+      height: 100%;
+      transition: all 0.3s;
+      width: 100%;
+    }
+
+    &::before {
+      color: #fff;
+      content: "\f382";
+      font-family: "Font Awesome 5 Pro";
+      font-size: 130%;
+      height: 100%;
+      left: 0;
+      line-height: 2.6;
+      position: absolute;
+      top: -180%;
+      transition: all 0.3s;
+      width: 100%;
+    }
+
+    &:hover {
+      background-color: darken(#ee6d9e, 30%);
+
+      span {
+        transform: translateY(300%);
+      }
+
+      &::before {
+        top: 0;
+      }
+    }
+  }
+}
+
+.savebutton{
+  width:65%;
+  height:60px;
+  margin-top:20px;
+}
+
+
+
+
+/*********************
+******** end of modal
+************************/

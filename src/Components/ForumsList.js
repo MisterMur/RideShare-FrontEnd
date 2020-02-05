@@ -4,7 +4,7 @@ import Forum from "./Forum.js"
 const ForumList = (props) => {
 
   const renderForum=()=>{
-    if(props.forums){
+    if(props.forums.length>0){
 
       function uniqueForums(array) {
        return array.filter((e, i) => array.findIndex(a => a.topic === e.topic) === i);
@@ -24,6 +24,17 @@ const ForumList = (props) => {
 
         }
       )
+    }
+    else{
+      return (<>
+        <tr>
+          <td colspan='1'>
+             <p style={{align:'center',justify:'centered',}}>
+               Not a member of any Forums
+             </p>
+          </td>
+        </tr>
+        </>)
     }
   }
 
