@@ -9,6 +9,7 @@ import RideList from './RideList.js'
 import ForumsList from './ForumsList.js'
 import Modal from './Modal.js'
 import FriendsBox from './friends-box'
+import NotLoggedIn from './NotLoggedIn'
 
 
 //import actions
@@ -516,11 +517,10 @@ renderPage=()=>{
 
 
   render() {
-    // debugger
 
     return (
       <div className='profilepage'>
-        {this.props.currentUser ? this.renderPage() : <p>not logged in </p>}
+        {this.props.currentUser ? this.renderPage() :<NotLoggedIn/>}
 
       </div>
 

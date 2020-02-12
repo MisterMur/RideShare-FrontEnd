@@ -11,6 +11,7 @@ import LoginForm from './Components/LoginForm.js'
 import SignupForm from './Components/SignupForm.js'
 import ForumsPage from './Components/ForumsPage.js'
 import DiscoverPage from './Components/DiscoverPage.js'
+import NotLoggedIn from './Components/NotLoggedIn.js'
 
 import Profile from './Components/Profile.js'
 import {fetchUser,getProfileFetch, setLogout,fetchUsers,fetchRides,fetchForums,fetchCompanies} from './Actions';
@@ -33,6 +34,7 @@ class App extends React.Component {
 		return (
 		 <>
 		 <Route path="/users/:id" exact render={(props) => {
+				 debugger
 
 				 let paramid = parseInt(props.match.params.id)
 				 if(this.props.currentUser){
@@ -57,7 +59,7 @@ class App extends React.Component {
  renderPage=(rout)=>{
 	 let paramid = parseInt(rout.match.params.id)
 	 if(this.props.currentUser){
-		 // debugger
+
 
 			if(paramid !== this.props.currentUser.id){
 				if(this.props.users){
@@ -74,6 +76,22 @@ class App extends React.Component {
 							user={userFromParams}
 							/>)
 				}
+		 }
+	 }
+	 else{
+
+		 if(this.props.users){
+			 let userFromParams = this.props.users.find(u => u.id === paramid )
+			 // this.props.fetchUser(userFromParams)
+			 // <Profile
+				//  {...rout}
+				//  isCurrentUserProfile={false}
+				//  user={userFromParams}
+				//  />
+			 return (
+				 <NotLoggedIn/>
+			 )
+
 		 }
 	 }
 

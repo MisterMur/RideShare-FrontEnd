@@ -32,15 +32,21 @@ class DiscoverPage extends React.Component {
   render() {
     return (
       <div className="container">
-        
+
         <div id="discoverpage">
-          {this.props.users?this.renderFriendsBox():<p>LOADING</p>}
+          {this.props.users?this.renderFriendsBox():
+            <div className='authBox'>
+              <h3>Loading..</h3>
+            </div>
+            }
         </div>
 
       </div>
+
     )
   }
 }
+
 function mapStateToProps(state) {
 
 	const { user } = state;

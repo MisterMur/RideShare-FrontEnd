@@ -1,8 +1,18 @@
+//import react
 import React from "react";
-import ForumsList from './ForumsList.js'
-import ChatBox from './ChatBox'
 import { connect } from 'react-redux';
+
+// import libraries
+
+//import components
+import ForumsList from './ForumsList.js'
+import ChatBox from './ChatBox.js'
+import NotLoggedIn from './NotLoggedIn.js'
+
+
+//import actions
 import {fetchForums,fetchUsers,fetchForumMessages}from '../Actions.js'
+
 
 
 class ForumsPage extends React.Component {
@@ -59,7 +69,7 @@ class ForumsPage extends React.Component {
   render(){
     return (
       <div className="container">
-        {this.props.currentUser ? this.renderPage() : <p>Not Logged In </p>}
+        {this.props.currentUser ? this.renderPage() : <NotLoggedIn/>}
       </div>
 
     )
