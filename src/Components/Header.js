@@ -30,6 +30,10 @@ class Header extends React.Component {
       window.removeEventListener('resize', this.handleResize);
     }
 
+    closeMenu = () => {
+
+    }
+
     logout = () => {
      // event.preventDefault()
      // Remove the token from localStorage
@@ -99,16 +103,16 @@ class Header extends React.Component {
             <Navbar.Collapse id="basic-navbar-nav">
 
               <Nav >
-                <NavItem className='menu-item'>
+                <NavItem data-bs-toggle="collapse" className='menu-item'>
                   {this.renderProfileLink()}
                 </NavItem>
-                <NavItem className='menu-item'>
+                <NavItem data-bs-toggle="collapse" className='menu-item'>
                   <Link to="/rides"> Rides </Link>
                 </NavItem>
-                <NavItem className='menu-item'>
+                <NavItem data-bs-toggle="collapse" className='menu-item'>
                   <Link to="/forums"> Forums </Link>
                 </NavItem>
-                <NavItem className='menu-item'>
+                <NavItem data-bs-toggle="collapse" className='menu-item'>
                   <Link to="/discover"> Discover </Link>
                 </NavItem>
                   {this.props.currentUser ? this.renderLogout() : this.renderLoginSignup() }
