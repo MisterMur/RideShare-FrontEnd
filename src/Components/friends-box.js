@@ -7,8 +7,10 @@ import FollowerCard from './FollowerCard.js'
 class FriendsBox extends Component {
 
   handleUserClick=(e,user)=>{
-    // if(user.id !== this.props.currentUser.id){
-      // debugger
+    const {hideFriends} = this.props;
+    if(hideFriends){
+      hideFriends()
+    }
       return (
         <Profile
           {...this.props}
@@ -18,18 +20,18 @@ class FriendsBox extends Component {
       )
 
     
-  }//end of handle user click
-
+  }
 
   followerCards = () => {
+    const {history} = this.props;
 
     if (this.props.followers){
        return this.props.followers.map((follower,idx) => {
-         // debugger
         return (
           <div key={idx} className="card-rows">
             <FollowerCard
               handleUserClick={this.handleUserClick}
+              history = {history}
               key={idx}
               follower={follower}
               />

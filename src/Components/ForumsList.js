@@ -28,7 +28,7 @@ const ForumList = (props) => {
     else{
       return (<>
         <tr>
-          <td colspan='1'>
+          <td colSpan='1'>
              <p style={{align:'center',justify:'centered',}}>
                Not a member of any Forums
              </p>

@@ -22,25 +22,23 @@ class FollowerCard extends React.Component {
   getProfileLink=()=>{
     if(this.props.currentUser){
       if(this.props.follower.id === this.props.currentUser.id){
-        return '/profile'
+        this.props.history.push('/profile')
       }
       else{
-        return `/user/${this.props.follower.id}`
+
+        this.props.history.push(`/user/${this.props.follower.id}`)
       }
 
     }
     else{
-      return `/user/${this.props.follower.id}`
+      this.props.history.push(`/user/${this.props.follower.id}`);
     }
   }
   renderFollowCard=()=>{
-    // debugger
     return(
-      <>
+      
       <div id="follower-card" onClick={(e,user)=>this.props.handleUserClick(e,this.props.follower)} >
-          <Link to={this.getProfileLink()}>
-
-          <FlippingCard style={{height:'100%',width:'100%'}} >
+          <FlippingCard onClick={this.getProfileLink} style={{height:'100%',width:'100%'}} >
             <FlippingCardFront>
               <div
               style={{
@@ -63,7 +61,6 @@ class FollowerCard extends React.Component {
 
                 ]}
                 />
-
             </div>
             </FlippingCardFront>
             <FlippingCardBack>
@@ -86,14 +83,7 @@ class FollowerCard extends React.Component {
             </div>
             </FlippingCardBack>
           </FlippingCard>
-
-        </Link>
-
       </div>
-      </>
-
-
-
     )
   }
 

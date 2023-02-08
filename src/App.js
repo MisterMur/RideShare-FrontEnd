@@ -146,7 +146,7 @@ class App extends React.Component {
 								if(this.props.currentUser){
 									this.props.fetchUser(this.props.currentUser)
 									return (
-										<Profile {...routerProps} allCompanies={this.props.allCompanies}	 isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />
+										<Profile {...routerProps} allCompanies={this.props.allCompanies} history={this.props.history} isCurrentUserProfile={false} currentUser={this.props.currentUser} user={this.props.currentUser} />
 									)
 								}else {
 									return (
@@ -161,7 +161,7 @@ class App extends React.Component {
 						<Route path="/user/:id" render={(routerProps) =>
 									this.renderPage(routerProps)						} />
 
-						<Route path="/discover" component={DiscoverPage} />
+						<Route path="/discover" render={routerProps=> <DiscoverPage {...routerProps} history={this.props.history}/>}/>
 
             <Route path="/forums" component={ForumsPage} />
             <Route path="/rides" component={Rides} />

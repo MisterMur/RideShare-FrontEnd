@@ -109,11 +109,11 @@ renderCheckBoxes = () => {
 
     return this.props.companiesValue.map((company,key)=> {
       return(
-        <>
+        <div key={key}>
         <label>{company.name}
           <Checkbox label={company.name} checked={companyIds.includes(company.id)}  onChange={(e) => this.onChange(e,company)}  />
         </label>
-        </>
+        </div>
       )
     })
   }
@@ -156,7 +156,7 @@ renderCheckBoxes = () => {
                 <div className='col-4'>
                   <div className="control">
                     <input type="file" name="file" id='file' className='inputfile' onChange={this.fileSelectedHandler}/>
-                    <label for="file" className='btn-2'>Upload Profile Picture</label>
+                    <label htmlFor="file" className='btn-2'>Upload Profile Picture</label>
                   </div>
 
                   <br/>

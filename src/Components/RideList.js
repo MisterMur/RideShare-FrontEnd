@@ -17,7 +17,7 @@ const RideList = (props) => {
       return(
         <>
         <tr>
-          <td colspan='7'>No completed rides yet</td>
+          <td colSpan='7'>No completed rides yet</td>
         </tr></>
       )
     }

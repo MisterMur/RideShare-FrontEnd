@@ -208,16 +208,9 @@ UNSAFE_componentWillReceiveProps(newProps){
 
 
 handleUnFollow = () => {
-  // debugger
   this.props.fetchFriendships();
 
   this.props.unfollow(this.props.currentUser,this.props.user,this.props.friendships)
-
-  this.setState(prevState=>({
-    isFollowing:!prevState.isFollowing,
-
-  })
-)
 
 }
 
@@ -229,8 +222,6 @@ handleUnFollow = () => {
     }
   }
   renderEditButton=()=>{
-    //implement delete user functiion
-    // <button type="button" className="btn btn-primary"  id="edit-profile" onClick={this.handleDelete}> Delete Profile </button>
     if(this.props.user===this.props.currentUser){
       return(
         <div>
@@ -359,7 +350,7 @@ displayAddRide=()=>{
       <Fragment>
 
         <tr>
-          <td colspan="7">
+          <td colSpan="7">
             <button className="btn btn-primary" id="addridebutton" onClick={this.handleAddRide}>Add Ride</button>
           </td>
         </tr>
@@ -394,6 +385,7 @@ displayAddRide=()=>{
 
 }
 renderFollowerFollowingBox=()=>{
+  const {history} = this.props;
   return (
     <>
     <div className="col" id="profile-following">
@@ -420,7 +412,7 @@ renderFollowerFollowingBox=()=>{
               </div>
               <div className="slide-toggle__box" ref={setCollapsibleElement}>
                 <div className="slide-toggle__box-inner">
-                  <FriendsBox followers={this.props.userProfile.following}/>
+                  <FriendsBox history={history} hideFriends={toggle} followers={this.props.userProfile.following}/>
                   <button id='followingbutton' onClick={toggle}>
                     Hide Following
                   </button>
@@ -457,7 +449,7 @@ renderFollowerFollowingBox=()=>{
           </div>
           <div className="slide-toggle__box" ref={setCollapsibleElement}>
             <div className="slide-toggle__box-inner">
-              <FriendsBox followers={this.props.userProfile.followers}/>
+              <FriendsBox history={this.props.history} hideFriends={toggle} followers={this.props.userProfile.followers}/>
               <button id='followingbutton' onClick={toggle}>
                 Hide Followers
               </button>

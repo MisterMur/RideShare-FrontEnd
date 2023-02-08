@@ -12,9 +12,10 @@ class DiscoverPage extends React.Component {
     //if logged in dont render the logged in user to the DiscoverPage
     // so you cant see yourself on page
     //if not logged in render all the users
+    const {history } = this.props;
     if(this.props.currentUser){
       return (<>
-        <FriendsBox followers={
+        <FriendsBox history={history} followers={
             this.props.users.filter(u=>u.id!==this.props.currentUser.id)
           }/>
           </>)
