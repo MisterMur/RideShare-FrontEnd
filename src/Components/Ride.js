@@ -42,7 +42,7 @@ class Ride extends React.Component {
       <Fragment>
         <tr>
           <th scope="row">{this.props.idx}</th>
-          <td>{this.props.ride.distance}</td>
+          <td>{this.props.ride.distance || ""}</td>
           <td>{this.formatDate(this.props.ride.started_at)}</td>
           <td>{this.formatDate(this.props.ride.end_at)}</td>
           <td>{this.props.ride.price}</td>

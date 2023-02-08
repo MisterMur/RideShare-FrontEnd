@@ -66,7 +66,6 @@ class Rides extends React.Component {
   handleChangeBack = () => {
     this.setState({filteredRides: this.state.allRides})
   }
-//this function is super javascripty//
   handleFriendFilter = (e) => {
     if(this.props.currentUser){
 
@@ -75,12 +74,9 @@ class Rides extends React.Component {
       let filtered =[]
       this.state.allRides.map((ride) =>
       {
-        for (let i = 0; i < myFriends.length; i ++){
-          if (ride.user_id === myFriends[i] ){
-            return filtered.push(ride)
-          }
-        }
-        
+        return myFriends.map((friend)=>
+           ride.user_id === friend ? filtered.push(ride) : null
+        )
       }
     )
     this.setState({filteredRides: filtered})

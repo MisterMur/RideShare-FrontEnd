@@ -322,8 +322,7 @@ handleAddRide=(e)=>{
     this.state.ride.end_at
   ){
     // post new ride then reset text inputs
-
-    this.state.ride.company_id = parseInt(this.state.ride.company_id)
+    this.setState({ride:{...this.state.ride,company_id: parseInt(this.state.ride.company_id) }})
 
     this.props.postNewRide(this.state.ride)
     this.setState({
