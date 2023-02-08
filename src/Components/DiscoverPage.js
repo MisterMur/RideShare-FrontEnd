@@ -22,7 +22,7 @@ class DiscoverPage extends React.Component {
 
     }else{
       return (<>
-        <FriendsBox followers={
+        <FriendsBox history={history} followers={
             this.props.users
           }/>
           </>)
