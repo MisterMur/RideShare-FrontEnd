@@ -32,7 +32,6 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit = () => {
-    // console.log('in handle submit login')
     this.props.userLoginFetch(this.state)
 
 
@@ -99,7 +98,6 @@ const mapDispatchToProps = dispatch => ({
   userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
 })
 function mapStateToProps(state) {
-  // maps the state from the store to the props
   const {user} = state
   return {
     currentUser: user.currentUser

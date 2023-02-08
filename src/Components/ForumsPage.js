@@ -84,13 +84,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 function mapStateToProps(state) {
-  // maps the state from the store to the props
-	// debugger
 	const { user } = state;
   const {forums}=state.forums;
 
 
-	// console.log('mapping state in forums',state)
   return {
     allCompanies:user.allCompanies,
     rides:user.rides,

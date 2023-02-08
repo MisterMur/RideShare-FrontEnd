@@ -123,7 +123,6 @@ UNSAFE_componentWillReceiveProps(newProps){
   }
 
   handleAfterOpen=()=>{
-    // console.log('opened')
   }
   handleAfterClose=()=>{
     this.setState({modal:false})
@@ -311,7 +310,6 @@ handleAddRideChange=(e)=>{
   })
 }
 handleAddRide=(e)=>{
-  // debugger
 
   if(
     this.state.ride.company_id &&
@@ -324,7 +322,6 @@ handleAddRide=(e)=>{
     this.state.ride.end_at
   ){
     // post new ride then reset text inputs
-    // console.log('adding ride: ', this.state.ride)
 
     this.state.ride.company_id = parseInt(this.state.ride.company_id)
 
@@ -344,7 +341,6 @@ handleAddRide=(e)=>{
     })
 
   }else{
-    // console.log('cant add ride:',this.state.ride)
     alert("Please enter all fields before adding a new ride!")
   }
 }
@@ -352,7 +348,6 @@ renderAllCompanySelect=()=>{
   if(this.props.allCompanies){
     return (
       this.props.allCompanies.map((c,idx)=>{
-        // console.log('company id' ,c.id)
         return (<option key={idx} value={c.id}> {c.name} </option>)
       })
     )

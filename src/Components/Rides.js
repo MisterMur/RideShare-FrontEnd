@@ -75,11 +75,12 @@ class Rides extends React.Component {
       let filtered =[]
       this.state.allRides.map((ride) =>
       {
-       for (let i = 0; i < myFriends.length; i ++){
+        for (let i = 0; i < myFriends.length; i ++){
           if (ride.user_id === myFriends[i] ){
             return filtered.push(ride)
           }
         }
+        
       }
     )
     this.setState({filteredRides: filtered})

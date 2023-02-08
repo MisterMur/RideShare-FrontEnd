@@ -36,14 +36,12 @@ class Leaderboard extends React.Component {
     let totalMiles=0;
     if(user.rides){
       user.rides.map(r=>totalMiles+=r.distance)
-      // console.log('in get total miles user:',user)
 
       return totalMiles
     }
   }
   getTotalEarned=(user)=>{
     let totalEarned=0
-    // console.log('get total earnd',user)
     if(user.rides){
       user.rides.map(r=>totalEarned+=r.price)
       return totalEarned
@@ -66,7 +64,6 @@ class Leaderboard extends React.Component {
       newUsers.sort((usera,userb)=>{
         return this.getTotalMiles(usera)-this.getTotalMiles(userb)
       })
-      // console.log('mile leaders',newUsers.reverse()[0])
 
       return newUsers.reverse()[0]
     }
@@ -87,8 +84,7 @@ class Leaderboard extends React.Component {
         return usera.experience-userb.experience
       })
     }
-    // this.setState({mostExperience:newUsers.reverse()[0]})
-    // console.log('experience leaders', newUsers)
+
     return newUsers.reverse()[0]
   }
 
@@ -105,15 +101,8 @@ class Leaderboard extends React.Component {
     let newUsers=[...users]
     if(newUsers!==[]){
       newUsers.sort((usera,userb)=>{
-        // console.log('user a',usera)
-        // console.log('user b',userb)
-
-        // console.log('user a  earned',this.getTotalEarned(usera))
-        // console.log('user b earned',this.getTotalEarned(userb))
-
         return this.getTotalEarned(usera)-this.getTotalEarned(userb)
       })
-      // this.setState({mostEarner:newUsers.reverse()[0]})
 
       return newUsers.reverse()[0]
     }
@@ -163,9 +152,7 @@ class Leaderboard extends React.Component {
     }
   }
   renderLeaderBoard=()=>{
-    // console.log("in render leaderboard")
-    // // console.log('mile leader',this.getMileLeader(this.props.leaders))
-    // console.log('Miles:',this.getTotalMiles(this.props.leaders))
+
     if(this.props.leaders){
 
       return (

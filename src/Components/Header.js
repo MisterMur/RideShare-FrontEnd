@@ -12,7 +12,8 @@ import { setLogout} from '../Actions';
 class Header extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { navHeight: 50 };
+      this.state = { navHeight: 50, navExpanded: false };
+      
 
       this.handleResize = this.handleResize.bind(this);
     }
@@ -30,25 +31,23 @@ class Header extends React.Component {
       window.removeEventListener('resize', this.handleResize);
     }
 
-    closeMenu = () => {
+    closeNav=()=> {
+      this.setState({ navExpanded: false });
+    };
 
-    }
+    setNavExpanded=(expanded)=> {
+      this.setState({ navExpanded: expanded });
+    };
 
     logout = () => {
-     // event.preventDefault()
-     // Remove the token from localStorage
+
      localStorage.removeItem("jwt")
-     // Remove the user object from the Redux store
      this.props.setLogout()
    }
 
   renderProfileLink = () => {
-    // console.log('in render profile link')
-    // debugger
-    // console.log('rendering profile link',this.props)
-    // debugger
+
     if(this.props.currentUser){
-      // return <Link to={`/profile/${this.props.currentUser.id}`}>Profile</Link>
         return <Link to={`/profile`}> Profile </Link>
 
     }
@@ -75,13 +74,13 @@ class Header extends React.Component {
   renderLoginSignup = () =>{
     return (
       <>
-        <NavItem className='menu-item'>
+        <NavItem onClick={this.closeNav} className='menu-item'>
           <Link  to="/login">
             Login
           </Link>
         </NavItem>
 
-        <NavItem className='menu-item'>
+        <NavItem onClick={this.closeNav} className='menu-item'>
           <Link  to="/signup">
             Sign Up
           </Link>
@@ -97,22 +96,22 @@ class Header extends React.Component {
       <>
 
 
-          <Navbar bg="dark" expand="md" fixedtop="true" ref={(e) => this._navbar = e} inverse="true" fluid="true">
+          <Navbar bg="dark" expand="md" fixedtop="true" ref={(e) => this._navbar = e} onToggle={this.setNavExpanded}   expanded={this.state.navExpanded} inverse="true" fluid="true">
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
 
               <Nav >
-                <NavItem data-bs-toggle="collapse" className='menu-item'>
+                <NavItem  onClick={this.closeNav} data-bs-toggle="collapse" className='menu-item'>
                   {this.renderProfileLink()}
                 </NavItem>
-                <NavItem data-bs-toggle="collapse" className='menu-item'>
+                <NavItem onClick={this.closeNav} data-bs-toggle="collapse" className='menu-item'>
                   <Link to="/rides"> Rides </Link>
                 </NavItem>
-                <NavItem data-bs-toggle="collapse" className='menu-item'>
+                <NavItem onClick={this.closeNav} data-bs-toggle="collapse" className='menu-item'>
                   <Link to="/forums"> Forums </Link>
                 </NavItem>
-                <NavItem data-bs-toggle="collapse" className='menu-item'>
+                <NavItem onClick={this.closeNav} data-bs-toggle="collapse" className='menu-item'>
                   <Link to="/discover"> Discover </Link>
                 </NavItem>
                   {this.props.currentUser ? this.renderLogout() : this.renderLoginSignup() }
@@ -152,10 +151,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 function mapStateToProps(state) {
-  // maps the state from the store to the props
-	// debugger
+
 	const { user } = state
-	// console.log('mapping state in header',user)
   return {
 
     currentUser:user.currentUser

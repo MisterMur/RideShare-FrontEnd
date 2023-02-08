@@ -39,13 +39,10 @@ class ChatBox extends Component{
 
   renderMessages = (messages) => {
     if (this.props.users){
-      // console.log('inrender messages', this.props.messages)
-      // console.log('render messages, thistate users', this.props.users)
-      // console.log('render messages',this.state.messages)
+
       return messages.map((m,idx)=>{
 
         let messageName =this.props.users.find(user=> user.id === m.user_id).name
-        // let messageDate = m.created_at
         return (
             <div key={idx} className="incoming_msg">
               <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"/> </div>

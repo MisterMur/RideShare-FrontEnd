@@ -5,7 +5,7 @@ const RideList = (props) => {
 
   const renderRide=()=>{
     if(props.rides.length>0){
-      debugger
+      
       return props.rides.map((ride,key)=>
         <Ride
           key={key}
@@ -22,7 +22,6 @@ const RideList = (props) => {
       )
     }
   }
-  //class ride-list
   return (
     <div className='ridestable'>
     {props.displayDropdown? props.displayDropdown(): ''}

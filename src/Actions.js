@@ -30,7 +30,6 @@ export function addRide(src){
   }
 }
 export function setAllRides(src) {
-  // console.log('setting all rides ',src)
   return {
     type: FETCH_ALL_RIDES,
     payload: src
@@ -49,14 +48,12 @@ export function setAllUsers(src){
   }
 }
 export function setUser(src){
-  // console.log('in set User', src)
   return {
     type: SET_USER,
     payload:src
   }
 }
 export function setAllCompanies(src){
-  // console.log('setting all companies')
   return {
     type: FETCH_ALL_COMPANIES,
     payload:src
@@ -90,21 +87,18 @@ export function removeFriendship(src){
 
 
 export function setLoggedInUser(src) {
-  // console.log('setting logged in user',src)
   return {
     type: LOGIN_USER,
     payload: src,
   }
 }
 export function setAllFollowing(src){
-  // console.log('in setall following',src)
   return{
     type:SET_ALL_FOLLOWING,
     payload:src
   }
 }
 export function addForumMessage(src){
-  // console.log('in add froum message',src)
   return{
     type:ADD_FORUM_MESSAGE,
     payload:src
@@ -112,8 +106,6 @@ export function addForumMessage(src){
 }
 
 export function addFollowing(src){
-  console.log('in add following',src)
-
   return{
     type:ADD_FOLLOWING,
     payload:src
@@ -127,7 +119,6 @@ export function resetMessages(src){
 }
 
 export function removeFollowing(src){
-  console.log('in remove following', src)
   return{
     type:REMOVE_FOLLOWING,
     payload:src
@@ -135,14 +126,11 @@ export function removeFollowing(src){
 }
 
 export function patchEditProfile  ( data)  {
-  // debugger
-  // let userUrl = 'https://ride-share-api.herokuapp.com/api/v1/users'
+
   return function (dispatch){
 
     let id = this.state.currentUser.id
-    // let id = parseInt(this.match.params.id)
-    // debugger
-    // e.preventDefault()
+ 
     fetch(`${USERURL}/${id}`,{
       headers:{
         'accepts':'application/json',
@@ -166,14 +154,11 @@ export function patchEditProfile  ( data)  {
 }
 
 export function fetchCurrentUser(user) {
-  // does that seem cool? ehhhh
   return function(dispatch) {
-    // console.log('fetching current user',user)
     dispatch({ type: FETCH_CURRENT_USER });
     fetch(`${USERURL}/${user.id}`)
     .then(res=>res.json())
     .then(current=>{
-        // console.log('fetched current user',current)
         dispatch(setLoggedInUser(current))
 
     })
@@ -181,13 +166,11 @@ export function fetchCurrentUser(user) {
 }
 
 export function fetchUsers() {
-  // does that seem cool? ehhhh
   return function(dispatch) {
     dispatch({ type: FETCH_ALL_USERS });
     fetch(USERURL).then(handleErrors)
     .then(res=>res.json())
     .then(users=>{
-        // console.log('fetched users',users)
         dispatch(setAllUsers(users))
 
     })
@@ -198,21 +181,17 @@ export function fetchUser(user){
     fetch(USERURL+user.id)
     .then(res=>res.json())
     .then(resUser=>{
-      // console.log('in fetch user',resUser)
       dispatch(setUser(resUser))
-      // dispatch(addFollowing(user.following))
 
     })
   }
 }
 export function fetchCompanies() {
-  // does that seem cool? ehhhh
   return function(dispatch) {
     dispatch({ type: FETCH_ALL_COMPANIES });
     fetch(COMPANYURL)
     .then(res=>res.json())
     .then(companies=>{
-        // console.log('fetched companies',companies)
         dispatch(setAllCompanies(companies))
 
     })
@@ -276,9 +255,6 @@ export function postNewRide(ride){
 }
 export function postNewMessage(currentUser,content,forum){
   return dispatch=>{
-    // console.log('in postnew message reducer',currentUser)
-    // console.log('inpost new message reducer forum:',forum)
-    console.log('inpost new message reducer content:',content)
     return fetch ( MESSAGEURL,{
       method:"POST",
       headers:{
@@ -298,9 +274,6 @@ export function postNewMessage(currentUser,content,forum){
 
 export function postNewFriendship(follower,followed){
   return dispatch=>{
-    // console.log('in postNewFriendship action, currentUser:',follower)
-    // console.log('in postNewFriendship action, follower:',followed)
-    // debugger
     const friendship = {
       follower_id:follower.id,
       followed_id:followed.id
@@ -316,7 +289,6 @@ export function postNewFriendship(follower,followed){
     })
     .then(handleErrors)
     .then(function(){
-      // debugger
       dispatch(addFollowing(followed))
       dispatch(addFriendship(friendship))
     })
@@ -328,12 +300,10 @@ export function findFriendship(currentUser,followed){
   .then(friendships=>{
     friendships.find(
       f=>{
-        console.log('in find friendship',f);
         return f.follower_id === currentUser.id && f.followed_id === followed.id
       }
     )
   })
-  // console.log('in unfollow friendship : ',friendship)
 
 
 
@@ -341,22 +311,11 @@ export function findFriendship(currentUser,followed){
 
 export function unfollow(currentUser,followed,friendships){
   return dispatch=>{
-    // console.log('in postNewFriendship action, currentUser:',currentUser)
-    // console.log('in postNewFriendship action, follower:',follower)
-    // debugger
-    // let friendship = findFriendship(currentUser,followed)
-    // console.log('in unfollow',friendships)
-    // let friendship = null;
-    // fetch(FRIENDSHIPURL)
-    //   .then(res=>res.json())
-    //   .then(fships=>{friendship=fships.find(f=>f.follower_id===currentUser.id && f.followed_id === followed.id)})
-    //   console.log(friendship)
+ 
 
 
     let friendship = friendships.find(f=>f.follower_id===currentUser.id && f.followed_id===followed.id)
-    console.log('in unfollow currentUser:',currentUser)
     if(friendship){
-      console.log('in unfollow friendship exists',friendship)
       return fetch( FRIENDSHIPURL+friendship.id,{
         method:"DELETE",
         headers:{
@@ -388,7 +347,6 @@ export function createUser (login_data) {
     })
     .then(res => res.json())
     .then((response) => {
-      // debugger
 
       if (response.error){
         alert(response.error)
@@ -401,7 +359,6 @@ export function createUser (login_data) {
 }
 export function userLoginFetch  (user,callback) {
   return dispatch =>{
-    // console.log('in userlogin fetch')
     fetch(LOGINURL, {
       method: "POST",
       headers: {
@@ -414,7 +371,6 @@ export function userLoginFetch  (user,callback) {
     .then((response) => {
       if (response.errors) {
         alert(response.errors)
-        // console.log('response gotf error',response)
       } else {
         // we need to login at the top level where we are holding our current user!
         // setState in App to currentuse
@@ -433,11 +389,9 @@ export function userLoginFetch  (user,callback) {
 
 export function getProfileFetch() {
   return dispatch => {
-    // console.log('in get profile fetchauto login')
     const jwt = localStorage.getItem('jwt')
 
     if (jwt){
-      // console.log('jwt exists in auto login')
       fetch(AUTOLOGINURL, {
         headers: {
           "Authorization": `Bearer ${jwt}`
@@ -445,12 +399,10 @@ export function getProfileFetch() {
       })
       .then(res => res.json())
       .then((response) => {
-        // debugger
         if (response.errors) {
           alert(response.errors)
           localStorage.removeItem('jwt')
         } else {
-          // console.log('setting userfrom auto login',response)
           dispatch(setLoggedInUser(response))
         }
       })
@@ -461,20 +413,17 @@ export function getProfileFetch() {
 
 
 export function setLogout ()  {
-  // we need to reset state and remove the current user and remove the token
   return function(dispatch) {
     dispatch({ type: LOGOUT_USER });
 
     localStorage.removeItem("jwt")
 
     dispatch(logoutUser())
-    // this.props.history.push("/login")
   }
 }
 
 function handleErrors(response) {
   if (!response.ok) {
-    // debugger
     throw Error(response.statusText);
   }
   return response;

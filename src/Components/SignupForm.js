@@ -10,12 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
 
 
-//action imports
 import {createUser} from '../Actions';
 
-//import Components
 import PasswordStr from "./PasswordStr";
-// const FormValidators = require("./validate");
 const zxcvbn = require("zxcvbn");
 
 
@@ -46,22 +43,13 @@ class SignupForm extends React.Component {
 	}
 
 	pwHandleChange=(event)=> {
-		// const field = event.target.name;
-		// const user ={
-		// 	username:	this.state.username,
-		// 	name:this.state.name,
-		// 	password:this.state.password,
-		// 	passwordConfirmation:this.state.passwordConfirmation
-		// }
-		//
-		// user[field] = event.target.value;
+
 
 		this.setState({
 			password:event.target.value
 		});
 
 		if (event.target.value === "") {
-			// debugger
 			this.setState(state =>
 				Object.assign({}, state, {
 					score: "null"
@@ -70,7 +58,6 @@ class SignupForm extends React.Component {
 		} else {
 
 			let pw = zxcvbn(event.target.value);
-			// debugger
 			this.setState(state =>
 				Object.assign({}, state, {
 					score: pw.score + 1
@@ -82,8 +69,6 @@ class SignupForm extends React.Component {
 
 	handleSubmit = () => {
 		if(this.state.password === this.state.passwordConfirmation){
-			// this.createUser()
-			console.log('in handle submit create user')
 			this.props.createUser(this.state)
 		} else {
 			alert("Passwords don't match!")
@@ -99,16 +84,6 @@ class SignupForm extends React.Component {
 		 })
 	 );
  }
-
-
-	// <Form.Field>
-	// 	<label>Username</label>
-	// 	<input onChange={this.handleChange} name="username" value={this.state.username} placeholder='Username' />
-	// </Form.Field>
-	// <Form.Field>
-	// 	<label>Name</label>
-	// 	<input onChange={this.handleChange} name="name" value={this.state.name} placeholder='Name' />
-	// </Form.Field>
 
 
 

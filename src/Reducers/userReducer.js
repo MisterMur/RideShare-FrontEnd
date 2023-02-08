@@ -23,7 +23,6 @@ const initialUserState = {
 };
 
 export default function userReducer(state = initialUserState, action) {
-  // console.log('userReducer');
   switch(action.type) {
     case ADD_USER:
       return { ...state, users: [...state.users, action.payload] };
@@ -79,7 +78,6 @@ export default function userReducer(state = initialUserState, action) {
       return {...state,friendships:removeFriendship}
 
     default:
-      // console.log('in default reducer case',state);
       return state;
   }
 }

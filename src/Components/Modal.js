@@ -88,7 +88,6 @@ onChange=(e,c)=> {
    // current array of options
    const options = this.state.options
    if (e.target.checked) {
-     console.log('pushing into options',c)
      //add checked item to array of selecteed company options
        options.push(c)
 
@@ -106,7 +105,6 @@ renderCheckBoxes = () => {
     // create a list of company ids in the option array
     //  to use as keys to  distaguish if they are already in the array
     let companyIds = this.state.options.map(company => company.id)
-    console.log('options company ids',companyIds)
     //map over list of all comapnies and create a checkbox for each
 
     return this.props.companiesValue.map((company,key)=> {
@@ -122,7 +120,6 @@ renderCheckBoxes = () => {
 }
 
   handleEditFormChange=(e)=>{
-    console.log('handling edit', e)
     let value = e.target.value;
     let name = e.target.name;
 
@@ -136,8 +133,7 @@ renderCheckBoxes = () => {
   renderEditModal = () => {
     //make modal smaller
     if(this.props.state.modal){
-      // debugger
-      // <button id='exitmodal' onClick={this.props.handleAfterClose}>Close Modal</button>
+
       return (
         <div >
           <ReactModal
@@ -252,9 +248,7 @@ renderCheckBoxes = () => {
   }
 
   render(){
-    // debugger
-    // console.log(this.state)
-    // console.log(this.props)
+
     return(
       <Fragment>
         {this.renderEditModal()}

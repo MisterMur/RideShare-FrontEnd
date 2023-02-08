@@ -25,7 +25,6 @@ class App extends React.Component {
 	componentDidMount() {
     this.props.getProfileFetch();
 		this.props.fetchRides();
-		// console.log('in app compononentdismount fetching users')
 		this.props.fetchUsers();
 		this.props.fetchForums();
 
@@ -65,7 +64,7 @@ class App extends React.Component {
 				if(this.props.users){
 
 					let userFromParams = this.props.users.find(u => u.id === paramid )
-					// debugger
+					
 					this.props.fetchUser(userFromParams)
 					return (
 						<Profile
@@ -81,7 +80,7 @@ class App extends React.Component {
 	 else{
 
 		 if(this.props.users){
-			 let userFromParams = this.props.users.find(u => u.id === paramid )
+			//  let userFromParams = this.props.users.find(u => u.id === paramid )
 			 // this.props.fetchUser(userFromParams)
 			 // <Profile
 				//  {...rout}
@@ -204,7 +203,6 @@ function mapStateToProps(state) {
 	const { user } = state;
   const { rides} = state.rides;
   const {forums}= state.forums;
-	// console.log('mapping state in app, state: ',state)
 
   return {
     allCompanies:user.allCompanies,

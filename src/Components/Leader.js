@@ -4,9 +4,7 @@ import {Link} from 'react-router-dom'
 class Leader extends React.Component {
 
   render() {
-    // console.log(`/profile/${this.props.getUser.id}`)
     if(this.props.getUser){
-      // debugger
       return (
         <div onClick={(e,)=>this.props.handleClick(e,this.props.getUser)}
         name={this.props.superlative}>

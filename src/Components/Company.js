@@ -7,7 +7,6 @@ class Company extends React.Component {
   }
 
   render() {
-    console.log('company Props:', this.props)
     return (
       <div>
         <h1>{this.props.company.name}</h1>
