@@ -23,7 +23,7 @@ class Ride extends React.Component {
       hour = 12
     }
 
-    let retDate = `${month}/${day}/${year}@${hour}:${min}${ampm}`
+    let retDate = `${month}/${day}/${year} ${hour}:${min} ${ampm}`
     return retDate;
     // var ampm = hours >= 12 ? 'pm' : 'am';
     // hours = hours % 12;
@@ -43,8 +43,8 @@ class Ride extends React.Component {
         <tr>
           <th scope="row">{this.props.idx}</th>
           <td>{this.props.ride.distance || ""}</td>
-          <td>{this.formatDate(this.props.ride.started_at)}</td>
-          <td>{this.formatDate(this.props.ride.end_at)}</td>
+          <td style={{overFlow: 'break-word'}}>{this.formatDate(this.props.ride.started_at)}</td>
+          <td style={{overFlow: 'break-word'}}>{this.formatDate(this.props.ride.end_at)}</td>
           <td>{this.props.ride.price}</td>
           <td>{this.props.ride.start_location}</td>
           <td>{this.props.ride.end_location}</td>
