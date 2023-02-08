@@ -101,7 +101,6 @@ class App extends React.Component {
 	    <Route path="/users/:id" exact render={(props) => {
 	        let id = parseInt(props.match.params.id)
 	      if(this.props.currentUser){
-	        // debugger
 	        if(id !== this.props.currentUser.id){
 	          let ourUser = this.props.users.find(u => u.id === id )
 	          return (
