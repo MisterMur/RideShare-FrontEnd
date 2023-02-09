@@ -63,13 +63,6 @@ fileSelectedHandler= async (event)=>{
       method: "POST",
       body: fd
     });
-    // const uploadedImage = await data.json();
-    // if (uploadedImage) {
-
-    // } else {
-    //   console.log("Error Found");
-    // }
-
   }
 }
 
