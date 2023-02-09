@@ -74,9 +74,11 @@ class ChatBox extends Component{
   }
 
   handleMessageSubmit = () => {
+    if(this.state.formInput){
+      this.props.postNewMessage(this.props.currentUser,this.state.formInput,this.state.currentChat)
+      this.setState({formInput: ''})
+    }
 
-    this.props.postNewMessage(this.props.currentUser,this.state.formInput,this.state.currentChat)
-    this.setState({formInput: ''})
 
   }
 
@@ -106,7 +108,7 @@ class ChatBox extends Component{
                 <div className="type_msg">
                   <div className="input_msg_write">
                     <input type="text" className="write_msg" placeholder="Type a message" value={this.state.formInput} onChange={(e) => this.handleInput(e)}/>
-                    <button className="msg_send_btn" type="button" onClick={() => this.handleMessageSubmit()}><i className="fa fa-paper-plane-o" aria-hidden="true"></i>Send!</button>
+                    <button className="msg_send_btn" type="button" disabled={!this.state.formInput} onClick={() => this.handleMessageSubmit()}><i className="fa fa-paper-plane-o" aria-hidden="true"></i>Send!</button>
                   </div>
                 </div>
               </div>
