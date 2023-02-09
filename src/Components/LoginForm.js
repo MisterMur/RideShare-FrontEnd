@@ -35,7 +35,6 @@ class LoginForm extends React.Component {
     this.setState(state =>
       Object.assign({}, state, {
         type: this.state.type === "password" ? "input" : "password",
-        showPass: !this.state.showPass
       })
     );
     this.setState((prevState) =>  ({showPass: !prevState.showPass}))
