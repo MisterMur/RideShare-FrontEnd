@@ -3,7 +3,6 @@ import ReactModal from 'react-modal'
 import {connect} from 'react-redux'
 
 //lib imports
-import axios from 'axios'
 import { Form } from 'semantic-ui-react'
 import TextField from "@material-ui/core/TextField";
 import Checkbox from '@material-ui/core/Checkbox';
@@ -56,7 +55,7 @@ fileSelectedHandler= async (event)=>{
   const {currentUser} = this.props;
 
   this.setState({selectedFile:event.target.files[0]})
-  
+
   if(event.target.files[0]){
     let fd = new FormData();
     fd.append('image',event.target.files[0])
