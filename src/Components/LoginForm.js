@@ -92,7 +92,7 @@ class LoginForm extends React.Component {
 
                   <div className="col text-center mt-4" >
                       <Button styel={{width:'60%'}} id="authbutton" color="teal" className='btn btn-primary' type="submit">
-                        Login
+                        Log In
                       </Button>
                       <Link to='/signup' id="authbutton" className='btn btn-primary' color='teal'>
                         Sign Up

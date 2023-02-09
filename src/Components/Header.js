@@ -76,7 +76,7 @@ class Header extends React.Component {
       <>
         <NavItem onClick={this.closeNav} className='menu-item'>
           <Link  to="/login">
-            Login
+            Log In
           </Link>
         </NavItem>
 
