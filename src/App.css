@@ -752,19 +752,16 @@ only screen and (max-width: 760px),
   margin: 0;
   color: gray;
 }
+
 #pwShowHideBtn{
   max-width: 40px;
   max-height: 40px;
   margin-left:85px;
   margin-top:-25px;
   position: absolute;
-  /* transform: 'translateX(-50%)';
-  align:'center';
-  align-content: center;
-  left:20%;
-  color: 'green'; */
 
 }
+
 
 
 

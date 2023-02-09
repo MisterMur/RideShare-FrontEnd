@@ -3,11 +3,15 @@ import React from "react";
 import { Link} from 'react-router-dom'
 
 
-import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
-import TextField from "@material-ui/core/TextField";
 import { connect } from 'react-redux';
 import {userLoginFetch} from '../Actions';
+
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
+import TextField from "@material-ui/core/TextField";
 import { Form, Button } from 'semantic-ui-react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye ,faEyeSlash} from '@fortawesome/free-solid-svg-icons'
+
 import '../App.css';
 
 
@@ -16,6 +20,8 @@ class LoginForm extends React.Component {
   state = {
     username: "",
     password: "",
+    type: 'password',
+    showPass: false
   }
 
   UNSAFE_componentWillReceiveProps(newProps) {
@@ -24,6 +30,18 @@ class LoginForm extends React.Component {
     }
   }
 
+	pwMask=(event) =>{
+    event.preventDefault();
+    this.setState(state =>
+      Object.assign({}, state, {
+        type: this.state.type === "password" ? "input" : "password",
+        showPass: !this.state.showPass
+      })
+    );
+    this.setState((prevState) =>  ({showPass: !prevState.showPass}))
+  }
+ 
+ 
 
   handleChange = (event) => {
     this.setState({
@@ -62,7 +80,7 @@ class LoginForm extends React.Component {
                   <br />
                     <Form.Field>
         							<TextField
-        			          type='password'
+        			          type={this.state.type}
         			          name="password"
         			          label="Password"
         			          value={this.state.password}
@@ -71,6 +89,7 @@ class LoginForm extends React.Component {
 
         			        />
         						</Form.Field>
+                      <FontAwesomeIcon id="pwShowHideBtn" onClick={this.pwMask} icon={this.state.showPass ? faEyeSlash : faEye} />
 
                   <div className="col text-center mt-4" >
                       <Button styel={{width:'60%'}} id="authbutton" color="teal" className='btn btn-primary' type="submit">

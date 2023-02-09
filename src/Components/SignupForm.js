@@ -161,7 +161,7 @@ class SignupForm extends React.Component {
 					<br/>
 					<p> Aleady have an account? <br />
 						<Link to='/login'>
-							Login Here!
+							Log In Here!
 
 						</Link>
 		      </p>
