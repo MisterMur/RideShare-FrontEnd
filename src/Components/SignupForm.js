@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import TextField from "@material-ui/core/TextField";
 import { Form, Button } from 'semantic-ui-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { faEye ,faEyeSlash} from '@fortawesome/free-solid-svg-icons'
 
 
 import {createUser} from '../Actions';
@@ -20,6 +20,7 @@ const zxcvbn = require("zxcvbn");
 
 class SignupForm extends React.Component {
 	state = {
+		showPass: false,
 		name: "",
 		username: "",
 		password: "",
@@ -83,6 +84,7 @@ class SignupForm extends React.Component {
 			 btnTxt: this.state.btnTxt === "show" ? "hide" : "show"
 		 })
 	 );
+	 this.setState((prevState) =>  ({showPass: !prevState.showPass}))
  }
 
 
@@ -126,7 +128,7 @@ class SignupForm extends React.Component {
 
 			        />
 						</Form.Field>
-						<FontAwesomeIcon id="pwShowHideBtn" onClick={this.pwMask} icon={faEye} />
+						<FontAwesomeIcon id="pwShowHideBtn" onClick={this.pwMask} icon={this.state.showPass ? faEyeSlash : faEye} />
 
 
 						<div className="pwStrRow">
