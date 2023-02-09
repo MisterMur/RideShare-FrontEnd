@@ -3,7 +3,6 @@ import ReactModal from 'react-modal'
 import {connect} from 'react-redux'
 
 //lib imports
-import axios from 'axios'
 import { Form } from 'semantic-ui-react'
 import TextField from "@material-ui/core/TextField";
 import Checkbox from '@material-ui/core/Checkbox';
@@ -51,35 +50,19 @@ handleCheckBox =(company)=>{
 
   }
 }
-fileUploadHandler=(event)=>{
-  event.preventDefault()
-  if(this.state.selectedFile){
 
-    let fd = new FormData();
-    fd.append('image',this.state.selectedFile,this.state.selectedFile.name)
+fileSelectedHandler= async (event)=>{
+  const {currentUser} = this.props;
 
-    axios.post(USERURL+this.props.currentUser.id+'/imageupload',fd)
-    // .then(res=>res.json())
-    .then(res=>{
-
-      this.props.fetchCurrentUser(res.data)
-    }
-    );
-  }
-}
-
-fileSelectedHandler=(event)=>{
   this.setState({selectedFile:event.target.files[0]})
+
   if(event.target.files[0]){
     let fd = new FormData();
-    fd.append('image',event.target.files[0],event.target.files[0].name)
-
-    axios.post(USERURL+this.props.currentUser.id+'/imageupload',fd)
-    .then(res=>{
-
-      this.props.fetchCurrentUser(res.data)
-    }
-    );
+    fd.append('image',event.target.files[0])
+     await fetch(USERURL+currentUser.id+`/imageupload`, {
+      method: "POST",
+      body: fd
+    });
   }
 }
 
