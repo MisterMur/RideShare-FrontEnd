@@ -54,8 +54,9 @@ handleCheckBox =(company)=>{
 
 fileSelectedHandler= async (event)=>{
   const {currentUser} = this.props;
-  // const {selectedFile} = this.state;
+
   this.setState({selectedFile:event.target.files[0]})
+  
   if(event.target.files[0]){
     let fd = new FormData();
     fd.append('image',event.target.files[0])

@@ -12,11 +12,6 @@ export const LOGINURL = apiUrl+'login/'
 export const AUTOLOGINURL = apiUrl+'auto_login/'
 export const MESSAGEURL = apiUrl+'messages/'
 
-
-// export  const COMPANYURL = 'http://ride-share-api.herokuapp.com/api/v1/companies/'
-// export  const RIDEURL = 'http://ride-share-api.herokuapp.com/api/v1/rides/'
-// export const FRIENDSHIPURL = 'http://ride-share-api.herokuapp.com/api/v1/friendships'
-
 export const ADD_USER='ADD_USER'
 export const LOGIN_USER='LOGIN_USER'
 export const LOGOUT_USER='LOGOUT_USER'
