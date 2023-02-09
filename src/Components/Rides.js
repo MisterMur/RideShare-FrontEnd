@@ -13,7 +13,8 @@ class Rides extends React.Component {
       allRides: this.props.rides,
       filteredRides: this.props.rides,
       users:[],
-      textInput: ''
+      textInput: '',
+      friendFilter:false
     }
 
   componentDidMount(){
@@ -32,7 +33,7 @@ class Rides extends React.Component {
   returnDropdown = () => {
     return (
       <div className="">
-      <form action="/action_page.php">
+      <form>
       <select name="cars"
       onChange={this.handleSortSubmit}
       >
@@ -54,10 +55,13 @@ class Rides extends React.Component {
          value={this.state.textInput}
          placeholder="Search by location"
          />
-         <form action="/action_page.php">
-          <input type="radio" name="gender" value="friends" onChange={(e) =>this.handleFriendFilter(e)}/> Friends
-          <input type="radio" name="gender" value="all" onChange={this.handleChangeBack}/> All
-        </form>
+         {this.props.currentUser? (
+          <form>
+              <input type="radio" name="filter"  value="friends" onChange={this.handleFriendFilter}/> Friends
+              <input type="radio" name="filter"  value="all" onChange={this.handleChangeBack}/> All
+          </form>
+
+         ): null}
       </form>
       </div>
     )
@@ -65,11 +69,10 @@ class Rides extends React.Component {
 
   handleChangeBack = () => {
     this.setState({filteredRides: this.state.allRides})
-  }
-  handleFriendFilter = (e) => {
-    if(this.props.currentUser){
+  };
 
-      e.preventDefault()
+  handleFriendFilter = () => {
+    if(this.props.currentUser){
       let myFriends = this.props.currentUser.followers.map(follower => follower.id)
       let filtered =[]
       this.state.allRides.map((ride) =>
@@ -81,7 +84,7 @@ class Rides extends React.Component {
     )
     this.setState({filteredRides: filtered})
     }
-  }
+  };
 
   handleSearch = (e) => {
     this.setState({textInput: e.target.value})
