@@ -51,29 +51,6 @@ handleCheckBox =(company)=>{
 
   }
 }
-fileUploadHandler=(event)=>{
-  const {currentUser} = this.props;
-  const {selectedFile} = this.state;
-  event.preventDefault()
-  if(this.state.selectedFile){
-
-    let fd = new FormData();
-    fd.append('image',selectedFile,selectedFile.name)
-    console.log(`fileuploadhandler - fd:`,fd);
-    console.log(`fileuploadhandler - currentuser:`, currentUser)
-
-    axios.post(USERURL+currentUser.id+'/imageupload',{
-      "profilePic": fd,
-      "user": currentUser
-    })
-    // .then(res=>res.json())
-    .then(res=>{
-
-      this.props.fetchCurrentUser(res.data)
-    }
-    );
-  }
-}
 
 fileSelectedHandler= async (event)=>{
   const {currentUser} = this.props;
