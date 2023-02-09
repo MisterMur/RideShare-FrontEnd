@@ -82,11 +82,11 @@ fileSelectedHandler= async (event)=>{
   if(event.target.files[0]){
     let fd = new FormData();
     fd.append('image',event.target.files[0])
-    const data = await fetch(USERURL+currentUser.id+`/imageupload`, {
+     await fetch(USERURL+currentUser.id+`/imageupload`, {
       method: "POST",
       body: fd
     });
-    const uploadedImage = await data.json();
+    // const uploadedImage = await data.json();
     // if (uploadedImage) {
 
     // } else {
