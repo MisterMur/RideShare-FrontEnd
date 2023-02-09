@@ -52,13 +52,20 @@ handleCheckBox =(company)=>{
   }
 }
 fileUploadHandler=(event)=>{
+  const {currentUser} = this.props;
+  const {selectedFile} = this.state;
   event.preventDefault()
   if(this.state.selectedFile){
 
     let fd = new FormData();
-    fd.append('image',this.state.selectedFile,this.state.selectedFile.name)
+    fd.append('image',selectedFile,selectedFile.name)
+    console.log(`fileuploadhandler - fd:`,fd);
+    console.log(`fileuploadhandler - currentuser:`, currentUser)
 
-    axios.post(USERURL+this.props.currentUser.id+'/imageupload',fd)
+    axios.post(USERURL+currentUser.id+'/imageupload',{
+      "profilePic": fd,
+      "user": currentUser
+    })
     // .then(res=>res.json())
     .then(res=>{
 
@@ -68,18 +75,24 @@ fileUploadHandler=(event)=>{
   }
 }
 
-fileSelectedHandler=(event)=>{
+fileSelectedHandler= async (event)=>{
+  const {currentUser} = this.props;
+  // const {selectedFile} = this.state;
   this.setState({selectedFile:event.target.files[0]})
   if(event.target.files[0]){
     let fd = new FormData();
-    fd.append('image',event.target.files[0],event.target.files[0].name)
+    fd.append('image',event.target.files[0])
+    const data = await fetch(USERURL+currentUser.id+`/imageupload`, {
+      method: "POST",
+      body: fd
+    });
+    const uploadedImage = await data.json();
+    // if (uploadedImage) {
 
-    axios.post(USERURL+this.props.currentUser.id+'/imageupload',fd)
-    .then(res=>{
+    // } else {
+    //   console.log("Error Found");
+    // }
 
-      this.props.fetchCurrentUser(res.data)
-    }
-    );
   }
 }
 
