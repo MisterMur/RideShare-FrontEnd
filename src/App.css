@@ -32,9 +32,14 @@
   text-decoration: none !important;
 }
 
+/* #menu-item a {
+ 
+ color:white;
+} */
+
 #menu-item a:hover {
-  margin: 0 !important;
-  padding: 10px !important;
+   margin: 0 !important;
+  padding: 10px !important; 
   border-radius: 10px;
   background-color: #007bff;
   color:white;
@@ -59,13 +64,13 @@
 }
 
 #menu-item {
-   margin-left: 5rem;
-  padding: 10px;
-  text-align: center;
-  color: white;
-  border-radius: 10px;
-  border-style: groove;
-  background-color: #ced4da;
+ margin-left: 3rem;
+ padding: 10px;
+ text-align: center;
+ color: white;
+ border-radius: 10px; 
+ border-style: groove; 
+ background-color: #ced4da;
 }
 
 #edit-profile {

@@ -94,12 +94,12 @@ class Header extends React.Component {
       <>
 
 
-          <Navbar bg="dark" expand="md" fixedtop="true" ref={(e) => this._navbar = e} onToggle={this.setNavExpanded}   expanded={this.state.navExpanded} inverse="true" fluid="true">
+          <Navbar bg="primary" expand="md" fixedtop="true" ref={(e) => this._navbar = e} onToggle={this.setNavExpanded}   expanded={this.state.navExpanded} inverse="true" fluid="true">
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
 
-              <Nav >
+              <Nav>
                 <NavItem  onClick={this.closeNav} data-bs-toggle="collapse" id='menu-item'>
                   {this.renderProfileLink()}
                 </NavItem>
