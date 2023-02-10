@@ -18,8 +18,6 @@ import {fetchUser,getProfileFetch, setLogout,fetchUsers,fetchRides,fetchForums,f
 
 import './App.css';
 
-
-
 class App extends React.Component {
 
 	componentDidMount() {
@@ -27,18 +25,13 @@ class App extends React.Component {
 		this.props.fetchRides();
 		this.props.fetchUsers();
 		this.props.fetchForums();
-
 	}
 	renderUserPage=()=>{
 		return (
 		 <>
-		 <Route path="/users/:id" exact render={(props) => {
-				 debugger
-
+			<Route path="/users/:id" exact render={(props) => {
 				 let paramid = parseInt(props.match.params.id)
 				 if(this.props.currentUser){
-
-					  // debugger
 						if(paramid !== this.props.currentUser.id){
 							let userFromParams = this.props.users.find(u => u.id === paramid )
 							return (
@@ -48,18 +41,15 @@ class App extends React.Component {
 								 currentUser={this.props.currentUser}
 								 user={userFromParams}
 							 />)
-					 }else{
-
 					 }
-				 }	}} />
-			 </>
+				 }	
+			}}/>
+		</>
 	 )
  }
  renderPage=(rout)=>{
 	 let paramid = parseInt(rout.match.params.id)
 	 if(this.props.currentUser){
-
-
 			if(paramid !== this.props.currentUser.id){
 				if(this.props.users){
 
@@ -78,19 +68,10 @@ class App extends React.Component {
 		 }
 	 }
 	 else{
-
 		 if(this.props.users){
-			//  let userFromParams = this.props.users.find(u => u.id === paramid )
-			 // this.props.fetchUser(userFromParams)
-			 // <Profile
-				//  {...rout}
-				//  isCurrentUserProfile={false}
-				//  user={userFromParams}
-				//  />
 			 return (
 				 <NotLoggedIn/>
 			 )
-
 		 }
 	 }
 
@@ -126,15 +107,11 @@ class App extends React.Component {
 	        }}
 	    }}/>
 		</>
-
 	  )
 
 	}
 
-
-
   render() {
-
     return (
       <>
       <Grid>
@@ -158,25 +135,19 @@ class App extends React.Component {
 								}
 						}
 							/>
-						<Route path="/user/:id" render={(routerProps) =>
-									this.renderPage(routerProps)						} />
-
+						<Route path="/user/:id" render={(routerProps) => this.renderPage(routerProps)} />
 						<Route path="/discover" render={routerProps=> <DiscoverPage {...routerProps} history={this.props.history}/>}/>
-
-            <Route path="/forums" component={ForumsPage} />
-            <Route path="/rides" component={Rides} />
+						<Route path="/forums" component={ForumsPage} />
+						<Route path="/rides" component={Rides} />
 						<Route path="/signup" render={routerProps => <SignupForm {...routerProps} setCurrentUser={this.props.setCurrentUser} />} />
 
 						{!this.props.currentUser ?
 							<Redirect from="*" to="/login" />
 							:<>
-							<Redirect from={'/user/'+this.props.currentUser.id} to="/profile"/>
-							<Redirect from="*" to="/profile" /></>
-
+								<Redirect from={'/user/'+this.props.currentUser.id} to="/profile"/>
+								<Redirect from="*" to="/profile" />
+							</>
 						 }
-
-
-
           </Switch>
         </Grid.Row>
       </Grid>
@@ -184,7 +155,6 @@ class App extends React.Component {
     )
   }
 }
-
 
 const mapDispatchToProps = dispatch => ({
   getProfileFetch: () => dispatch(getProfileFetch()),
@@ -197,21 +167,18 @@ const mapDispatchToProps = dispatch => ({
 
 })
 function mapStateToProps(state) {
-  // maps the state from the store to the props
-	// debugger
 	const { user } = state;
-  const { rides} = state.rides;
-  const {forums}= state.forums;
+	const { rides} = state.rides;
+	const {forums}= state.forums;
 
-  return {
-    allCompanies:user.allCompanies,
-    rides: rides,
-    forums:forums[0],
-    allForums: forums[0],
-    users:user.users,
-    currentUser:user.currentUser
-  }
+	return {
+		allCompanies:user.allCompanies,
+		rides: rides,
+		forums:forums[0],
+		allForums: forums[0],
+		users:user.users,
+		currentUser:user.currentUser
+	}
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
