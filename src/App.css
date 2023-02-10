@@ -31,6 +31,55 @@
 /* #profile-forums th{
   width: 1% !important;
 } */
+.navbar-toggler{
+ 
+    background-color: white;
+
+  
+}
+#menu-item {
+  text-decoration: none !important;
+}
+#menu-item a:hover {
+  margin: 0 !important;
+  padding: 10px !important;
+  border-radius: 10px;
+  background-color: #007bff;
+  color:white;
+}
+
+@media only screen and (max-width: 767px) {
+  #menu-item a {
+    margin: 0 !important;
+    padding: 10px !important;
+    border-radius: 10px;
+    display: inline-flex;
+    width:100% !important;
+    background-color: white;
+    justify-content: center;
+  }
+  #menu-item{
+    margin-left: 0 !important;
+    padding: 0 !important
+  }
+  
+}
+
+
+
+#menu-item {
+   margin-left: 5rem;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  border-style: groove;
+  background-color: #ced4da;
+}
+/* .menu-item button:hover{
+  background-color: black;
+} */
+
 
 
 #edit-profile {
