@@ -46,12 +46,19 @@ class Header extends React.Component {
   renderProfileLink = () => {
 
     if(this.props.currentUser){
-        return <Link style={{textDecoration:'none'}} to={`/profile`}> Profile </Link>
+        return (<>
+             <NavItem  onClick={this.closeNav} data-bs-toggle="collapse" id='menu-item'>
+                <Link style={{textDecoration:'none'}} to={`/profile`}> Profile </Link>
+                </NavItem>
+              </>)
+    } else{
+      return (<>
+        <NavItem  onClick={this.closeNav} data-bs-toggle="collapse" id='menu-item'>
+                <Link style={{textDecoration:'none'}} to={`/login`}> Login </Link>
+                </NavItem>
+              </>)
+    }
 
-    }
-    else{
-      return <Link style={{textDecoration:'none'}} to={`/login`}> Profile </Link>
-    }
   }
   renderLogout =() =>{
     return (
@@ -85,6 +92,7 @@ class Header extends React.Component {
 
 
   renderNav=()=>{
+    const {currentUser} = this.props;
     return(
       <>
 
@@ -95,9 +103,7 @@ class Header extends React.Component {
             <Navbar.Collapse id="basic-navbar-nav">
 
               <Nav>
-                <NavItem  onClick={this.closeNav} data-bs-toggle="collapse" id='menu-item'>
-                  {this.renderProfileLink()}
-                </NavItem>
+                  {currentUser? this.renderProfileLink() : this.renderLoginSignup()}
                 <NavItem onClick={this.closeNav} data-bs-toggle="collapse" id='menu-item'>
                   <Link style={{textDecoration:'none'}} to="/rides"> Rides </Link>
                 </NavItem>
@@ -107,7 +113,7 @@ class Header extends React.Component {
                 <NavItem onClick={this.closeNav} data-bs-toggle="collapse" id='menu-item'>
                   <Link style={{textDecoration:'none'}} to="/discover"> Discover </Link>
                 </NavItem>
-                  {this.props.currentUser ? this.renderLogout() : this.renderLoginSignup() }
+                  {currentUser ? this.renderLogout() : null }
               </Nav>
 
             </Navbar.Collapse>
