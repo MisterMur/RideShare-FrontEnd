@@ -64,7 +64,8 @@
 
 }
 .ridestable{
-  overflow-x:auto;
+  overflow-x:hidden;
+  width: 100%;
 }
 #profile-rides-list{
   margin-top:120px;
@@ -186,6 +187,15 @@ outline: none;
 #rides-page{
   margin-top:10rem;
 }
+
+
+  @media only screen and (max-width: 425px){
+    #rides-radio-btn{
+      margin-left: 10px;
+      margin-right: auto;
+    }
+  }
+
 
 .follower-card {
   width: 100%;
