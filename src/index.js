@@ -20,8 +20,3 @@ ReactDOM.render(
 );
 
 serviceWorker.unregister();
-
-
-
-
-
