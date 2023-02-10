@@ -5,9 +5,7 @@ import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setLogout} from '../Actions';
 
-// import * from '../App.css'
-
-
+import '.././App.css'
 
 class Header extends React.Component {
     constructor(props) {
@@ -48,22 +46,22 @@ class Header extends React.Component {
   renderProfileLink = () => {
 
     if(this.props.currentUser){
-        return <Link to={`/profile`}> Profile </Link>
+        return <Link style={{textDecoration:'none'}} to={`/profile`}> Profile </Link>
 
     }
     else{
-      return <Link to={`/login`}> Profile </Link>
+      return <Link style={{textDecoration:'none'}} to={`/login`}> Profile </Link>
     }
   }
   renderLogout =() =>{
     return (
       <>
 
-        <NavItem onClick={()=>this.props.history.push(`/users/${this.props.currentUser.id}`)} >
+        <NavItem id='menu-item' onClick={()=>this.props.history.push(`/users/${this.props.currentUser.id}`)} >
 
         </NavItem>
-        <NavItem className='menu-item'>
-          <Link  to="/login" onClick={this.logout} >
+        <NavItem id='menu-item'>
+          <Link style={{textDecoration:'none'}} to="/login" onClick={this.logout} >
             Logout
           </Link>
         </NavItem>
@@ -74,14 +72,14 @@ class Header extends React.Component {
   renderLoginSignup = () =>{
     return (
       <>
-        <NavItem onClick={this.closeNav} className='menu-item'>
-          <Link  to="/login">
+        <NavItem onClick={this.closeNav} id='menu-item'>
+          <Link  style={{textDecoration:'none'}} to="/login">
             Log In
           </Link>
         </NavItem>
 
-        <NavItem onClick={this.closeNav} className='menu-item'>
-          <Link  to="/signup">
+        <NavItem onClick={this.closeNav} id='menu-item'>
+          <Link  style={{textDecoration:'none'}} to="/signup">
             Sign Up
           </Link>
         </NavItem>
@@ -102,17 +100,17 @@ class Header extends React.Component {
             <Navbar.Collapse id="basic-navbar-nav">
 
               <Nav >
-                <NavItem  onClick={this.closeNav} data-bs-toggle="collapse" className='menu-item'>
+                <NavItem  onClick={this.closeNav} data-bs-toggle="collapse" id='menu-item'>
                   {this.renderProfileLink()}
                 </NavItem>
-                <NavItem onClick={this.closeNav} data-bs-toggle="collapse" className='menu-item'>
-                  <Link to="/rides"> Rides </Link>
+                <NavItem onClick={this.closeNav} data-bs-toggle="collapse" id='menu-item'>
+                  <Link style={{textDecoration:'none'}} to="/rides"> Rides </Link>
                 </NavItem>
-                <NavItem onClick={this.closeNav} data-bs-toggle="collapse" className='menu-item'>
-                  <Link to="/forums"> Forums </Link>
+                <NavItem onClick={this.closeNav} data-bs-toggle="collapse" id='menu-item'>
+                 <Link style={{textDecoration:'none'}} to="/forums"> Forums </Link>
                 </NavItem>
-                <NavItem onClick={this.closeNav} data-bs-toggle="collapse" className='menu-item'>
-                  <Link to="/discover"> Discover </Link>
+                <NavItem onClick={this.closeNav} data-bs-toggle="collapse" id='menu-item'>
+                  <Link style={{textDecoration:'none'}} to="/discover"> Discover </Link>
                 </NavItem>
                   {this.props.currentUser ? this.renderLogout() : this.renderLoginSignup() }
               </Nav>

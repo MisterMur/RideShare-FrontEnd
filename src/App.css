@@ -23,71 +23,105 @@
 .App-link {
   color: #61dafb;
 }
-/*
-.profile-forums{
-  padding: 0px;
-} */
 
-/* #profile-forums th{
-  width: 1% !important;
-} */
+.navbar-toggler{
+    background-color: white;
+}
 
+#menu-item {
+  text-decoration: none !important;
+}
+
+#menu-item a:hover {
+  margin: 0 !important;
+  padding: 10px !important;
+  border-radius: 10px;
+  background-color: #007bff;
+  color:white;
+}
+
+
+@media only screen and (max-width: 767px) {
+  #menu-item a {
+    margin: 0 !important;
+    padding: 10px !important;
+    border-radius: 10px;
+    display: inline-flex;
+    width:100% !important;
+    background-color: white;
+    justify-content: center;
+  }
+
+  #menu-item{
+    margin-left: 0 !important;
+    padding: 0 !important
+  }
+}
+
+#menu-item {
+   margin-left: 5rem;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  border-style: groove;
+  background-color: #ced4da;
+}
 
 #edit-profile {
   margin-top: 10px;
   width:100%;
 }
 
-/* .container .col-12{
-   padding-top:20px;
-   margin-top: 20px;
-} */
-
 #profile-card-container{
   margin-top:120px;
   margin-left:20px;
   max-width: 175px;
-  
-
 }
+
 .menu-item{
   margin-left: 5rem;
   padding:0px 0;
   color:white;
 
 }
+
 .responsivetable{
   overflow-x: auto;
 }
+
 .forumstable{
   overflow-x:auto;
-
 }
+
 .ridestable{
   overflow-x:hidden;
   width: 100%;
 }
+
 #profile-rides-list{
   margin-top:120px;
   overflow-x: auto;
   width:50%;
 }
+
 #rides-list{
   margin-top:120px;
 }
+
 #forum-list{
   /* margin-top:100px; */
 }
+
 body{
   background-color: white;
 }
+
 .header{
   margin-top:-10px;
   position:fixed;
   width:100%;
   z-index:999;
-
-
 }
 
 .title {
@@ -97,7 +131,6 @@ body{
   /* height: 0px; */
   font-size: 2.5rem;
   padding: 0px 0;
-
 }
 
 @keyframes App-logo-spin {
@@ -235,7 +268,6 @@ outline: none;
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////
 .container{
   display: flex;
   flex-direction: column;
