@@ -1,6 +1,10 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faPaperPlane,faWindowClose} from '@fortawesome/free-solid-svg-icons'
+ 
+
 import {postNewMessage,fetchUsers,fetchForumMessages,resetMessages} from '../Actions.js'
 
 
@@ -38,14 +42,18 @@ class ChatBox extends Component{
   }
 
   renderMessages = (messages) => {
+    //default message img
+    // "https://ptetutorials.com/images/user-profile.png"
+
     if (this.props.users){
 
       return messages.map((m,idx)=>{
-
-        let messageName =this.props.users.find(user=> user.id === m.user_id).name
+        console.log('messag user',this.props.users.find(user=> user.id === m.user_id))
+        const messageUser=this.props.users.find(user=> user.id === m.user_id);
+        let messageName =messageUser.name
         return (
             <div key={idx} className="incoming_msg">
-              <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"/> </div>
+              <img className="incoming_msg_img" src={messageUser.image_url} alt="user_image"/>
               <div className="received_msg">
                 <div className="received_withd_msg">
                   <p>
@@ -96,11 +104,17 @@ class ChatBox extends Component{
       <h3 className=" text-center">{this.props.currentChat? this.props.currentChat.topic:null} Messaging</h3>
       <div className="messaging">
             <div className="inbox_msg">
-              <div >
-              <button onClick={() => this.handleClose()}>Close Chat</button>
-                <div className="headind_srch">
-                </div>
-              </div>
+              
+              <FontAwesomeIcon 
+                className="close-chat" 
+                icon={faWindowClose}
+                style={{
+                  height: '30px',
+                  width: '30px',
+                  justifyContent: 'flex-end'
+                }}
+                onClick={() => this.handleClose()}
+              />
               <div className="mesgs">
                 <div className="msg_history">
                 {this.renderMessages(this.props.messages)}
@@ -108,7 +122,9 @@ class ChatBox extends Component{
                 <div className="type_msg">
                   <div className="input_msg_write">
                     <input type="text" className="write_msg" placeholder="Type a message" value={this.state.formInput} onChange={(e) => this.handleInput(e)}/>
-                    <button className="msg_send_btn" type="button" disabled={!this.state.formInput} onClick={() => this.handleMessageSubmit()}><i className="fa fa-paper-plane-o" aria-hidden="true"></i>Send!</button>
+                    <button className="msg_send_btn" type="button" disabled={!this.state.formInput} onClick={() => this.handleMessageSubmit()}>
+                      <FontAwesomeIcon style={{height:'13px',width:'13px'}}icon={faPaperPlane}/>
+                      </button>
                   </div>
                 </div>
               </div>

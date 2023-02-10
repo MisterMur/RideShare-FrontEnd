@@ -78,6 +78,9 @@
   width:100%;
 }
 
+.profile-card {
+  width: 100%;
+}
 #profile-card-container{
   margin-top:120px;
   margin-left:20px;
@@ -343,13 +346,27 @@ img{ max-width:100%;}
 
 .active_chat{ background:#ebebeb;}
 
+.incoming_msg {
+  display:flex;
+  flex-direction: row;
+  padding: 3px 0;
+}
 .incoming_msg_img {
   display: inline-block;
-  width: 6%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
+
+.close-chat{
+  /* height: 50px;
+  width: 50px; */
+  justify-content: flex-end;
+}
+
 .received_msg {
   display: inline-block;
-  padding: 0 0 0 10px;
+  padding: 10px;
   vertical-align: top;
   width: 92%;
  }
@@ -366,9 +383,9 @@ img{ max-width:100%;}
   color: #747474;
   display: block;
   font-size: 12px;
-  margin: 8px 0 0;
+  padding-bottom: 10px;
 }
-.received_withd_msg { width: 57%;}
+/* .received_withd_msg { width: 57%;} */
 .mesgs {
   float: left;
   padding: 30px 15px 0 25px;
@@ -404,15 +421,14 @@ img{ max-width:100%;}
 .msg_send_btn {
   background: #05728f none repeat scroll 0 0;
   border: medium none;
-  border-radius: 50%;
+  border-radius: 100%;
   color: #fff;
   cursor: pointer;
-  font-size: 10px;
-  text-align: center;
+  font-size: 9px;
   height: 36px;
   position: absolute;
   right: 0;
-  top: 11px;
+  top: 5px;
   width: 36px;
 }
 #authbutton{
@@ -628,7 +644,7 @@ only screen and (max-width: 760px),
   .ridestable td:nth-of-type(5):before { content: "Starting Location"; }
   .ridestable td:nth-of-type(6):before { content: "Ending Location"; }
 
-  .forumstable td:nth-of-type(1):before{content:'Forum Topic';font-style: oblique;}
+  /* .forumstable td:nth-of-type(1):before{content:'Forum Topic';font-style: oblique;} */
   .forumstable thead{width:100%;  }
   .addrideinput{
     margin-top:20px;
