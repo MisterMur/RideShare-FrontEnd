@@ -56,16 +56,11 @@ class Header extends React.Component {
   renderLogout =() =>{
     return (
       <>
-
-        <NavItem id='menu-item' onClick={()=>this.props.history.push(`/users/${this.props.currentUser.id}`)} >
-
-        </NavItem>
         <NavItem id='menu-item'>
           <Link style={{textDecoration:'none'}} to="/login" onClick={this.logout} >
             Logout
           </Link>
         </NavItem>
-
       </>
     )
   }
