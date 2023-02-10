@@ -50,12 +50,12 @@
     width:100% !important;
     background-color: white;
     justify-content: center;
-  };
+  }
 
   #menu-item{
     margin-left: 0 !important;
     padding: 0 !important
-  };
+  }
 }
 
 #menu-item {
@@ -92,37 +92,37 @@
 
 .forumstable{
   overflow-x:auto;
-};
+}
 
 .ridestable{
   overflow-x:hidden;
   width: 100%;
-};
+}
 
 #profile-rides-list{
   margin-top:120px;
   overflow-x: auto;
   width:50%;
-};
+}
 
 #rides-list{
   margin-top:120px;
-};
+}
 
 #forum-list{
   /* margin-top:100px; */
-};
+}
 
 body{
   background-color: white;
-};
+}
 
 .header{
   margin-top:-10px;
   position:fixed;
   width:100%;
   z-index:999;
-};
+}
 
 .title {
   background-color: black;
@@ -131,7 +131,6 @@ body{
   /* height: 0px; */
   font-size: 2.5rem;
   padding: 0px 0;
-
 }
 
 @keyframes App-logo-spin {
