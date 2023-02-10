@@ -221,21 +221,22 @@ handleUnFollow = () => {
       )
     }
   }
-  renderEditButton=()=>{
-    if(this.props.user===this.props.currentUser){
-      return(
-        <div>
-        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="edit-profile" onClick={this.handleEdit}> Edit Profile </button>
 
-        </div>
-      )
-    }else{
-      return (
-        <>
-        {this.renderFollowButton()}
-        </>
-      )
-    }
+  renderEditButton=()=>{
+    const {user,currentUser} = this.props;
+    return (user === currentUser ? 
+      <button 
+        type="button"
+        className="btn btn-primary" 
+        data-toggle="modal" 
+        data-target="#exampleModalCenter" 
+        id="edit-profile" 
+        onClick={this.handleEdit}>
+        Edit Profile</button>
+      :<>
+      {this.renderFollowButton()}
+      </>
+      );
   }
 
 renderFollowButton=()=>{
@@ -388,7 +389,7 @@ renderFollowerFollowingBox=()=>{
   const {history} = this.props;
   return (
     <>
-    <div className="col" id="profile-following">
+    <div id="profile-following">
       {this.props.userProfile?(
         <>
         <SlideToggle
@@ -477,7 +478,7 @@ renderPage=()=>{
     <Fragment>
       <div className = "container col-12">
         <div className="row justify-content-center">
-          <div className="col justify-content-center" id="profile-card-container">
+          <div className="col-3 justify-content-left" id="profile-card-container">
             {this.renderProfileCard()}
             {this.renderEditButton()}
             {this.renderModal()}
@@ -486,10 +487,10 @@ renderPage=()=>{
           <div className="col-10" id="profile-rides-list">
             {this.renderUserForums()}
             {this.renderUserRides()}
+            {this.renderFollowerFollowingBox()}
           </div>
 
         </div>
-        {this.renderFollowerFollowingBox()}
 
 
       </div>

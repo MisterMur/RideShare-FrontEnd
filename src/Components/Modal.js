@@ -120,7 +120,7 @@ renderCheckBoxes = () => {
       return (
         <div >
           <ReactModal
-            id='editmodal'
+            id='edit-modal'
             isOpen={this.props.state.modal}
             onAfterOpen={this.props.handleAfterOpen}
             onRequestClose={this.props.handleAfterClose}
@@ -133,38 +133,31 @@ renderCheckBoxes = () => {
             contentLabel="example modal"
             >
 
-            <br/>
             <Form>
-              <div className='row'>
-                <div className='col-4'>
-                  <div className="control">
+              <div className='edit-modal-columns'>
+                <div className='edit-modal-left'>
+                  <div className="edit-modal-profile-pic">
                     <input type="file" name="file" id='file' className='inputfile' onChange={this.fileSelectedHandler}/>
                     <label htmlFor="file" className='btn-2'>Upload Profile Picture</label>
                   </div>
+                  <div className="edit-modal-companies">
+                    <Form.Field >
+                      <label><h4>Companies:</h4></label>
+                      {this.renderCheckBoxes()}
+                    </Form.Field>
+                  </div>
+                </div>
 
-                  <br/>
-
-                  <Form.Field>
-                    <label><h4>Companies:</h4></label>
-                    <br/>
-                    {this.renderCheckBoxes()}
-                </Form.Field>
-
-
-
-              </div>
-
-                <div className='col-8'>
+                <div className="edit-modal-inputs">
                   <Form.Field>
                     <TextField
                       name="nameValue"
                       label="Name"
                       value={this.state.nameValue}
                       onChange={(e)=>this.handleEditFormChange(e)}
-                      style={{width:'50%'}}
+                      style={{width:'100%'}}
                       />
                   </Form.Field>
-                  <br/>
 
                   <Form.Field>
                     <TextField
@@ -173,10 +166,9 @@ renderCheckBoxes = () => {
                       label="Experience"
                       value={this.state.experienceValue}
                       onChange={(e)=>this.handleEditFormChange(e)}
-                      style={{width:'50%'}}
+                      style={{width:'100%'}}
                       />
                   </Form.Field>
-                  <br/>
 
                   <Form.Field>
                     <TextField
@@ -185,10 +177,9 @@ renderCheckBoxes = () => {
                       label="Rating"
                       value={this.state.ratingValue}
                       onChange={(e)=>this.handleEditFormChange(e)}
-                      style={{width:'50%'}}
+                      style={{width:'100%'}}
                       />
                   </Form.Field>
-                  <br/>
 
                   <Form.Field>
                     <TextField
@@ -197,10 +188,9 @@ renderCheckBoxes = () => {
                       label="Car"
                       value={this.state.carValue}
                       onChange={(e)=>this.handleEditFormChange(e)}
-                      style={{width:'50%'}}
+                      style={{width:'100%'}}
                       />
                   </Form.Field>
-                  <br/>
 
                   <Form.Field>
                     <TextField
@@ -209,11 +199,10 @@ renderCheckBoxes = () => {
                       label="Base Location"
                       value={this.state.locationValue}
                       onChange={(e)=>this.handleEditFormChange(e)}
-                      style={{width:'50%'}}
+                      style={{width:'100%'}}
 
                       />
                   </Form.Field>
-                  <br/>
                 </div>
 
 
@@ -221,7 +210,7 @@ renderCheckBoxes = () => {
 
 
 
-              <button className='btn-primary savebutton' type="submit" onClick={(e, state)=>this.props.handleSubmit(e, this.state)}>Save</button>
+              <button className='btn-primary save-button' type="submit" onClick={(e, state)=>this.props.handleSubmit(e, this.state)}>Save</button>
             </Form>
 
 
