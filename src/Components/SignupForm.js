@@ -144,7 +144,7 @@ class SignupForm extends React.Component {
 							<TextField
 								type={this.state.type}
 								name="passwordConfirmation"
-								label="Confirm Pssword"
+								label="Confirm Password"
 								value={this.state.passwordConfirmation}
 								onChange={this.handleChange}
 								errorText={this.state.errors.pwconfirm}
@@ -159,7 +159,7 @@ class SignupForm extends React.Component {
 						</Form.Field>
 					</Form>
 					<br/>
-					<p> Aleady have an account? <br />
+					<p> Already have an account? <br />
 						<Link to='/login'>
 							Log In Here!
 
