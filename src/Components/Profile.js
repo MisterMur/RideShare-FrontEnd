@@ -215,29 +215,34 @@ handleUnFollow = () => {
 }
 
   renderProfileCard = () => {
+    const {user,currentUser} = this.props;
+
     if(this.state.user){
       return(
-        <ProfileCard user={this.state.user} companies={this.state.user.companies}/>
+        <>
+          <div>
+          <ProfileCard user={this.state.user} companies={this.state.user.companies}/>
+          </div>
+          <div className="profile-card-btn">
+            {user === currentUser ? 
+              <button 
+                type="button"
+                className="btn btn-primary" 
+                data-toggle="modal" 
+                data-target="#exampleModalCenter" 
+                id="edit-profile" 
+                onClick={this.handleEdit}>
+                Edit Profile</button>
+              :<>
+              {this.renderFollowButton()}
+              </>
+              }
+          </div>
+        </>
       )
     }
   }
 
-  renderEditButton=()=>{
-    const {user,currentUser} = this.props;
-    return (user === currentUser ? 
-      <button 
-        type="button"
-        className="btn btn-primary" 
-        data-toggle="modal" 
-        data-target="#exampleModalCenter" 
-        id="edit-profile" 
-        onClick={this.handleEdit}>
-        Edit Profile</button>
-      :<>
-      {this.renderFollowButton()}
-      </>
-      );
-  }
 
 renderFollowButton=()=>{
 
@@ -259,7 +264,6 @@ renderFollowButton=()=>{
   }
 }
 renderUserRides=()=>{
-  // debugger
   return (
     <>
       {this.props.userProfile?
@@ -477,14 +481,14 @@ renderPage=()=>{
 
     <Fragment>
       <div className = "container col-12">
-        <div className="row justify-content-center">
-          <div className="col-3 justify-content-left" id="profile-card-container">
-            {this.renderProfileCard()}
-            {this.renderEditButton()}
-            {this.renderModal()}
+        <div className="profile-col">
+          <div className="col-16" id="profile-rides-list">
+          <div  id="profile-card-container">
 
+            {this.renderProfileCard()}
+            {/* {this.renderEditButton()} */}
+            {this.renderModal()}
           </div>
-          <div className="col-10" id="profile-rides-list">
             {this.renderUserForums()}
             {this.renderUserRides()}
             {this.renderFollowerFollowingBox()}

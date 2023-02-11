@@ -78,13 +78,27 @@
   width:100%;
 }
 
-.profile-card {
-  width: 100%;
+#profile-col{
+  /* display: flex;
+  flex-direction: row; */
 }
+
+#profile-card {
+  display: flex;
+  flex-direction: row;
+}
+@media only screen and (max-width:767px){
+  #profile-card {
+    flex-direction: column;
+  }
+}
+
+
 #profile-card-container{
-  margin-top:120px;
-  margin-left:20px;
-  max-width: 250px;
+  /* margin-left:20px;
+  max-width: 400px; */
+  /* display: flex; */
+  /* flex-direction: column; */
 }
 
 .menu-item{
@@ -108,9 +122,15 @@
 }
 
 #profile-rides-list{
-  margin-top:120px;
+  margin-top:60px;
   overflow-x: auto;
-  width:50%;
+  width:100%;
+  padding: 0 100px 0 100px;
+}
+@media only screen and (max-width:768px) {
+  #profile-rides-list{
+    padding: 0;
+  }
 }
 
 #rides-list{
@@ -474,7 +494,7 @@ pre {
               width:0;
           }
           #profile-card-container{
-            width:95%;
+            /* width:95%; */
 
           }
       }
@@ -483,7 +503,12 @@ pre {
 
 ***/
 .profilepage{
-  margin-right:auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 175px;
+}
+.profile-info{
+  width: 100%;
 }
 
 #discoverpage{
@@ -505,8 +530,8 @@ pre {
   top: 0;
 }
 .card-img-top{
-  width:250px;
-  height:250px;
+  width:300px;
+  height:300px;
 }
 .followercardimg{
   width:10rem;
