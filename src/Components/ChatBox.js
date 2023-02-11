@@ -6,7 +6,7 @@ import {faPaperPlane,faWindowClose} from '@fortawesome/free-solid-svg-icons'
  
 
 import {postNewMessage,fetchUsers,fetchForumMessages,resetMessages} from '../Actions.js'
-
+import {formatDate} from '../Globals/Reusable'
 
 class ChatBox extends Component{
 
@@ -34,9 +34,6 @@ class ChatBox extends Component{
 
   UNSAFE_componentWillReceiveProps(newProps){
 
-
-      // nextProps.myProp has a different value than our current prop
-      // so we can perform some calculations based on the new value
       this.setState({messages:newProps.messages})
 
   }
@@ -48,7 +45,6 @@ class ChatBox extends Component{
     if (this.props.users){
 
       return messages.map((m,idx)=>{
-        console.log('messag user',this.props.users.find(user=> user.id === m.user_id))
         const messageUser=this.props.users.find(user=> user.id === m.user_id);
         let messageName =messageUser.name
         return (
@@ -59,7 +55,7 @@ class ChatBox extends Component{
                   <p>
                     {m.content}
                   </p>
-                  <span className="time_date">  {messageName ? messageName : 'NotFound'}   |  {m.created_at}  </span></div>
+                  <span className="time_date">  {messageName ? messageName : 'NotFound'}   |  {formatDate(m.created_at)}  </span></div>
                 </div>
               </div>
           )
@@ -97,14 +93,12 @@ class ChatBox extends Component{
   }
 
   render(){
-    // debugger
     return (
       <Fragment>
       <div id="chatbox">
       <h3 className=" text-center">{this.props.currentChat? this.props.currentChat.topic:null} Messaging</h3>
       <div className="messaging">
             <div className="inbox_msg">
-              
               <FontAwesomeIcon 
                 className="close-chat" 
                 icon={faWindowClose}

@@ -32,12 +32,9 @@ class ForumsPage extends React.Component {
   }
 
   handleForumClick = (e,topic) => {
-
-
     let forum = this.props.forums.find(f => f.topic === topic)
-    // debugger
+    
     if(forum){
-
       this.props.fetchForumMessages(forum)
     }
 
