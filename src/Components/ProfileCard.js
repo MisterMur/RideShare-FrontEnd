@@ -15,7 +15,7 @@ const ProfileCard = (props) => {
 
       <div id="profile-card"  >
         <div className="profile-img">
-          <img src={props.user.image_url} alt="No Profile" className="card-img-top"/>
+          <img style={{width: '300px'}} src={props.user.image_url} alt="No Profile" className="card-img-top"/>
           </div>
         <div className='profile-info'>
           <div className="card-header">

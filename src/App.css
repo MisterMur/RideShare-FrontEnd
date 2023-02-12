@@ -93,6 +93,9 @@
   }
 }
 
+.profile-card-btn{
+  max-width: 300px;
+}
 
 #profile-card-container{
   /* margin-left:20px;
